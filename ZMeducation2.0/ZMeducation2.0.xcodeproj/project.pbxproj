@@ -16,6 +16,7 @@
 		500037D01EEE75D60007D164 /* ZMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037CF1EEE75D60007D164 /* ZMBaseNavigationController.m */; };
 		500037D51EEE7AD50007D164 /* RequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037D41EEE7AD50007D164 /* RequestOperationManager.m */; };
 		500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037D71EEE7B530007D164 /* UIView+Positioning.m */; };
+		500037DF1EEE8E5A0007D164 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037DE1EEE8E5A0007D164 /* LoginViewController.m */; };
 		746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		500037D61EEE7B530007D164 /* UIView+Positioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Positioning.h"; sourceTree = "<group>"; };
 		500037D71EEE7B530007D164 /* UIView+Positioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Positioning.m"; sourceTree = "<group>"; };
 		500037D91EEE7BF70007D164 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		500037DD1EEE8E5A0007D164 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		500037DE1EEE8E5A0007D164 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMeducation2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMeducation2.0/Pods-ZMeducation2.0.release.xcconfig"; sourceTree = "<group>"; };
 		756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMeducation2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -116,10 +119,10 @@
 		500037921EE139D50007D164 /* ZMeducation2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				500037C61EEE6F630007D164 /* AppDelegate */,
 				500037CA1EEE6FAC0007D164 /* common */,
 				500037C91EEE6FA90007D164 /* ViewController */,
 				500037C81EEE6F7F0007D164 /* View */,
-				500037C61EEE6F630007D164 /* AppDelegate */,
 				5000379F1EE139D60007D164 /* Assets.xcassets */,
 				500037A41EE139D60007D164 /* Info.plist */,
 				500037931EE139D50007D164 /* Supporting Files */,
@@ -172,6 +175,8 @@
 		500037C91EEE6FA90007D164 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				500037DD1EEE8E5A0007D164 /* LoginViewController.h */,
+				500037DE1EEE8E5A0007D164 /* LoginViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				500037D51EEE7AD50007D164 /* RequestOperationManager.m in Sources */,
 				500037D01EEE75D60007D164 /* ZMBaseNavigationController.m in Sources */,
 				500037CD1EEE75AA0007D164 /* ZMBaseViewController.m in Sources */,
+				500037DF1EEE8E5A0007D164 /* LoginViewController.m in Sources */,
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
 			);

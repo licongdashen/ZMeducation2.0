@@ -13,5 +13,8 @@
 #import <MJRefresh/MJRefresh.h>
 #import <YYModel/YYModel.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "ZMBaseNavigationController.h"
+#import "ZMBaseViewController.h"
+#import "CustomDefineHeader.h"
 
 #endif /* PrefixHeader_pch */
