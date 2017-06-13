@@ -1,24 +1,28 @@
 //
-//  LoginViewController.m
+//  XieZuoViewController.m
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/6/12.
+//  Created by Queen on 2017/6/13.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "XieZuoViewController.h"
 
-@interface LoginViewController ()
+@interface XieZuoViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation XieZuoViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor grayColor];
-    
+    self.view.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)didReceiveMemoryWarning {

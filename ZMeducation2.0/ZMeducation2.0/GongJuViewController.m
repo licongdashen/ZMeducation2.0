@@ -1,24 +1,22 @@
 //
-//  LoginViewController.m
+//  GongJuViewController.m
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/6/12.
+//  Created by Queen on 2017/6/13.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "GongJuViewController.h"
 
-@interface LoginViewController ()
+@interface GongJuViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation GongJuViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.backgroundColor = [UIColor grayColor];
-    
 }
 
 - (void)didReceiveMemoryWarning {

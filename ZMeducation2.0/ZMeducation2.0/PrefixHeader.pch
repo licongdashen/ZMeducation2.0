@@ -16,5 +16,6 @@
 #import "ZMBaseNavigationController.h"
 #import "ZMBaseViewController.h"
 #import "CustomDefineHeader.h"
+#import "UIView+Positioning.h"
 
 #endif /* PrefixHeader_pch */

@@ -1,24 +1,22 @@
 //
-//  LoginViewController.m
+//  LiuLanViewController.m
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/6/12.
+//  Created by Queen on 2017/6/13.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "LiuLanViewController.h"
 
-@interface LoginViewController ()
+@interface LiuLanViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation LiuLanViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor grayColor];
-    
+    self.view.backgroundColor = [UIColor blueColor];
 }
 
 - (void)didReceiveMemoryWarning {

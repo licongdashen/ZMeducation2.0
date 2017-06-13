@@ -158,4 +158,9 @@ UIButton *clearButton = [_tf valueForKey:@"_clearButton"];  \
 
 #define DEF_PAGESIZE                  @"10"
 
+typedef enum : NSUInteger {
+    navNormleType, // 下拉刷新
+    navNouType, // 上拉加载更多
+} NavType;
+
 #endif /* CustomDefineHeader_h */
