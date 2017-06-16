@@ -22,7 +22,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor yellowColor];
+    
+    UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95)];
+    imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
+    imagvBg.userInteractionEnabled = YES;
+    [self.view addSubview:imagvBg];
+    
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(335, 23, 115, 30)];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 setTitle:@"我的构思" forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right + 5, 23, 115, 30)];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 setTitle:@"我的文档" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
+}
+
+-(void)action1
+{
+    
+}
+
+-(void)action2
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

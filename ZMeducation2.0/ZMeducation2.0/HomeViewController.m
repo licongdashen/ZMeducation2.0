@@ -47,24 +47,28 @@
     [self.view addSubview:navView];
     
     UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(205, 30, 100, 50)];
-    [btn1 setImage:DEF_IMAGE(@"liucheng") forState:UIControlStateNormal];
+    [btn1 setImage:DEF_IMAGE(@"liucheng_sel") forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(action1) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
+    self.btn1 = btn1;
     
     UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right + 32, 30, 100, 50)];
     [btn2 setImage:DEF_IMAGE(@"xiezuo") forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(action2) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
+    self.btn2 = btn2;
     
     UIButton *btn3 = [[UIButton alloc]initWithFrame:CGRectMake(btn2.right + 32, 30, 100, 50)];
     [btn3 setImage:DEF_IMAGE(@"liulan") forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(action3) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
+    self.btn3 = btn3;
     
     UIButton *btn4 = [[UIButton alloc]initWithFrame:CGRectMake(btn3.right + 32, 30, 100, 50)];
     [btn4 setImage:DEF_IMAGE(@"gongju") forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(action4) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn4];
+    self.btn4 = btn4;
     
     UIButton *btn5 = [[UIButton alloc]initWithFrame:CGRectMake(btn4.right + 32, 30, 100, 50)];
     [btn5 setImage:DEF_IMAGE(@"tuichu") forState:UIControlStateNormal];
@@ -105,6 +109,10 @@
             self.currentVc = self.vc1;
         }
     }];
+    [self.btn1 setImage:DEF_IMAGE(@"liucheng_sel") forState:UIControlStateNormal];
+    [self.btn2 setImage:DEF_IMAGE(@"xiezuo") forState:UIControlStateNormal];
+    [self.btn3 setImage:DEF_IMAGE(@"liulan") forState:UIControlStateNormal];
+    [self.btn4 setImage:DEF_IMAGE(@"gongju") forState:UIControlStateNormal];
 }
 
 -(void)action2
@@ -124,6 +132,11 @@
             self.currentVc = self.vc2;
         }
     }];
+    [self.btn1 setImage:DEF_IMAGE(@"liucheng") forState:UIControlStateNormal];
+    [self.btn2 setImage:DEF_IMAGE(@"xiezuo_sel") forState:UIControlStateNormal];
+    [self.btn3 setImage:DEF_IMAGE(@"liulan") forState:UIControlStateNormal];
+    [self.btn4 setImage:DEF_IMAGE(@"gongju") forState:UIControlStateNormal];
+
 }
 
 -(void)action3
@@ -143,6 +156,10 @@
             self.currentVc = self.vc3;
         }
     }];
+    [self.btn1 setImage:DEF_IMAGE(@"liucheng") forState:UIControlStateNormal];
+    [self.btn2 setImage:DEF_IMAGE(@"xiezuo") forState:UIControlStateNormal];
+    [self.btn3 setImage:DEF_IMAGE(@"liulan_sel") forState:UIControlStateNormal];
+    [self.btn4 setImage:DEF_IMAGE(@"gongju") forState:UIControlStateNormal];
 
 }
 
@@ -163,6 +180,10 @@
             self.currentVc = self.vc4;
         }
     }];
+    [self.btn1 setImage:DEF_IMAGE(@"liucheng") forState:UIControlStateNormal];
+    [self.btn2 setImage:DEF_IMAGE(@"xiezuo") forState:UIControlStateNormal];
+    [self.btn3 setImage:DEF_IMAGE(@"liulan") forState:UIControlStateNormal];
+    [self.btn4 setImage:DEF_IMAGE(@"gongju_sel") forState:UIControlStateNormal];
 
 }
 
