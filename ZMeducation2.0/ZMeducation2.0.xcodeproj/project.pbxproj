@@ -14,7 +14,6 @@
 		500037B91EE139D60007D164 /* ZMeducation2_0UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037B81EE139D60007D164 /* ZMeducation2_0UITests.m */; };
 		500037CD1EEE75AA0007D164 /* ZMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037CC1EEE75AA0007D164 /* ZMBaseViewController.m */; };
 		500037D01EEE75D60007D164 /* ZMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037CF1EEE75D60007D164 /* ZMBaseNavigationController.m */; };
-		500037D51EEE7AD50007D164 /* RequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037D41EEE7AD50007D164 /* RequestOperationManager.m */; };
 		500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037D71EEE7B530007D164 /* UIView+Positioning.m */; };
 		500037DF1EEE8E5A0007D164 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037DE1EEE8E5A0007D164 /* LoginViewController.m */; };
 		500037E21EEF8E4D0007D164 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037E11EEF8E4D0007D164 /* HomeViewController.m */; };
@@ -22,6 +21,8 @@
 		500037E81EEFCF430007D164 /* XieZuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037E71EEFCF430007D164 /* XieZuoViewController.m */; };
 		500037EB1EEFDA220007D164 /* LiuLanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037EA1EEFDA220007D164 /* LiuLanViewController.m */; };
 		500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037ED1EEFDA340007D164 /* GongJuViewController.m */; };
+		50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */; };
+		50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7D1EF9154C00FF1F5A /* SelectViewController.m */; };
 		746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,8 +63,6 @@
 		500037CF1EEE75D60007D164 /* ZMBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMBaseNavigationController.m; sourceTree = "<group>"; };
 		500037D11EEE75FC0007D164 /* ConfigDefineHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigDefineHeader.h; sourceTree = "<group>"; };
 		500037D21EEE79420007D164 /* CustomDefineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDefineHeader.h; sourceTree = "<group>"; };
-		500037D31EEE7AD50007D164 /* RequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestOperationManager.h; sourceTree = "<group>"; };
-		500037D41EEE7AD50007D164 /* RequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestOperationManager.m; sourceTree = "<group>"; };
 		500037D61EEE7B530007D164 /* UIView+Positioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Positioning.h"; sourceTree = "<group>"; };
 		500037D71EEE7B530007D164 /* UIView+Positioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Positioning.m"; sourceTree = "<group>"; };
 		500037D91EEE7BF70007D164 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -79,6 +78,10 @@
 		500037EA1EEFDA220007D164 /* LiuLanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiuLanViewController.m; sourceTree = "<group>"; };
 		500037EC1EEFDA340007D164 /* GongJuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GongJuViewController.h; sourceTree = "<group>"; };
 		500037ED1EEFDA340007D164 /* GongJuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GongJuViewController.m; sourceTree = "<group>"; };
+		50590E791EF8B7B800FF1F5A /* RequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestOperationManager.h; sourceTree = "<group>"; };
+		50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestOperationManager.m; sourceTree = "<group>"; };
+		50590E7C1EF9154C00FF1F5A /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
+		50590E7D1EF9154C00FF1F5A /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMeducation2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMeducation2.0/Pods-ZMeducation2.0.release.xcconfig"; sourceTree = "<group>"; };
 		756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMeducation2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +195,8 @@
 			children = (
 				500037DD1EEE8E5A0007D164 /* LoginViewController.h */,
 				500037DE1EEE8E5A0007D164 /* LoginViewController.m */,
+				50590E7C1EF9154C00FF1F5A /* SelectViewController.h */,
+				50590E7D1EF9154C00FF1F5A /* SelectViewController.m */,
 				500037E01EEF8E4D0007D164 /* HomeViewController.h */,
 				500037E11EEF8E4D0007D164 /* HomeViewController.m */,
 				500037E31EEFC9740007D164 /* LiuChengViewController.h */,
@@ -213,13 +218,13 @@
 				500037CC1EEE75AA0007D164 /* ZMBaseViewController.m */,
 				500037CE1EEE75D60007D164 /* ZMBaseNavigationController.h */,
 				500037CF1EEE75D60007D164 /* ZMBaseNavigationController.m */,
-				500037D31EEE7AD50007D164 /* RequestOperationManager.h */,
-				500037D41EEE7AD50007D164 /* RequestOperationManager.m */,
 				500037D61EEE7B530007D164 /* UIView+Positioning.h */,
 				500037D71EEE7B530007D164 /* UIView+Positioning.m */,
 				500037D11EEE75FC0007D164 /* ConfigDefineHeader.h */,
 				500037D21EEE79420007D164 /* CustomDefineHeader.h */,
 				500037D91EEE7BF70007D164 /* PrefixHeader.pch */,
+				50590E791EF8B7B800FF1F5A /* RequestOperationManager.h */,
+				50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -428,7 +433,6 @@
 			files = (
 				500037981EE139D50007D164 /* AppDelegate.m in Sources */,
 				500037E51EEFC9740007D164 /* LiuChengViewController.m in Sources */,
-				500037D51EEE7AD50007D164 /* RequestOperationManager.m in Sources */,
 				500037D01EEE75D60007D164 /* ZMBaseNavigationController.m in Sources */,
 				500037CD1EEE75AA0007D164 /* ZMBaseViewController.m in Sources */,
 				500037EB1EEFDA220007D164 /* LiuLanViewController.m in Sources */,
@@ -436,6 +440,8 @@
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
 				500037E81EEFCF430007D164 /* XieZuoViewController.m in Sources */,
+				50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */,
+				50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */,
 				500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */,
 				500037E21EEF8E4D0007D164 /* HomeViewController.m in Sources */,
 			);

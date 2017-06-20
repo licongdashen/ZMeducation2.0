@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    HomeViewController *vc = [[HomeViewController alloc]init];
+    LoginViewController *vc = [[LoginViewController alloc]init];
     ZMBaseNavigationController *nav = [[ZMBaseNavigationController alloc]initWithRootViewController:vc];
     self.window.rootViewController = nav;
     self.mainNav = nav;

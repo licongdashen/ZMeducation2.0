@@ -7,8 +7,13 @@
 //
 
 #import "LoginViewController.h"
+#import "SelectViewController.h"
 
 @interface LoginViewController ()
+
+@property (nonatomic, strong) UITextField *userNameTf;
+
+@property (nonatomic, strong) UITextField *userPassWorldTf;
 
 @end
 
@@ -19,6 +24,53 @@
 
     self.view.backgroundColor = [UIColor grayColor];
     
+    UIImageView *backgroundImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT)];
+    backgroundImagv.image = DEF_IMAGENAME(@"login_Bg");
+    backgroundImagv.userInteractionEnabled = YES;
+    [self.view addSubview:backgroundImagv];
+    
+    self.userNameTf = [[UITextField alloc]initWithFrame:CGRectMake(380, 283, 280, 35)];
+    self.userNameTf.text = @"T002";
+    [self.view addSubview:self.userNameTf];
+    
+    self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];
+    self.userPassWorldTf.text = @"123.com";
+    [self.view addSubview:self.userPassWorldTf];
+    
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(380, self.userPassWorldTf.bottom + 22, 280, 38)];
+    [loginBtn setImage:DEF_IMAGENAME(@"Login_Btn") forState:UIControlStateNormal];
+    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginBtn];
+}
+
+-(void)login
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+    NSString *DateTime = [formatter stringFromDate:date];
+    
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :DateTime,
+                           @"method"           :@"M001",
+                           @"userName"         :self.userNameTf.text,
+                           @"password"         :self.userPassWorldTf.text,
+                           @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
+                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
+
+        SelectViewController *vc = [[SelectViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    } failture:^(id result) {
+        
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
