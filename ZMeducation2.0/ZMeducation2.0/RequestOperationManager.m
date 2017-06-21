@@ -93,13 +93,15 @@ static RequestOperationManager *sessionManager;
     AFHTTPSessionManager *manager = [RequestOperationManager shareInstance];
     
     NSLog(@"requestUrl:%@",parameters);
+    [CACUtility showMBProgress:DEF_MyAppDelegate.window message:@""];
 
     [manager POST:DEF_IPAddress parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+
         [RequestOperationManager requestSuccess:responseObject task:task finishHandle:finishHandle];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
         [RequestOperationManager requestError:error task:task failHandle:failHandle];
     }];
     

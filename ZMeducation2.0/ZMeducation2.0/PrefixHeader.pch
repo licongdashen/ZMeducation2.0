@@ -19,5 +19,9 @@
 #import "UIView+Positioning.h"
 #import "ConfigDefineHeader.h"
 #import "RequestOperationManager.h"
+#import "MBProgressHUD.h"
+#import "CACUtility.h"
+#import "NSString+MD5.h"
+#import "AppDelegate.h"
 
 #endif /* PrefixHeader_pch */

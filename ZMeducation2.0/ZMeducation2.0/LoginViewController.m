@@ -45,17 +45,11 @@
 
 -(void)login
 {
-    NSDate *date = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
-    NSString *DateTime = [formatter stringFromDate:date];
-    
+       
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
-                           @"timestamp"        :DateTime,
+                           @"timestamp"        :[CACUtility getNowTime],
                            @"method"           :@"M001",
                            @"userName"         :self.userNameTf.text,
                            @"password"         :self.userPassWorldTf.text,

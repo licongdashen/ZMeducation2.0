@@ -23,6 +23,11 @@
 		500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037ED1EEFDA340007D164 /* GongJuViewController.m */; };
 		50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */; };
 		50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7D1EF9154C00FF1F5A /* SelectViewController.m */; };
+		50590E811EFA4C8F00FF1F5A /* CACUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E801EFA4C8F00FF1F5A /* CACUtility.m */; };
+		50590E841EFA4D4000FF1F5A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E831EFA4D4000FF1F5A /* NSString+MD5.m */; };
+		50590E8A1EFA4D8400FF1F5A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 50590E861EFA4D8400FF1F5A /* LICENSE */; };
+		50590E8B1EFA4D8400FF1F5A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E881EFA4D8400FF1F5A /* MBProgressHUD.m */; };
+		50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 50590E891EFA4D8400FF1F5A /* README.mdown */; };
 		746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +87,14 @@
 		50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestOperationManager.m; sourceTree = "<group>"; };
 		50590E7C1EF9154C00FF1F5A /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		50590E7D1EF9154C00FF1F5A /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
+		50590E7F1EFA4C8F00FF1F5A /* CACUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CACUtility.h; sourceTree = "<group>"; };
+		50590E801EFA4C8F00FF1F5A /* CACUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CACUtility.m; sourceTree = "<group>"; };
+		50590E821EFA4D4000FF1F5A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		50590E831EFA4D4000FF1F5A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		50590E861EFA4D8400FF1F5A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		50590E871EFA4D8400FF1F5A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		50590E881EFA4D8400FF1F5A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		50590E891EFA4D8400FF1F5A /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMeducation2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMeducation2.0/Pods-ZMeducation2.0.release.xcconfig"; sourceTree = "<group>"; };
 		756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMeducation2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -116,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				500037921EE139D50007D164 /* ZMeducation2.0 */,
+				50590E851EFA4D8400FF1F5A /* MBProgressHUD */,
 				500037AC1EE139D60007D164 /* ZMeducation2.0Tests */,
 				500037B71EE139D60007D164 /* ZMeducation2.0UITests */,
 				500037911EE139D50007D164 /* Products */,
@@ -214,6 +228,10 @@
 		500037CA1EEE6FAC0007D164 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				50590E821EFA4D4000FF1F5A /* NSString+MD5.h */,
+				50590E831EFA4D4000FF1F5A /* NSString+MD5.m */,
+				50590E7F1EFA4C8F00FF1F5A /* CACUtility.h */,
+				50590E801EFA4C8F00FF1F5A /* CACUtility.m */,
 				500037CB1EEE75AA0007D164 /* ZMBaseViewController.h */,
 				500037CC1EEE75AA0007D164 /* ZMBaseViewController.m */,
 				500037CE1EEE75D60007D164 /* ZMBaseNavigationController.h */,
@@ -227,6 +245,17 @@
 				50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		50590E851EFA4D8400FF1F5A /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				50590E861EFA4D8400FF1F5A /* LICENSE */,
+				50590E871EFA4D8400FF1F5A /* MBProgressHUD.h */,
+				50590E881EFA4D8400FF1F5A /* MBProgressHUD.m */,
+				50590E891EFA4D8400FF1F5A /* README.mdown */,
+			);
+			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		A4B65CD91E007949D08849BD /* Frameworks */ = {
@@ -358,6 +387,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50590E8A1EFA4D8400FF1F5A /* LICENSE in Resources */,
 				500037A01EE139D60007D164 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,11 +469,15 @@
 				500037DF1EEE8E5A0007D164 /* LoginViewController.m in Sources */,
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
+				50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */,
+				50590E811EFA4C8F00FF1F5A /* CACUtility.m in Sources */,
 				500037E81EEFCF430007D164 /* XieZuoViewController.m in Sources */,
 				50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */,
 				50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */,
+				50590E841EFA4D4000FF1F5A /* NSString+MD5.m in Sources */,
 				500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */,
 				500037E21EEF8E4D0007D164 /* HomeViewController.m in Sources */,
+				50590E8B1EFA4D8400FF1F5A /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
