@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
+@property (nonatomic, strong)NSMutableArray *nianjiArr;
+
 @end
 
 @implementation SelectViewController
@@ -38,7 +40,6 @@
     [self.view addSubview:self.typeScro];
     
     self.nianjiScro = [[UIScrollView alloc]initWithFrame:CGRectMake(260 + 17, self.typeScro.bottom + 25, 490, 100)];
-    self.nianjiScro.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.nianjiScro];
     
     self.banjiScro = [[UIScrollView alloc]initWithFrame:CGRectMake(260 + 17, self.nianjiScro.bottom + 25, 490, 100)];
@@ -73,7 +74,7 @@
                            @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
-        
+        [self loadyuedunianji];
     } failture:^(id result) {
         
     }];
@@ -94,12 +95,70 @@
                            @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
-        
-        
+        self.nianjiArr = result[@"grades"];
+        [self loadxiezuonianji];
     } failture:^(id result) {
         
     }];
 
+}
+
+-(void)loadyuedunianji
+{
+    for (UIView *view in [self.nianjiScro subviews]) {
+        [view removeFromSuperview];
+    }
+    for (UIView *view in [self.banjiScro subviews]) {
+        [view removeFromSuperview];
+    }
+    for (UIView *view in [self.kechengScro subviews]) {
+        [view removeFromSuperview];
+    }
+}
+
+-(void)loadxiezuonianji
+{
+    for (UIView *view in [self.nianjiScro subviews]) {
+        [view removeFromSuperview];
+    }
+    for (UIView *view in [self.banjiScro subviews]) {
+        [view removeFromSuperview];
+    }
+    for (UIView *view in [self.kechengScro subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    int x = 0;
+    for (int i = 0; i < [self.nianjiArr count]; i++) {
+        UIButton *nianjiBtn = [[UIButton alloc]initWithFrame:CGRectMake(x, 14, 66, 72)];
+        [nianjiBtn setImage:DEF_IMAGENAME(@"sel_Btn") forState:UIControlStateNormal];
+        [nianjiBtn addTarget:self action:@selector(nianji:) forControlEvents:UIControlEventTouchUpInside];
+        nianjiBtn.tag = 1000 + i;
+        [self.nianjiScro addSubview:nianjiBtn];
+        
+        UILabel * lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 66, 68)];
+        lable.text = self.nianjiArr[i][@"gradeName"];
+        lable.font = DEF_MyBoldFont(21);
+        lable.textColor = DEF_COLOR_RGB(43, 177, 243);
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.userInteractionEnabled = NO;
+        [nianjiBtn addSubview:lable];
+        
+        x += 15 + 66;
+    }
+}
+
+-(void)nianji:(UIButton *)sender
+{
+    for (UIView *view in [self.banjiScro subviews]) {
+        [view removeFromSuperview];
+    }
+    for (UIView *view in [self.kechengScro subviews]) {
+        [view removeFromSuperview];
+    }
+
+    NSInteger tag = sender.tag;
+    
 }
 
 - (void)didReceiveMemoryWarning {
