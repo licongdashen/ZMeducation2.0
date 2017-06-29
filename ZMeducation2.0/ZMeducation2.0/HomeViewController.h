@@ -10,4 +10,6 @@
 
 @interface HomeViewController : ZMBaseViewController
 
+@property (nonatomic, strong) NSMutableDictionary *dic;
+
 @end

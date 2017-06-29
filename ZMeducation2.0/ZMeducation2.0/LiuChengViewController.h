@@ -10,4 +10,6 @@
 
 @interface LiuChengViewController : ZMBaseViewController
 
+@property (nonatomic, strong) NSMutableDictionary *dic;
+
 @end

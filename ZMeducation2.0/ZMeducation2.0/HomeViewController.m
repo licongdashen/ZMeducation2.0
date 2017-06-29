@@ -76,6 +76,7 @@
     [self.view addSubview:btn5];
 
     self.vc1 = [[LiuChengViewController alloc]init];
+    self.vc1.dic = self.dic;
     self.vc1.view.frame = CGRectMake(0, 95, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95);
     [self addChildViewController:self.vc1];
     [self.view addSubview:self.vc1.view];
@@ -189,7 +190,7 @@
 
 -(void)action5
 {
-    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
