@@ -350,7 +350,7 @@
 				TargetAttributes = {
 					5000378F1EE139D50007D164 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = Z94B79WRVM;
+						DevelopmentTeam = B5X8VCZJRX;
 						ProvisioningStyle = Automatic;
 					};
 					500037A81EE139D60007D164 = {
@@ -616,9 +616,10 @@
 			baseConfigurationReference = 3DF6A7AC097D78266E2EF86A /* Pods-ZMeducation2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z94B79WRVM;
+				DEVELOPMENT_TEAM = B5X8VCZJRX;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZMeducation2.0/PrefixHeader.pch";
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CAC.ZMeducation2-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -630,9 +631,10 @@
 			baseConfigurationReference = 5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z94B79WRVM;
+				DEVELOPMENT_TEAM = B5X8VCZJRX;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZMeducation2.0/PrefixHeader.pch";
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CAC.ZMeducation2-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";

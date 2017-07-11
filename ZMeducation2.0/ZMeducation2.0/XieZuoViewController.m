@@ -101,7 +101,7 @@
     
     NSDictionary * dic = @{
                            @"method"           :@"M301",
-                           @"level2"           :@"6",
+                           @"level2"           :@"8",
                            @"level3"           :@"4",
                            @"level4"           :@"2"};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
@@ -113,57 +113,73 @@
         level1.backgroundColor = [UIColor redColor];
         [self.gousiScro addSubview:level1];
         
-        NSArray *arr2 = result[@"list"][0][@"list"];
-        double jiaodu = 360/[arr2 count];
-    
-        NSMutableArray *point2 = [[NSMutableArray alloc]init];
-        double jiaodu1 = jiaodu;
+        int count = 2;
         
-        if (jiaodu <= 90) {
-            float x = level1.centerX;
-            float y = level1.centerY - 300;
+        if (count == 2) {
+            NSMutableArray *arr2 = result[@"list"][0][@"list"];
             
-            float x1 = x;
-            float y1 = y;
-            
-            [point2 addObject:@{@"x":[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
-            for (int i = 0; i < [arr2 count]; i ++) {
-
-                if (jiaodu1 < 90) {
-                    x1 = x + 300*sin(jiaodu);
-                    y1 = y + (300 + 300*cos(jiaodu));
-                }else if (jiaodu1 > 90&&jiaodu1 < 180){
-//                    x1 = x + 300*cos(jiaodu - 90);
-//                    y1 = y + (300 + 300*sin(jiaodu - 90));
-                }else if (jiaodu1 == 90){
-//                    x1 = x - 300;
-//                    y1 = y + 300;
-                }else if (jiaodu1 == 180){
-//                    x1 = x;
-//                    y1 = y + 600;
-                }else if (jiaodu1 > 180&& jiaodu1 < 270){
-//                    x1 = x + 300*cos(270 - jiaodu1);
-//                    y1 = y + (300 + 300*sin(270 - jiaodu1));
-                }else if (jiaodu1 == 270){
-//                    x1 = x + 300;
-//                    y1 = y + 300;
-                }else if (jiaodu1 > 270 && jiaodu1 > 360){
-//                    x1 = x + 300*cos(jiaodu - 270);
-//                    y1 = y + (300 + 300*sin(jiaodu - 270));
+            if ([arr2 count]%2 == 0) {
+                
+                float x1 = level1.centerX - 300;
+                float x2 = level1.centerX + 300;
+                float y1 = level1.centerY - 300;
+                float y2 = level1.centerY - 300;
+                for (int i = 0; i < [arr2 count]; i ++) {
+                    if (i < [arr2 count]/2) {
+                        
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        
+                        y1 += 600/([arr2 count]/2 - 1);
+                    }else{
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        y2 += 600/([arr2 count]/2 - 1);
+                    }
                 }
-                [point2 addObject:@{@"x":[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
-                x1 = x;
-                y1 = y;
-                jiaodu1 += jiaodu;
+                
+            }else{
+                
+                float x1 = level1.centerX - 300;
+                float x2 = level1.centerX + 300;
+                float y1 = level1.centerY - 300;
+                float y2 = level1.centerY - 300;
+                
+                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
+                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                [self.gousiScro addSubview:line];
+                
+                NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:arr2];
+                [tempArr removeObjectAtIndex:0];
+                
+                for (int i = 0; i < [tempArr count]; i ++) {
+                    if (i < [tempArr count]/2) {
+                        
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        
+                        y1 += 600/([tempArr count]/2 - 1);
+                    }else{
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        y2 += 600/([tempArr count]/2 - 1);
+                    }
+                }
+                
             }
+            
+            [self.gousiScro bringSubviewToFront:level1];
+
+        }else if (count == 3){
+        
+        }else if (count == 4){
+        
         }
         
-        for (NSDictionary *dic in point2) {
-        
-            CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake([dic[@"x"] floatValue], [dic[@"y"] floatValue])];
-            line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-            [self.gousiScro addSubview:line];
-        }
     } failture:^(id result) {
         
     }];
