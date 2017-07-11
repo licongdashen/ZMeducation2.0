@@ -28,6 +28,7 @@
 		50590E8A1EFA4D8400FF1F5A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 50590E861EFA4D8400FF1F5A /* LICENSE */; };
 		50590E8B1EFA4D8400FF1F5A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E881EFA4D8400FF1F5A /* MBProgressHUD.m */; };
 		50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 50590E891EFA4D8400FF1F5A /* README.mdown */; };
+		50A955811F14A82F00D12F40 /* CustomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A955801F14A82F00D12F40 /* CustomLine.m */; };
 		746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,8 @@
 		50590E871EFA4D8400FF1F5A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		50590E881EFA4D8400FF1F5A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		50590E891EFA4D8400FF1F5A /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
+		50A9557F1F14A82F00D12F40 /* CustomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLine.h; sourceTree = "<group>"; };
+		50A955801F14A82F00D12F40 /* CustomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomLine.m; sourceTree = "<group>"; };
 		5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMeducation2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMeducation2.0/Pods-ZMeducation2.0.release.xcconfig"; sourceTree = "<group>"; };
 		756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMeducation2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -243,6 +246,8 @@
 				500037D91EEE7BF70007D164 /* PrefixHeader.pch */,
 				50590E791EF8B7B800FF1F5A /* RequestOperationManager.h */,
 				50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */,
+				50A9557F1F14A82F00D12F40 /* CustomLine.h */,
+				50A955801F14A82F00D12F40 /* CustomLine.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -475,6 +480,7 @@
 				50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */,
 				50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */,
 				50590E841EFA4D4000FF1F5A /* NSString+MD5.m in Sources */,
+				50A955811F14A82F00D12F40 /* CustomLine.m in Sources */,
 				500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */,
 				500037E21EEF8E4D0007D164 /* HomeViewController.m in Sources */,
 				50590E8B1EFA4D8400FF1F5A /* MBProgressHUD.m in Sources */,
