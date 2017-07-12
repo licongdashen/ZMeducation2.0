@@ -101,22 +101,27 @@
     
     NSDictionary * dic = @{
                            @"method"           :@"M301",
-                           @"level2"           :@"8",
+                           @"level2"           :@"7",
                            @"level3"           :@"4",
                            @"level4"           :@"2"};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
-        self.gousiScro.contentSize = CGSizeMake(2000, 2000);
+        self.gousiScro.contentSize = CGSizeMake(2000, 3000);
         self.gousiScro.contentOffset = CGPointMake(self.gousiScro.contentSize.width/2 - self.gousiScro.size.width/2, self.gousiScro.contentSize.height/2 - self.gousiScro.size.height/2);
         
-        UIView *level1 = [[UIView alloc]initWithFrame:CGRectMake(self.gousiScro.contentSize.width/2 - 120, self.gousiScro.contentSize.height/2 - 62, 240, 125)];
-        level1.backgroundColor = [UIColor redColor];
+        UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(self.gousiScro.contentSize.width/2 - 120, self.gousiScro.contentSize.height/2 - 62, 240, 125)];
+        level1.userInteractionEnabled = YES;
+        level1.image = DEF_IMAGE(@"gousi_yun");
+        level1.contentMode = UIViewContentModeScaleAspectFill;
+        level1.backgroundColor = [UIColor whiteColor];
+        level1.clipsToBounds = YES;
         [self.gousiScro addSubview:level1];
         
-        int count = 2;
+        int count = 3;
         
         if (count == 2) {
             NSMutableArray *arr2 = result[@"list"][0][@"list"];
+            NSMutableArray *pointArr = [[NSMutableArray alloc]init];
             
             if ([arr2 count]%2 == 0) {
                 
@@ -130,12 +135,15 @@
                         CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
                         line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         [self.gousiScro addSubview:line];
-                        
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
                         y1 += 600/([arr2 count]/2 - 1);
+                        
                     }else{
                         CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
                         line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+
                         y2 += 600/([arr2 count]/2 - 1);
                     }
                 }
@@ -151,6 +159,8 @@
                 line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                 [self.gousiScro addSubview:line];
                 
+                [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY - 300]}];
+
                 NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:arr2];
                 [tempArr removeObjectAtIndex:0];
                 
@@ -160,24 +170,264 @@
                         CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
                         line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         [self.gousiScro addSubview:line];
-                        
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+
                         y1 += 600/([tempArr count]/2 - 1);
                     }else{
                         CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
                         line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+
                         y2 += 600/([tempArr count]/2 - 1);
                     }
                 }
                 
             }
             
+            for (NSDictionary *dicc in pointArr) {
+                
+                UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                level1.userInteractionEnabled = YES;
+                level1.image = DEF_IMAGE(@"gousi_yun");
+                level1.contentMode = UIViewContentModeScaleAspectFill;
+                level1.backgroundColor = [UIColor whiteColor];
+                level1.clipsToBounds = YES;
+                level1.centerX = [dicc[@"x"] floatValue];
+                level1.centerY = [dicc[@"y"] floatValue];
+                [self.gousiScro addSubview:level1];
+            }
+            
             [self.gousiScro bringSubviewToFront:level1];
 
         }else if (count == 3){
         
-        }else if (count == 4){
-        
+            NSMutableArray *arr2 = result[@"list"][0][@"list"];
+            NSMutableArray *pointArr = [[NSMutableArray alloc]init];
+            
+            if ([arr2 count]%2 == 0) {
+                
+                int count = 0;
+                
+                for (NSDictionary *dic in arr2) {
+                    NSArray *arr3 = dic[@"list"];
+                    for (NSDictionary *dic in arr3) {
+                        count += 1;
+                    }
+                }
+
+                float x1 = level1.centerX - 300;
+                float x2 = level1.centerX + 300;
+                float y1 = level1.centerY - 300;
+                float y2 = level1.centerY - 300;
+                
+                float xx1 = x1 - 300;
+                float yy1 = level1.centerY - (150*count/4);
+
+                float xx2 = x2 + 300;
+                float yy2 = level1.centerY - (150*count/4);
+                
+                for (int i = 0; i < [arr2 count]; i ++) {
+                    
+                    NSMutableDictionary *dic = arr2[i];
+                    NSArray *arr3 = dic[@"list"];
+                    
+                    if (i < [arr2 count]/2) {
+                        
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+                       
+                        for (NSDictionary *dic in arr3) {
+                            
+                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
+                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                            [self.gousiScro addSubview:line1];
+                            
+                            UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                            level1.userInteractionEnabled = YES;
+                            level1.image = DEF_IMAGE(@"gousi_yun");
+                            level1.contentMode = UIViewContentModeScaleAspectFill;
+                            level1.backgroundColor = [UIColor whiteColor];
+                            level1.clipsToBounds = YES;
+                            level1.centerX = xx1;
+                            level1.centerY = yy1;
+                            [self.gousiScro addSubview:level1];
+
+                            yy1 += 150;
+                        }
+                        y1 += 600/([arr2 count]/2 - 1);
+
+                    }else{
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+                        
+                        for (NSDictionary *dic in arr3) {
+                            
+                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
+                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                            [self.gousiScro addSubview:line1];
+                            
+                            UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                            level1.userInteractionEnabled = YES;
+                            level1.image = DEF_IMAGE(@"gousi_yun");
+                            level1.contentMode = UIViewContentModeScaleAspectFill;
+                            level1.backgroundColor = [UIColor whiteColor];
+                            level1.clipsToBounds = YES;
+                            level1.centerX = xx2;
+                            level1.centerY = yy2;
+                            [self.gousiScro addSubview:level1];
+
+                            yy2 += 150;
+                        }
+
+                        y2 += 600/([arr2 count]/2 - 1);
+                    }
+                }
+                
+                for (UIView *view in [self.gousiScro subviews]) {
+                    if ([view isKindOfClass:[UIImageView class]]) {
+                        [self.gousiScro bringSubviewToFront:view];
+                    }
+                }
+            }else{
+                
+                int count = 0;
+                
+                for (NSDictionary *dic in arr2) {
+                    NSArray *arr3 = dic[@"list"];
+                    for (NSDictionary *dic in arr3) {
+                        count += 1;
+                    }
+                }
+
+                float x1 = level1.centerX - 300;
+                float x2 = level1.centerX + 300;
+                float y1 = level1.centerY - 300;
+                float y2 = level1.centerY - 300;
+                
+                float xx1 = x1 - 300;
+                float yy1 = level1.centerY - (150*count/4);
+                
+                float xx2 = x2 + 300;
+                float yy2 = level1.centerY - (150*count/4);
+
+                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
+                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                [self.gousiScro addSubview:line];
+                [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY - 300]}];
+                
+                NSDictionary *dic = [arr2 objectAtIndex:0];
+                NSArray *arr4 = dic[@"list"];
+                
+                float xxx = level1.centerX + 200;
+                float yyy = level1.centerY - 600;
+
+                for (int i = 0; i < [arr4 count]; i ++) {
+                    CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY - 300) EndPoint:CGPointMake(xxx, yyy)];
+                    line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                    [self.gousiScro addSubview:line];
+                    
+                    UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                    level1.userInteractionEnabled = YES;
+                    level1.image = DEF_IMAGE(@"gousi_yun");
+                    level1.contentMode = UIViewContentModeScaleAspectFill;
+                    level1.backgroundColor = [UIColor whiteColor];
+                    level1.clipsToBounds = YES;
+                    level1.centerX = xxx;
+                    level1.centerY = yyy;
+                    [self.gousiScro addSubview:level1];
+                    yyy -= 150;
+                }
+                
+                NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:arr2];
+                [tempArr removeObjectAtIndex:0];
+                
+                for (int i = 0; i < [tempArr count]; i ++) {
+                    NSMutableDictionary *dic = tempArr[i];
+                    NSArray *arr3 = dic[@"list"];
+                    if (i < [tempArr count]/2) {
+                        
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+                        
+                        for (NSDictionary *dic in arr3) {
+                            
+                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
+                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                            [self.gousiScro addSubview:line1];
+                            
+                            UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                            level1.userInteractionEnabled = YES;
+                            level1.image = DEF_IMAGE(@"gousi_yun");
+                            level1.contentMode = UIViewContentModeScaleAspectFill;
+                            level1.backgroundColor = [UIColor whiteColor];
+                            level1.clipsToBounds = YES;
+                            level1.centerX = xx1;
+                            level1.centerY = yy1;
+                            [self.gousiScro addSubview:level1];
+                            
+                            yy1 += 150;
+                        }
+
+                        y1 += 600/([tempArr count]/2 - 1);
+                    }else{
+                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+                        
+                        for (NSDictionary *dic in arr3) {
+                            
+                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
+                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                            [self.gousiScro addSubview:line1];
+                            
+                            UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                            level1.userInteractionEnabled = YES;
+                            level1.image = DEF_IMAGE(@"gousi_yun");
+                            level1.contentMode = UIViewContentModeScaleAspectFill;
+                            level1.backgroundColor = [UIColor whiteColor];
+                            level1.clipsToBounds = YES;
+                            level1.centerX = xx2;
+                            level1.centerY = yy2;
+                            [self.gousiScro addSubview:level1];
+                            
+                            yy2 += 150;
+                        }
+
+                        y2 += 600/([tempArr count]/2 - 1);
+                    }
+                }
+                
+                for (UIView *view in [self.gousiScro subviews]) {
+                    if ([view isKindOfClass:[UIImageView class]]) {
+                        [self.gousiScro bringSubviewToFront:view];
+                    }
+                }
+
+            }
+            
+            for (NSDictionary *dicc in pointArr) {
+                
+                UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
+                level1.userInteractionEnabled = YES;
+                level1.image = DEF_IMAGE(@"gousi_yun");
+                level1.contentMode = UIViewContentModeScaleAspectFill;
+                level1.backgroundColor = [UIColor whiteColor];
+                level1.clipsToBounds = YES;
+                level1.centerX = [dicc[@"x"] floatValue];
+                level1.centerY = [dicc[@"y"] floatValue];
+                [self.gousiScro addSubview:level1];
+            }
+            
+            [self.gousiScro bringSubviewToFront:level1];
+
         }
         
     } failture:^(id result) {
