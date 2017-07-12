@@ -621,7 +621,7 @@
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "CAC.ZMeducation2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zmeducation.zmzwInHouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -636,7 +636,7 @@
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "CAC.ZMeducation2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zmeducation.zmzwInHouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
