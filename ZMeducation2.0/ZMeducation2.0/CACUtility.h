@@ -109,4 +109,6 @@
 +(CGSize)boundingRectWithSize:(CGSize)size font:(UIFont*)font string:(NSString*)string withSpacing:(CGFloat)spacing;
 
 +(NSString *)getNowTime;
+
++(NSString *)getSignWithMethod:(NSString *)method;
 @end

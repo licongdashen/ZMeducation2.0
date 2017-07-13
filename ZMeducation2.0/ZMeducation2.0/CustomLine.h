@@ -10,6 +10,6 @@
 
 @interface CustomLine : UIView
 
--(instancetype)initWithStartPoint:(CGPoint)spoint EndPoint:(CGPoint)epoint;
+-(instancetype)initWithPointArr:(NSMutableArray *)arr;
 
 @end

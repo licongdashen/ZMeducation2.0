@@ -45,6 +45,7 @@
 
 -(void)login
 {
+    
        
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
@@ -54,7 +55,7 @@
                            @"userName"         :self.userNameTf.text,
                            @"password"         :self.userPassWorldTf.text,
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M001"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
 

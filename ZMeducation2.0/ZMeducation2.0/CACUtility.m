@@ -813,4 +813,25 @@
     return DateTime;
 }
 
++(NSString *)getSignWithMethod:(NSString *)method
+{
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :method};
+    NSString *str = [CACUtility dictionaryToJson:dic];
+    NSString*md5 = [str MD5];
+    return md5;
+}
+
++ (NSString*)dictionaryToJson:(NSDictionary *)dic
+{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+
 @end

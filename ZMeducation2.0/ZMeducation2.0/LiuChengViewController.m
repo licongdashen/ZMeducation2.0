@@ -7,10 +7,18 @@
 //
 
 #import "LiuChengViewController.h"
+#import "TianKongTiViewController.h"
+#import "YinPinViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *tav;
+
+@property (nonatomic, weak) UIViewController *currentVc;
+
+@property (nonatomic, strong) TianKongTiViewController *vc1;
+
+@property (nonatomic, strong) YinPinViewController *vc2;
 
 @end
 
@@ -24,6 +32,14 @@
     self.tav.dataSource = self;
     self.tav.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tav];
+    
+    UIViewController* currentVc = [[UIViewController alloc]init];
+    currentVc.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+    [self addChildViewController:currentVc];
+    [self.view addSubview:currentVc.view];
+    self.currentVc = currentVc;
+    
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -93,6 +109,99 @@
     cell.textLabel.text = dic1[@"unitName"];
     cell.textLabel.textColor = DEF_COLOR_RGB(58, 62, 62);
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *arr = self.dic[@"modules"];
+
+    NSDictionary *dic = arr[indexPath.section][@"units"][indexPath.row];
+    
+    if ([dic[@"unitType"] intValue] == 11) {
+        //我的构思
+    }else if ([dic[@"unitType"] intValue] == 12) {
+        //我的文稿
+    }else if ([dic[@"unitType"] intValue] == 21) {
+        //pdf文件
+    
+    }else if ([dic[@"unitType"] intValue] == 22) {
+        //视频
+        
+    }else if ([dic[@"unitType"] intValue] == 23) {
+        //音频
+        if (!self.vc2) {
+            self.vc2 = [[YinPinViewController alloc]init];
+            self.vc2.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc2];
+        if (self.currentVc == self.vc2) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc2 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc2 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                
+                self.currentVc = self.vc2;
+            }
+        }];
+
+    }else if ([dic[@"unitType"] intValue] == 31) {
+        //填空题
+        
+        if (!self.vc1) {
+            self.vc1 = [[TianKongTiViewController alloc]init];
+            self.vc1.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+
+        [self addChildViewController:self.vc1];
+        if (self.currentVc == self.vc1) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc1 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc1 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                
+                self.currentVc = self.vc1;
+            }
+        }];
+
+    }else if ([dic[@"unitType"] intValue] == 32) {
+        //简答题
+        
+    }else if ([dic[@"unitType"] intValue] == 33) {
+        //是否题
+        
+    }else if ([dic[@"unitType"] intValue] == 34) {
+        //单选题
+        
+    }else if ([dic[@"unitType"] intValue] == 35) {
+        //多选题
+        
+    }else if ([dic[@"unitType"] intValue] == 41) {
+        //论坛
+        
+    }else if ([dic[@"unitType"] intValue] == 51) {
+        //合作完成分项
+        
+    }else if ([dic[@"unitType"] intValue] == 52) {
+        //独立完成分项
+        
+    }else if ([dic[@"unitType"] intValue] == 61) {
+        //投票
+        
+    }else if ([dic[@"unitType"] intValue] == 71) {
+        //抢答
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

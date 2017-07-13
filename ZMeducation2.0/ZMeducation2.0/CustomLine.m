@@ -10,19 +10,19 @@
 
 @interface CustomLine()
 
-@property (nonatomic)CGPoint startPoint;
+@property (nonatomic, strong)NSMutableArray * PointArr;
 
-@property (nonatomic)CGPoint endPoint;
 
 @end
 
 @implementation CustomLine
 
--(instancetype)initWithStartPoint:(CGPoint)spoint EndPoint:(CGPoint)epoint;
+-(instancetype)initWithPointArr:(NSMutableArray *)arr
 {
     if (self = [super init]) {
-        self.startPoint = spoint;
-        self.endPoint = epoint;
+
+        self.PointArr = arr;
+        
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
@@ -32,17 +32,22 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineCap(context, kCGLineCapRound);
-    CGContextSetLineWidth(context, 3);  //线宽
-    CGContextSetAllowsAntialiasing(context, true);
-    CGContextSetRGBStrokeColor(context, 171 / 255.0, 197 / 255.0, 203 / 255.0, 1.0);  //线的颜色
-    CGContextBeginPath(context);
+    for (NSDictionary *dic in self.PointArr) {
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetLineCap(context, kCGLineCapRound);
+        CGContextSetLineWidth(context, 3);  //线宽
+        CGContextSetAllowsAntialiasing(context, true);
+        CGContextSetRGBStrokeColor(context, 171 / 255.0, 197 / 255.0, 203 / 255.0, 1.0);  //线的颜色
+        CGContextBeginPath(context);
+        
+        CGContextMoveToPoint(context, [dic[@"x"] floatValue], [dic[@"y"] floatValue]);  //起点坐标
+        CGContextAddLineToPoint(context, [dic[@"x1"] floatValue], [dic[@"y1"] floatValue]);   //终点坐标
+        
+        CGContextStrokePath(context);
+
+    }
     
-    CGContextMoveToPoint(context, self.startPoint.x, self.startPoint.y);  //起点坐标
-    CGContextAddLineToPoint(context, self.endPoint.x, self.endPoint.y);   //终点坐标
-    
-    CGContextStrokePath(context);
 }
 
 @end

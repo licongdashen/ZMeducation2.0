@@ -101,7 +101,7 @@
     
     NSDictionary * dic = @{
                            @"method"           :@"M301",
-                           @"level2"           :@"7",
+                           @"level2"           :@"6",
                            @"level3"           :@"4",
                            @"level4"           :@"2"};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
@@ -132,18 +132,21 @@
                 for (int i = 0; i < [arr2 count]; i ++) {
                     if (i < [arr2 count]/2) {
                         
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
                         y1 += 600/([arr2 count]/2 - 1);
                         
                     }else{
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        //[pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
 
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
                         y2 += 600/([arr2 count]/2 - 1);
                     }
                 }
@@ -155,29 +158,33 @@
                 float y1 = level1.centerY - 300;
                 float y2 = level1.centerY - 300;
                 
-                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
-                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                [self.gousiScro addSubview:line];
+//                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
+//                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                [self.gousiScro addSubview:line];
                 
-                [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY - 300]}];
+                [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",level1.centerX],@"y1":[NSString stringWithFormat:@"%f",level1.centerY - 300],
+                                      @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
 
+                
                 NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:arr2];
                 [tempArr removeObjectAtIndex:0];
                 
                 for (int i = 0; i < [tempArr count]; i ++) {
                     if (i < [tempArr count]/2) {
                         
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
 
                         y1 += 600/([tempArr count]/2 - 1);
                     }else{
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
 
                         y2 += 600/([tempArr count]/2 - 1);
                     }
@@ -197,6 +204,10 @@
                 level1.centerY = [dicc[@"y"] floatValue];
                 [self.gousiScro addSubview:level1];
             }
+            
+            CustomLine *line = [[CustomLine alloc]initWithPointArr:pointArr];
+            line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+            [self.gousiScro addSubview:line];
             
             [self.gousiScro bringSubviewToFront:level1];
 
@@ -234,16 +245,19 @@
                     
                     if (i < [arr2 count]/2) {
                         
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
                        
                         for (NSDictionary *dic in arr3) {
                             
-                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
-                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                            [self.gousiScro addSubview:line1];
+//                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
+//                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                            [self.gousiScro addSubview:line1];
+                            [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx1],@"y1":[NSString stringWithFormat:@"%f",yy1],
+                                                  @"x"  :[NSString stringWithFormat:@"%f",x1],@"y" :[NSString stringWithFormat:@"%f",y1]}];
                             
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
@@ -260,16 +274,20 @@
                         y1 += 600/([arr2 count]/2 - 1);
 
                     }else{
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
                         
                         for (NSDictionary *dic in arr3) {
                             
-                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
-                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                            [self.gousiScro addSubview:line1];
+//                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
+//                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                            [self.gousiScro addSubview:line1];
+                            
+                            [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx2],@"y1":[NSString stringWithFormat:@"%f",yy2],
+                                                  @"x"  :[NSString stringWithFormat:@"%f",x2],@"y" :[NSString stringWithFormat:@"%f",y2]}];
                             
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
@@ -287,6 +305,10 @@
                         y2 += 600/([arr2 count]/2 - 1);
                     }
                 }
+                
+                CustomLine *line = [[CustomLine alloc]initWithPointArr:pointArr];
+                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                [self.gousiScro addSubview:line];
                 
                 for (UIView *view in [self.gousiScro subviews]) {
                     if ([view isKindOfClass:[UIImageView class]]) {
@@ -315,10 +337,11 @@
                 float xx2 = x2 + 300;
                 float yy2 = level1.centerY - (150*count/4);
 
-                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
-                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                [self.gousiScro addSubview:line];
-                [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY - 300]}];
+//                CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(level1.centerX, level1.centerY - 300)];
+//                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                [self.gousiScro addSubview:line];
+                [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",level1.centerX],@"y1":[NSString stringWithFormat:@"%f",level1.centerY - 300],
+                                      @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
                 
                 NSDictionary *dic = [arr2 objectAtIndex:0];
                 NSArray *arr4 = dic[@"list"];
@@ -327,9 +350,12 @@
                 float yyy = level1.centerY - 600;
 
                 for (int i = 0; i < [arr4 count]; i ++) {
-                    CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY - 300) EndPoint:CGPointMake(xxx, yyy)];
-                    line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                    [self.gousiScro addSubview:line];
+//                    CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY - 300) EndPoint:CGPointMake(xxx, yyy)];
+//                    line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                    [self.gousiScro addSubview:line];
+                    
+                    [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY - 300],
+                                          @"x1"  :[NSString stringWithFormat:@"%f",xxx],@"y1" :[NSString stringWithFormat:@"%f",yyy]}];
                     
                     UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                     level1.userInteractionEnabled = YES;
@@ -351,17 +377,21 @@
                     NSArray *arr3 = dic[@"list"];
                     if (i < [tempArr count]/2) {
                         
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
+                                              @"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY]}];
                         
                         for (NSDictionary *dic in arr3) {
                             
-                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
-                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                            [self.gousiScro addSubview:line1];
+//                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
+//                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                            [self.gousiScro addSubview:line1];
                             
+                            [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx1],@"y1":[NSString stringWithFormat:@"%f",yy1],
+                                                  @"x" :[NSString stringWithFormat:@"%f",x1],@"y":[NSString stringWithFormat:@"%f",y1]}];
+
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
                             level1.image = DEF_IMAGE(@"gousi_yun");
@@ -377,17 +407,21 @@
 
                         y1 += 600/([tempArr count]/2 - 1);
                     }else{
-                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
-                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                        [self.gousiScro addSubview:line];
-                        [pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+//                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
+//                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                        [self.gousiScro addSubview:line];
+                        [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
+                                              @"x" :[NSString stringWithFormat:@"%f",level1.centerX],@"y":[NSString stringWithFormat:@"%f",level1.centerY]}];
                         
                         for (NSDictionary *dic in arr3) {
                             
-                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
-                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
-                            [self.gousiScro addSubview:line1];
+//                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
+//                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+//                            [self.gousiScro addSubview:line1];
                             
+                            [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx2],@"y1":[NSString stringWithFormat:@"%f",yy2],
+                                                  @"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
+
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
                             level1.image = DEF_IMAGE(@"gousi_yun");
@@ -405,6 +439,10 @@
                     }
                 }
                 
+                CustomLine *line = [[CustomLine alloc]initWithPointArr:pointArr];
+                line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
+                [self.gousiScro addSubview:line];
+
                 for (UIView *view in [self.gousiScro subviews]) {
                     if ([view isKindOfClass:[UIImageView class]]) {
                         [self.gousiScro bringSubviewToFront:view];

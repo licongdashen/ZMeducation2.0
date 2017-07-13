@@ -80,7 +80,7 @@
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"1",
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
         [self loadyuedunianji];
@@ -101,7 +101,7 @@
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
         self.nianjiArr = result[@"grades"];
@@ -187,7 +187,7 @@
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"gradeId"          :self.nianjiArr[tag - 1000][@"gradeId"],
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"m004"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
 
         self.banjiArr = result[@"classes"];
@@ -241,7 +241,7 @@
                            @"typeId"           :@"2",
                            @"gradeId"          :self.gradeId,
                            @"classId"          :self.banjiArr[tag - 10000][@"classId"],
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"m005"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         self.kechengArr = result[@"courses"];
@@ -293,7 +293,7 @@
                            @"gradeId"          :self.gradeId,
                            @"classId"          :self.classId,
                            @"courseId"         :self.courseId,
-                           @"sign"             :@"69D8BA9D4D2FCFC6E28BAAE227DF1CBB"};
+                           @"sign"             :[CACUtility getSignWithMethod:@"m006"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         HomeViewController *VC = [[HomeViewController alloc]init];
