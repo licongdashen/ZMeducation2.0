@@ -82,7 +82,6 @@
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
                            @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
         [self loadyuedunianji];
     } failture:^(id result) {
         
@@ -103,7 +102,6 @@
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
                            @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
         self.nianjiArr = result[@"grades"];
         [self loadxiezuonianji];
     } failture:^(id result) {
@@ -300,6 +298,12 @@
         VC.dic = result;
         [self.navigationController pushViewController:VC animated:YES];
         
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:self.userInfo];
+        [dic setObject:self.gradeId forKey:@"gradeId"];
+        [dic setObject:self.classId forKey:@"classId"];
+        [dic setObject:self.courseId forKey:@"courseId"];
+        [DEF_UserDefaults setObject:dic forKey:SAVE_USERINFO];
+
     } failture:^(id result) {
         
     }];

@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tav = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 175, self.view.height) style:UITableViewStylePlain];
+    self.tav = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 175, self.view.height - 95) style:UITableViewStylePlain];
     self.tav.delegate = self;
     self.tav.dataSource = self;
     self.tav.backgroundColor = [UIColor clearColor];
@@ -98,8 +98,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liucheng_sel-1"]];
     }
     
     NSMutableArray *arr = self.dic[@"modules"];
@@ -108,6 +109,7 @@
     NSMutableDictionary *dic1 = arr1[indexPath.row];
     cell.textLabel.text = dic1[@"unitName"];
     cell.textLabel.textColor = DEF_COLOR_RGB(58, 62, 62);
+    
     return cell;
 }
 
@@ -118,16 +120,10 @@
     NSDictionary *dic = arr[indexPath.section][@"units"][indexPath.row];
     
     if ([dic[@"unitType"] intValue] == 11) {
-        //我的构思
-    }else if ([dic[@"unitType"] intValue] == 12) {
-        //我的文稿
-    }else if ([dic[@"unitType"] intValue] == 21) {
         //pdf文件
-    
-    }else if ([dic[@"unitType"] intValue] == 22) {
+    }else if ([dic[@"unitType"] intValue] == 12) {
         //视频
-        
-    }else if ([dic[@"unitType"] intValue] == 23) {
+    }else if ([dic[@"unitType"] intValue] == 13) {
         //音频
         if (!self.vc2) {
             self.vc2 = [[YinPinViewController alloc]init];
@@ -149,15 +145,15 @@
                 self.currentVc = self.vc2;
             }
         }];
-
-    }else if ([dic[@"unitType"] intValue] == 31) {
+        
+    }else if ([dic[@"unitType"] intValue] == 21) {
         //填空题
         
         if (!self.vc1) {
-            self.vc1 = [[TianKongTiViewController alloc]init];
+            self.vc1 = [[TianKongTiViewController alloc]initWithDic:dic];
             self.vc1.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
         }
-
+        
         [self addChildViewController:self.vc1];
         if (self.currentVc == self.vc1) {
             return;
@@ -169,37 +165,42 @@
                 [self.vc1 didMoveToParentViewController:self];
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
-                
                 self.currentVc = self.vc1;
             }
         }];
-
-    }else if ([dic[@"unitType"] intValue] == 32) {
+        
+    }else if ([dic[@"unitType"] intValue] == 22) {
         //简答题
         
-    }else if ([dic[@"unitType"] intValue] == 33) {
-        //是否题
-        
-    }else if ([dic[@"unitType"] intValue] == 34) {
+    }else if ([dic[@"unitType"] intValue] == 23) {
+        //是非题
+    
+    }else if ([dic[@"unitType"] intValue] == 24) {
         //单选题
         
-    }else if ([dic[@"unitType"] intValue] == 35) {
+    }else if ([dic[@"unitType"] intValue] == 25) {
         //多选题
         
-    }else if ([dic[@"unitType"] intValue] == 41) {
+    }else if ([dic[@"unitType"] intValue] == 31) {
         //论坛
         
-    }else if ([dic[@"unitType"] intValue] == 51) {
-        //合作完成分项
-        
-    }else if ([dic[@"unitType"] intValue] == 52) {
+    }else if ([dic[@"unitType"] intValue] == 41) {
         //独立完成分项
         
-    }else if ([dic[@"unitType"] intValue] == 61) {
+    }else if ([dic[@"unitType"] intValue] == 42) {
+        //合作完成分项
+        
+    }else if ([dic[@"unitType"] intValue] == 51) {
         //投票
         
-    }else if ([dic[@"unitType"] intValue] == 71) {
+    }else if ([dic[@"unitType"] intValue] == 52) {
         //抢答
+        
+    }else if ([dic[@"unitType"] intValue] == 61) {
+        //我的构思
+        
+    }else if ([dic[@"unitType"] intValue] == 79) {
+        //我的文稿
         
     }
 }

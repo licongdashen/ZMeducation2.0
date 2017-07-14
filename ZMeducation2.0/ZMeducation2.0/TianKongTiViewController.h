@@ -10,4 +10,8 @@
 
 @interface TianKongTiViewController : ZMBaseViewController
 
+@property (nonatomic, strong) NSDictionary *dic;
+
+-(id)initWithDic:(NSDictionary *)dic;
+
 @end
