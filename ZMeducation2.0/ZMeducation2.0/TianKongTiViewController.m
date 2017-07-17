@@ -274,7 +274,35 @@
         UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 69, self.tabv.width, 0.5)];
         lineView.backgroundColor = [UIColor grayColor];
         [cell.contentView addSubview:lineView];
+        
+        UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(32, 0, 80, 70)];
+        nameLb.font = DEF_MyFont(16);
+        nameLb.numberOfLines = 3;
+        nameLb.tag = 200;
+        [cell.contentView addSubview:nameLb];
+        
+        UILabel *contentLb = [[UILabel alloc]initWithFrame:CGRectMake(nameLb.right + 10, 0, 450, 70)];
+        contentLb.font = DEF_MyFont(16);
+        contentLb.numberOfLines = 3;
+        contentLb.tag = 201;
+        [cell.contentView addSubview:contentLb];
+        
+        UILabel *timeLb = [[UILabel alloc]initWithFrame:CGRectMake(contentLb.right + 20, 0, 140, 70)];
+        timeLb.font = DEF_MyFont(16);
+        timeLb.numberOfLines = 3;
+        timeLb.tag = 202;
+        [cell.contentView addSubview:timeLb];
+
     }
+    UILabel *nameLb = [cell.contentView viewWithTag:200];
+    nameLb.text = self.chaxunArr[indexPath.row][@"authorName"];
+    
+    UILabel *contentLb = [cell.contentView viewWithTag:201];
+    contentLb.text = self.chaxunArr[indexPath.row][@"content"];
+    
+    UILabel *timeLb = [cell.contentView viewWithTag:202];
+    timeLb.text = self.chaxunArr[indexPath.row][@"lastUpdateTime"];
+    
     return cell;
 }
 
