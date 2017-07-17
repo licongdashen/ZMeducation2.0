@@ -119,11 +119,11 @@
 
     NSDictionary *dic = arr[indexPath.section][@"units"][indexPath.row];
     
-    if ([dic[@"unitType"] intValue] == 11) {
+    if ([dic[@"unitTypeId"] intValue] == 11) {
         //pdf文件
-    }else if ([dic[@"unitType"] intValue] == 12) {
+    }else if ([dic[@"unitTypeId"] intValue] == 12) {
         //视频
-    }else if ([dic[@"unitType"] intValue] == 13) {
+    }else if ([dic[@"unitTypeId"] intValue] == 13) {
         //音频
         if (!self.vc2) {
             self.vc2 = [[YinPinViewController alloc]init];
@@ -146,7 +146,7 @@
             }
         }];
         
-    }else if ([dic[@"unitType"] intValue] == 21) {
+    }else if ([dic[@"unitTypeId"] intValue] == 21) {
         //填空题
         
         if (!self.vc1) {
@@ -169,37 +169,37 @@
             }
         }];
         
-    }else if ([dic[@"unitType"] intValue] == 22) {
+    }else if ([dic[@"unitTypeId"] intValue] == 22) {
         //简答题
         
-    }else if ([dic[@"unitType"] intValue] == 23) {
+    }else if ([dic[@"unitTypeId"] intValue] == 23) {
         //是非题
     
-    }else if ([dic[@"unitType"] intValue] == 24) {
+    }else if ([dic[@"unitTypeId"] intValue] == 24) {
         //单选题
         
-    }else if ([dic[@"unitType"] intValue] == 25) {
+    }else if ([dic[@"unitTypeId"] intValue] == 25) {
         //多选题
         
-    }else if ([dic[@"unitType"] intValue] == 31) {
+    }else if ([dic[@"unitTypeId"] intValue] == 31) {
         //论坛
         
-    }else if ([dic[@"unitType"] intValue] == 41) {
+    }else if ([dic[@"unitTypeId"] intValue] == 41) {
         //独立完成分项
         
-    }else if ([dic[@"unitType"] intValue] == 42) {
+    }else if ([dic[@"unitTypeId"] intValue] == 42) {
         //合作完成分项
         
-    }else if ([dic[@"unitType"] intValue] == 51) {
+    }else if ([dic[@"unitTypeId"] intValue] == 51) {
         //投票
         
-    }else if ([dic[@"unitType"] intValue] == 52) {
+    }else if ([dic[@"unitTypeId"] intValue] == 52) {
         //抢答
         
-    }else if ([dic[@"unitType"] intValue] == 61) {
+    }else if ([dic[@"unitTypeId"] intValue] == 61) {
         //我的构思
         
-    }else if ([dic[@"unitType"] intValue] == 79) {
+    }else if ([dic[@"unitTypeId"] intValue] == 79) {
         //我的文稿
         
     }
