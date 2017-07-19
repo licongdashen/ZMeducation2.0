@@ -49,7 +49,7 @@
     
     UIImageView *imageTitle = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 80, 30)];
     imageTitle.contentMode = UIViewContentModeScaleAspectFit;
-    imageTitle.image = DEF_IMAGE(@"tiankongti_title");
+    imageTitle.image = DEF_IMAGE(@"jiandati_title");
     imageTitle.centerX = bgImagv.centerX;
     [bgImagv addSubview:imageTitle];
     

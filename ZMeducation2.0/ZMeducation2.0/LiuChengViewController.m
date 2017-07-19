@@ -10,6 +10,7 @@
 #import "TianKongTiViewController.h"
 #import "YinPinViewController.h"
 #import "JianDaTiViewController.h"
+#import "DanXuanTiViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -22,6 +23,8 @@
 @property (nonatomic, strong) YinPinViewController *vc2;
 
 @property (nonatomic, strong) JianDaTiViewController *vc3;
+
+@property (nonatomic, strong) DanXuanTiViewController *vc4;
 
 @end
 
@@ -201,6 +204,26 @@
     }else if ([dic[@"unitTypeId"] intValue] == 24) {
         //单选题
         
+        if (!self.vc4) {
+            self.vc4 = [[DanXuanTiViewController alloc]initWithDic:dic];
+            self.vc4.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc4];
+        if (self.currentVc == self.vc4) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc4 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc4 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc4;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 25) {
         //多选题
         
