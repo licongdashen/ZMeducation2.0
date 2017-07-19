@@ -9,6 +9,7 @@
 #import "LiuChengViewController.h"
 #import "TianKongTiViewController.h"
 #import "YinPinViewController.h"
+#import "JianDaTiViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -19,6 +20,8 @@
 @property (nonatomic, strong) TianKongTiViewController *vc1;
 
 @property (nonatomic, strong) YinPinViewController *vc2;
+
+@property (nonatomic, strong) JianDaTiViewController *vc3;
 
 @end
 
@@ -172,6 +175,26 @@
     }else if ([dic[@"unitTypeId"] intValue] == 22) {
         //简答题
         
+        if (!self.vc3) {
+            self.vc3 = [[JianDaTiViewController alloc]initWithDic:dic];
+            self.vc3.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc3];
+        if (self.currentVc == self.vc3) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc3 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc3 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc3;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 23) {
         //是非题
     
