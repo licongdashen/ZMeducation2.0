@@ -1,15 +1,14 @@
 //
-//  DanXuanTiViewController.m
+//  DuoXuanTiViewController.m
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/7/19.
+//  Created by Queen on 2017/7/20.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
-#import "DanXuanTiViewController.h"
+#import "DuoXuanTiViewController.h"
 
-@interface DanXuanTiViewController ()
-
+@interface DuoXuanTiViewController ()
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
 @property (nonatomic, strong)NSMutableDictionary *result;
@@ -33,7 +32,7 @@
 
 @end
 
-@implementation DanXuanTiViewController
+@implementation DuoXuanTiViewController
 
 -(id)initWithDic:(NSDictionary *)dic
 {
@@ -57,7 +56,7 @@
     
     UIImageView *imageTitle = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 80, 30)];
     imageTitle.contentMode = UIViewContentModeScaleAspectFit;
-    imageTitle.image = DEF_IMAGE(@"danxuanti_title");
+    imageTitle.image = DEF_IMAGE(@"");
     imageTitle.centerX = bgImagv.centerX;
     [bgImagv addSubview:imageTitle];
     
@@ -75,7 +74,7 @@
     tiwenLb.font = DEF_MyFont(16);
     [imagetiwen addSubview:tiwenLb];
     self.tiwenLb = tiwenLb;
-
+    
     
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(365, 242, 180, 30)];
     [btn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
@@ -129,10 +128,10 @@
         NSError *err;
         
         self.arr2 = [NSJSONSerialization JSONObjectWithData:jsonData
-                             
-                                                            options:NSJSONReadingMutableContainers
-                             
-                                                              error:&err];
+                     
+                                                    options:NSJSONReadingMutableContainers
+                     
+                                                      error:&err];
         
         NSArray *arr1 = result[@"options"];
         int y = imagetiwen.bottom + 20;
@@ -162,9 +161,9 @@
                     label.text = dic[@"title"];
                     [bgImagv addSubview:label];
                 }
-
+                
             }else{
-            
+                
                 UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(145, y, 25, 25)];
                 [imgv setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
                 [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
@@ -179,7 +178,7 @@
             y+=37;
             
         }
-       
+        
     } failture:^(id result) {
         
     }];
@@ -191,13 +190,18 @@
     
     for (int i = 0; i <[self.arr2 count]; i++) {
         NSMutableDictionary *dic = self.arr2[i];
-
-        UIButton *btn = [self.bgImagv viewWithTag:i + 1000];
-        [btn setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
-        [dic setObject:@"0" forKey:@"flag"];
+        
+//        UIButton *btn = [self.bgImagv viewWithTag:i + 1000];
+//        [btn setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
+//        [dic setObject:@"0" forKey:@"flag"];
         if (i == tag) {
-            [sender setImage:DEF_IMAGE(@"danxuanti_sel") forState:UIControlStateNormal];
-            [dic setObject:@"1" forKey:@"flag"];
+            if ([dic[@"flag"] intValue] == 1) {
+                [sender setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
+                [dic setObject:@"0" forKey:@"flag"];
+            }else{
+                [sender setImage:DEF_IMAGE(@"danxuanti_sel") forState:UIControlStateNormal];
+                [dic setObject:@"1" forKey:@"flag"];
+            }
         }
     }
 }
@@ -253,9 +257,9 @@
         self.lable2.text = result[@"options"][0][@"authorNames"];
         
         self.lable3.text = result[@"options"][1][@"title"];
-
+        
         self.lable4.text = result[@"options"][1][@"authorNames"];
-
+        
     } failture:^(id result) {
         [CACUtility showTips:@"提交失败"];
     }];

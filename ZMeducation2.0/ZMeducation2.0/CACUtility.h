@@ -111,4 +111,7 @@
 +(NSString *)getNowTime;
 
 +(NSString *)getSignWithMethod:(NSString *)method;
+
++ (NSString*)dictionaryToJson:(id)dic;
+
 @end

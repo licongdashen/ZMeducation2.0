@@ -11,6 +11,8 @@
 #import "YinPinViewController.h"
 #import "JianDaTiViewController.h"
 #import "DanXuanTiViewController.h"
+#import "DuoXuanTiViewController.h"
+#import "LunTanViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,6 +27,10 @@
 @property (nonatomic, strong) JianDaTiViewController *vc3;
 
 @property (nonatomic, strong) DanXuanTiViewController *vc4;
+
+@property (nonatomic, strong) DuoXuanTiViewController *vc5;
+
+@property (nonatomic, strong) LunTanViewController *vc6;
 
 @end
 
@@ -227,9 +233,48 @@
     }else if ([dic[@"unitTypeId"] intValue] == 25) {
         //多选题
         
+        if (!self.vc5) {
+            self.vc5 = [[DuoXuanTiViewController alloc]initWithDic:dic];
+            self.vc5.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc5];
+        if (self.currentVc == self.vc5) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc5 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc5 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc5;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 31) {
         //论坛
+        if (!self.vc6) {
+            self.vc6 = [[LunTanViewController alloc]initWithDic:dic];
+            self.vc6.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
         
+        [self addChildViewController:self.vc6];
+        if (self.currentVc == self.vc6) {
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc6 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc6 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc6;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 41) {
         //独立完成分项
         

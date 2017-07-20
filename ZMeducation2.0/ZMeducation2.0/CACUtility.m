@@ -825,7 +825,7 @@
     return md5;
 }
 
-+ (NSString*)dictionaryToJson:(NSDictionary *)dic
++ (NSString*)dictionaryToJson:(id)dic
 {
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
