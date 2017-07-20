@@ -8,12 +8,14 @@
 
 #import "LunTanViewController.h"
 
-@interface LunTanViewController ()
+@interface LunTanViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
 @property (nonatomic, strong)NSMutableDictionary *result;
 @property (nonatomic, weak) UIImageView *bgImagv;
+
+@property (nonatomic, strong)UITableView *tabv;
 
 @end
 
@@ -42,9 +44,23 @@
     
     UIImageView *imageTitle = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 80, 30)];
     imageTitle.contentMode = UIViewContentModeScaleAspectFit;
-    imageTitle.image = DEF_IMAGE(@"");
+    imageTitle.image = DEF_IMAGE(@"luntan_title");
     imageTitle.centerX = bgImagv.centerX;
     [bgImagv addSubview:imageTitle];
+    
+    UILabel *TitleLb = [[UILabel alloc]initWithFrame:CGRectMake(40, 50, 150, 20)];
+    TitleLb.text = @"请选择同学姓名  :";
+    [bgImagv addSubview:TitleLb];
+    
+    UIButton *selBtn = [[UIButton alloc]initWithFrame:CGRectMake(TitleLb.right + 15, 45, 280, 30)];
+    [selBtn setImage:DEF_IMAGE(@"luntan_xuanze") forState:UIControlStateNormal];
+    [selBtn addTarget:selBtn action:@selector(sel) forControlEvents:UIControlEventTouchUpInside];
+    [bgImagv addSubview:selBtn];
+    
+}
+
+-(void)sel
+{
     
 }
 
