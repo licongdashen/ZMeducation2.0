@@ -7,6 +7,7 @@
 //
 
 #import "LunTanViewController.h"
+#import "LunTanCell.h"
 
 @interface LunTanViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,7 +26,9 @@
 
 @property (nonatomic, weak)UILabel *selLb;
 
-@property (nonatomic, strong)NSMutableDictionary *M031Arr;
+@property (nonatomic, strong)NSMutableDictionary *M031Dic;
+
+@property (nonatomic, strong) UITableView *tabv1;
 
 @end
 
@@ -95,6 +98,40 @@
     [bgImagv addSubview:chaxunBtn];
     
     
+    self.tabv1 = [[UITableView alloc]initWithFrame:CGRectMake(25, chaxunBtn.bottom + 10, DEF_DEVICE_WIDTH - 30 - 175 - 50, 385) style:UITableViewStylePlain];
+    self.tabv1.delegate = self;
+    self.tabv1.dataSource = self;
+    self.tabv1.backgroundColor = [UIColor clearColor];
+    self.tabv1.hidden = YES;
+    self.tabv1.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [bgImagv addSubview:self.tabv1];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tabv1.width, 35)];
+    self.tabv1.tableHeaderView = view;
+    
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tabv1.width, 2)];
+    lineView.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
+    [view addSubview:lineView];
+    
+    UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 33, self.tabv1.width, 2)];
+    lineView1.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
+    [view addSubview:lineView1];
+    
+    UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(32, 0, 60, 35)];
+    nameLb.font = DEF_MyFont(17);
+    nameLb.text = @"提交人";
+    [view addSubview:nameLb];
+    
+    UILabel *contentLb = [[UILabel alloc]initWithFrame:CGRectMake(317, 0, 80, 35)];
+    contentLb.font = DEF_MyFont(17);
+    contentLb.text = @"提交内容";
+    [view addSubview:contentLb];
+    
+    UILabel *timeLb = [[UILabel alloc]initWithFrame:CGRectMake(640, 0, 80, 35)];
+    timeLb.font = DEF_MyFont(17);
+    timeLb.text = @"提交时间";
+    [view addSubview:timeLb];
+
     
     NSDictionary * dic1 = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
@@ -116,6 +153,8 @@
 
 -(void)chaxun
 {
+    self.tabv.hidden = YES;
+    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -130,9 +169,11 @@
                            @"authorId"         :self.m007Dic[@"userId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M032"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        self.M031Arr = result[@""];
-    } failture:^(id result) {
+        self.M031Dic = result;
+        [self.tabv1 reloadData];
+        self.tabv1.hidden = NO;
         
+    } failture:^(id result) {
     }];
 
 }
@@ -164,33 +205,91 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return 50;
+    if (tableView == self.tabv) {
+        return 50;
+    }
+    return 75;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.m007Arr count];
+    
+    if (tableView == self.tabv) {
+        return [self.m007Arr count];
+    }
+    return [self.M031Dic[@"contents"] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (tableView == self.tabv) {
+        static NSString *CellIdentifier = @"Cell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor clearColor];
+            
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 49, self.tabv.width, 0.5)];
+            lineView.backgroundColor = [UIColor grayColor];
+            [cell.contentView addSubview:lineView];
+            
+        }
+        
+        cell.textLabel.text = self.m007Arr[indexPath.row][@"userName"];
+        
+        return cell;
+
+    }
+    
+    static NSString *CellIdentifier1 = @"Cell1";
+    
+    LunTanCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[LunTanCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 49, self.tabv.width, 0.5)];
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 74.5, self.tabv1.width, 0.5)];
         lineView.backgroundColor = [UIColor grayColor];
         [cell.contentView addSubview:lineView];
         
+        UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(32, 0, 80, 70)];
+        nameLb.font = DEF_MyFont(16);
+        nameLb.numberOfLines = 3;
+        nameLb.tag = 200;
+        [cell.contentView addSubview:nameLb];
+        
+        UILabel *contentLb = [[UILabel alloc]initWithFrame:CGRectMake(nameLb.right + 10, 0, 400, 70)];
+        contentLb.font = DEF_MyFont(16);
+        contentLb.numberOfLines = 3;
+        contentLb.tag = 201;
+        [cell.contentView addSubview:contentLb];
+        
+        UILabel *timeLb = [[UILabel alloc]initWithFrame:CGRectMake(contentLb.right + 20, 0, 140, 70)];
+        timeLb.font = DEF_MyFont(16);
+        timeLb.numberOfLines = 3;
+        timeLb.tag = 202;
+        [cell.contentView addSubview:timeLb];
+        
     }
     
-    cell.textLabel.text = self.m007Arr[indexPath.row][@"userName"];
+    UILabel *nameLb = [cell.contentView viewWithTag:200];
+    nameLb.text = self.M031Dic[@"contents"][indexPath.row][@"authorName"];
     
+    UILabel *contentLb = [cell.contentView viewWithTag:201];
+    contentLb.text = self.M031Dic[@"contents"][indexPath.row][@"content"];
+    
+    UILabel *timeLb = [cell.contentView viewWithTag:202];
+    timeLb.text = self.M031Dic[@"contents"][indexPath.row][@"lastUpdateTime"];
+
+    cell.btn.tag = 1000+ indexPath.row;
+    [cell.btn addTarget:self action:@selector(zan:) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -200,6 +299,12 @@
     self.selLb.text = self.m007Dic[@"userName"];
 }
 
+-(void)zan:(UIButton *)sender
+{
+    int tag = (int)sender.tag - 1000;
+    NSLog(@"ggggggg%d",tag);
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
