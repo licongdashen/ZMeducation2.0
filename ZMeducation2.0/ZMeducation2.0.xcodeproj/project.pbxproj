@@ -36,6 +36,10 @@
 		50A9558B1F1EF36A00D12F40 /* JianDaTiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9558A1F1EF36A00D12F40 /* JianDaTiViewController.m */; };
 		50A9558E1F1F5FFE00D12F40 /* DanXuanTiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9558D1F1F5FFE00D12F40 /* DanXuanTiViewController.m */; };
 		746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */; };
+		D96CF8BF1F248C1600E82985 /* PdfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96CF8BE1F248C1600E82985 /* PdfViewController.m */; };
+		D96CF8C21F248C2D00E82985 /* ShiPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96CF8C11F248C2D00E82985 /* ShiPinViewController.m */; };
+		D96CF8C41F2492E500E82985 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96CF8C31F2492E500E82985 /* AVFoundation.framework */; };
+		D96CF8C61F2492EA00E82985 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96CF8C51F2492EA00E82985 /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +122,12 @@
 		50A9558D1F1F5FFE00D12F40 /* DanXuanTiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanXuanTiViewController.m; sourceTree = "<group>"; };
 		5E0214FCDB878B1994FBB860 /* Pods-ZMeducation2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMeducation2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMeducation2.0/Pods-ZMeducation2.0.release.xcconfig"; sourceTree = "<group>"; };
 		756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMeducation2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D96CF8BD1F248C1600E82985 /* PdfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfViewController.h; sourceTree = "<group>"; };
+		D96CF8BE1F248C1600E82985 /* PdfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfViewController.m; sourceTree = "<group>"; };
+		D96CF8C01F248C2D00E82985 /* ShiPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShiPinViewController.h; sourceTree = "<group>"; };
+		D96CF8C11F248C2D00E82985 /* ShiPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiPinViewController.m; sourceTree = "<group>"; };
+		D96CF8C31F2492E500E82985 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D96CF8C51F2492EA00E82985 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +135,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96CF8C61F2492EA00E82985 /* AVKit.framework in Frameworks */,
+				D96CF8C41F2492E500E82985 /* AVFoundation.framework in Frameworks */,
 				746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +248,10 @@
 				500037E11EEF8E4D0007D164 /* HomeViewController.m */,
 				500037E31EEFC9740007D164 /* LiuChengViewController.h */,
 				500037E41EEFC9740007D164 /* LiuChengViewController.m */,
+				D96CF8BD1F248C1600E82985 /* PdfViewController.h */,
+				D96CF8BE1F248C1600E82985 /* PdfViewController.m */,
+				D96CF8C01F248C2D00E82985 /* ShiPinViewController.h */,
+				D96CF8C11F248C2D00E82985 /* ShiPinViewController.m */,
 				50A955851F176E7100D12F40 /* YinPinViewController.h */,
 				50A955861F176E7100D12F40 /* YinPinViewController.m */,
 				50A955821F17200000D12F40 /* TianKongTiViewController.h */,
@@ -296,6 +312,8 @@
 		A4B65CD91E007949D08849BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D96CF8C51F2492EA00E82985 /* AVKit.framework */,
+				D96CF8C31F2492E500E82985 /* AVFoundation.framework */,
 				756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */,
 			);
 			name = Frameworks;
@@ -506,6 +524,7 @@
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
 				50A9558E1F1F5FFE00D12F40 /* DanXuanTiViewController.m in Sources */,
+				D96CF8BF1F248C1600E82985 /* PdfViewController.m in Sources */,
 				505AEC141F209EC500B0C1C0 /* LunTanViewController.m in Sources */,
 				50A9558B1F1EF36A00D12F40 /* JianDaTiViewController.m in Sources */,
 				50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */,
@@ -518,6 +537,7 @@
 				50A955871F176E7100D12F40 /* YinPinViewController.m in Sources */,
 				50A955811F14A82F00D12F40 /* CustomLine.m in Sources */,
 				500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */,
+				D96CF8C21F248C2D00E82985 /* ShiPinViewController.m in Sources */,
 				500037E21EEF8E4D0007D164 /* HomeViewController.m in Sources */,
 				50590E8B1EFA4D8400FF1F5A /* MBProgressHUD.m in Sources */,
 			);

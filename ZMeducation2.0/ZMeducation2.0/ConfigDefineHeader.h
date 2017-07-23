@@ -11,6 +11,8 @@
 
 #define DEF_IPAddress @"http://121.40.33.206:8280/rs/invoke"
 
+#define DEF_IPA @"http://121.40.33.206:8280"
+
 #define SAVE_USERINFO @"SAVE_USERINFO"
 
 #endif /* ConfigDefineHeader_h */

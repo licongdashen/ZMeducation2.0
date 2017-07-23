@@ -13,6 +13,8 @@
 #import "DanXuanTiViewController.h"
 #import "DuoXuanTiViewController.h"
 #import "LunTanViewController.h"
+#import "PdfViewController.h"
+#import "ShiPinViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -31,6 +33,10 @@
 @property (nonatomic, strong) DuoXuanTiViewController *vc5;
 
 @property (nonatomic, strong) LunTanViewController *vc6;
+
+@property (nonatomic, strong) PdfViewController *vc7;
+
+@property (nonatomic, strong) ShiPinViewController *vc8;
 
 @end
 
@@ -133,8 +139,60 @@
     
     if ([dic[@"unitTypeId"] intValue] == 11) {
         //pdf文件
+        
+        if (!self.vc7) {
+            self.vc7 = [[PdfViewController alloc]init];
+            self.vc7.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc7];
+        if (self.currentVc == self.vc7) {
+            self.vc7.dic = dic;
+
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc7 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc7 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                
+                self.currentVc = self.vc7;
+                self.vc7.dic = dic;
+
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 12) {
         //视频
+        
+        if (!self.vc8) {
+            self.vc8 = [[ShiPinViewController alloc]init];
+            self.vc8.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc8];
+        if (self.currentVc == self.vc8) {
+            self.vc8.dic = dic;
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc8 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc8 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                
+                self.currentVc = self.vc8;
+                
+                self.vc8.dic = dic;
+
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 13) {
         //音频
         if (!self.vc2) {
@@ -144,6 +202,8 @@
         
         [self addChildViewController:self.vc2];
         if (self.currentVc == self.vc2) {
+            self.vc2.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc2 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -155,6 +215,8 @@
                 [self.currentVc removeFromParentViewController];
                 
                 self.currentVc = self.vc2;
+                self.vc2.dic = dic;
+
             }
         }];
         
@@ -162,12 +224,14 @@
         //填空题
         
         if (!self.vc1) {
-            self.vc1 = [[TianKongTiViewController alloc]initWithDic:dic];
+            self.vc1 = [[TianKongTiViewController alloc]init];
             self.vc1.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
         }
         
         [self addChildViewController:self.vc1];
         if (self.currentVc == self.vc1) {
+            self.vc1.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc1 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -178,6 +242,8 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc1;
+                self.vc1.dic = dic;
+
             }
         }];
         
@@ -185,12 +251,14 @@
         //简答题
         
         if (!self.vc3) {
-            self.vc3 = [[JianDaTiViewController alloc]initWithDic:dic];
+            self.vc3 = [[JianDaTiViewController alloc]init];
             self.vc3.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
         }
         
         [self addChildViewController:self.vc3];
         if (self.currentVc == self.vc3) {
+            self.vc3.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc3 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -201,6 +269,8 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc3;
+                self.vc3.dic = dic;
+
             }
         }];
 
@@ -211,12 +281,15 @@
         //单选题
         
         if (!self.vc4) {
-            self.vc4 = [[DanXuanTiViewController alloc]initWithDic:dic];
+            self.vc4 = [[DanXuanTiViewController alloc]init];
             self.vc4.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+            
         }
         
         [self addChildViewController:self.vc4];
         if (self.currentVc == self.vc4) {
+            self.vc4.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc4 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -227,6 +300,8 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc4;
+                self.vc4.dic = dic;
+
             }
         }];
 
@@ -234,12 +309,14 @@
         //多选题
         
         if (!self.vc5) {
-            self.vc5 = [[DuoXuanTiViewController alloc]initWithDic:dic];
+            self.vc5 = [[DuoXuanTiViewController alloc]init];
             self.vc5.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
         }
         
         [self addChildViewController:self.vc5];
         if (self.currentVc == self.vc5) {
+            self.vc5.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc5 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -250,18 +327,22 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc5;
+                self.vc5.dic = dic;
+
             }
         }];
 
     }else if ([dic[@"unitTypeId"] intValue] == 31) {
         //论坛
         if (!self.vc6) {
-            self.vc6 = [[LunTanViewController alloc]initWithDic:dic];
+            self.vc6 = [[LunTanViewController alloc]init];
             self.vc6.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
         }
         
         [self addChildViewController:self.vc6];
         if (self.currentVc == self.vc6) {
+            self.vc6.dic = dic;
+
             return;
         }
         [self transitionFromViewController:self.currentVc toViewController:self.vc6 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
@@ -272,6 +353,8 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc6;
+                self.vc6.dic = dic;
+
             }
         }];
 

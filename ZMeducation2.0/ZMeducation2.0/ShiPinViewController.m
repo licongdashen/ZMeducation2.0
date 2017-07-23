@@ -1,25 +1,26 @@
 //
-//  YinPinViewController.m
+//  ShiPinViewController.m
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/7/13.
+//  Created by 李聪 on 2017/7/23.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
-#import "YinPinViewController.h"
+#import "ShiPinViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
 
-@interface YinPinViewController ()
+@interface ShiPinViewController ()
 {
     AVPlayer *player;
     AVPlayerLayer *showVodioLayer;
+    
 }
+@property (nonatomic, strong)UIWebView *web;
 
 @end
 
-@implementation YinPinViewController
-
+@implementation ShiPinViewController
 -(id)initWithDic:(NSDictionary *)dic
 {
     if (self = [super init]) {
@@ -32,12 +33,17 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [player play];
-    
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [player pause];
+
+}
+
+-(void)dealloc
+{
     
 }
 
@@ -54,7 +60,7 @@
     showVodioLayer.frame = CGRectMake(0, 0, self.view.width - 175, self.view.height - 95);
     [self.view.layer addSublayer:showVodioLayer];
     [player play];
-    
+
 }
 
 -(void)setDic:(NSDictionary *)dic
@@ -65,6 +71,48 @@
     player = [AVPlayer playerWithPlayerItem:playerItem];
     [showVodioLayer setPlayer:player];
     [player play];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    
+    NSLog(@"%@",change[@"new"]);
+    AVPlayerItemStatus status = [change[@"new"] integerValue];
+    switch (status) {
+        case AVPlayerItemStatusUnknown: {
+            NSLog(@"未知状态");
+            break;
+        }
+        case AVPlayerItemStatusReadyToPlay: {
+            NSLog(@"视频的总时长%f", CMTimeGetSeconds(player.currentItem.duration));
+            
+            break;
+        }
+        case AVPlayerItemStatusFailed: {
+            NSLog(@"加载失败");
+            break;
+        }
+    }
+    
+    
+}
+//快进
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //快进
+    //跳到某一个进度的方法：seekToTime:
+    //得到当前的时间 + 快进的时间
+    
+    
+    //获得当前播放的时间 （秒）
+    Float64 cur =  CMTimeGetSeconds(player.currentTime);
+    cur ++;
+    [player seekToTime:CMTimeMake(cur, 1)];
+    
+}
+
+-(void)itemDidPlayToEndTime:(NSNotification *)not{
+    NSLog(@"播放结束");
+    [player seekToTime:kCMTimeZero];
+    
 }
 
 - (void)didReceiveMemoryWarning {

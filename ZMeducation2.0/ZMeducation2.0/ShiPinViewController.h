@@ -1,15 +1,16 @@
 //
-//  YinPinViewController.h
+//  ShiPinViewController.h
 //  ZMeducation2.0
 //
-//  Created by Queen on 2017/7/13.
+//  Created by 李聪 on 2017/7/23.
 //  Copyright © 2017年 licong. All rights reserved.
 //
 
 #import "ZMBaseViewController.h"
 
-@interface YinPinViewController : ZMBaseViewController
+@interface ShiPinViewController : ZMBaseViewController
 @property (nonatomic, strong) NSDictionary *dic;
 
 -(id)initWithDic:(NSDictionary *)dic;
+
 @end

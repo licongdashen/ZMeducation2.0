@@ -48,7 +48,16 @@
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
     
-    UIImageView *bgImagv = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, self.view.width - 30 - 175, self.view.height - 30 - 95)];
+
+}
+
+-(void)setDic:(NSDictionary *)dic
+{
+    _dic = dic;
+    
+    [self.bgImagv removeFromSuperview];
+    
+    UIImageView *bgImagv = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, DEF_DEVICE_WIDTH - 30 - 175, DEF_DEVICE_HEIGHT - 30 - 95)];
     bgImagv.image = DEF_IMAGE(@"tiankongti_Bg");
     bgImagv.userInteractionEnabled = YES;
     [self.view addSubview:bgImagv];
@@ -107,7 +116,7 @@
     [bgImagv addSubview:lable4];
     self.lable4 = lable4;
     
-    NSDictionary * dic = @{@"version"          :@"2.0.0",
+    NSDictionary * dic1 = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
@@ -119,7 +128,7 @@
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M021"]};
-    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+    [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
         NSString *str = self.result[@"content"];
@@ -183,7 +192,6 @@
         
     }];
 }
-
 -(void)sel:(UIButton *)sender
 {
     int tag = (int)sender.tag - 1000;

@@ -25,6 +25,8 @@
 
 @property (nonatomic, weak)UILabel *selLb;
 
+@property (nonatomic, strong)NSMutableDictionary *M031Arr;
+
 @end
 
 @implementation LunTanViewController
@@ -44,7 +46,16 @@
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
     
-    UIImageView *bgImagv = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, self.view.width - 30 - 175, self.view.height - 30 - 95)];
+    
+}
+
+-(void)setDic:(NSDictionary *)dic
+{
+    _dic = dic;
+    
+    [self.bgImagv removeFromSuperview];
+    
+    UIImageView *bgImagv = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, DEF_DEVICE_WIDTH - 30 - 175, DEF_DEVICE_HEIGHT - 30 - 95)];
     bgImagv.image = DEF_IMAGE(@"tiankongti_Bg");
     bgImagv.userInteractionEnabled = YES;
     [self.view addSubview:bgImagv];
@@ -77,7 +88,7 @@
     self.tabv.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tabv.hidden = YES;
     [bgImagv addSubview:self.tabv];
-
+    
     UIButton *chaxunBtn = [[UIButton alloc]initWithFrame:CGRectMake(bgImagv.width - 130, 45, 90, 30)];
     [chaxunBtn setImage:DEF_IMAGE(@"luntan_chaxun") forState:UIControlStateNormal];
     [chaxunBtn addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
@@ -85,7 +96,7 @@
     
     
     
-    NSDictionary * dic = @{@"version"          :@"2.0.0",
+    NSDictionary * dic1 = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
@@ -94,7 +105,7 @@
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M007"]};
-    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+    [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
         self.m007Arr = result[@"users"];
         [self.tabv reloadData];
     } failture:^(id result) {
@@ -119,7 +130,7 @@
                            @"authorId"         :self.m007Dic[@"userId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M032"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        
+        self.M031Arr = result[@""];
     } failture:^(id result) {
         
     }];
