@@ -15,6 +15,7 @@
 #import "LunTanViewController.h"
 #import "PdfViewController.h"
 #import "ShiPinViewController.h"
+#import "XiaoZuHeZuoViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -37,6 +38,8 @@
 @property (nonatomic, strong) PdfViewController *vc7;
 
 @property (nonatomic, strong) ShiPinViewController *vc8;
+
+@property (nonatomic, strong) XiaoZuHeZuoViewController *vc9;
 
 @end
 
@@ -360,7 +363,29 @@
 
     }else if ([dic[@"unitTypeId"] intValue] == 41) {
         //独立完成分项
+        if (!self.vc9) {
+            self.vc9 = [[XiaoZuHeZuoViewController alloc]init];
+            self.vc9.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
         
+        [self addChildViewController:self.vc9];
+        if (self.currentVc == self.vc9) {
+            self.vc9.dic = dic;
+            
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc9 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc9 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc9;
+                self.vc9.dic = dic;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 42) {
         //合作完成分项
         

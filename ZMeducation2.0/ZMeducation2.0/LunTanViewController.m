@@ -30,6 +30,10 @@
 
 @property (nonatomic, strong) UITableView *tabv1;
 
+@property (nonatomic, weak) UILabel *titleLb;
+
+@property (nonatomic, weak) UITextView *tv;
+
 @end
 
 @implementation LunTanViewController
@@ -132,8 +136,33 @@
     timeLb.text = @"提交时间";
     [view addSubview:timeLb];
 
+    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(25, self.tabv1.bottom, self.tabv1.width, 2)];
+    lineView2.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
+    [bgImagv addSubview:lineView2];
     
-    NSDictionary * dic1 = @{@"version"          :@"2.0.0",
+    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(35, lineView2.bottom, self.tabv1.width - 20, 45)];
+    titleLb.font = DEF_MyFont(17);
+    titleLb.text = @"论坛主题:";
+    [bgImagv addSubview:titleLb];
+    self.titleLb = titleLb;
+    
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(25, titleLb.bottom, self.tabv1.width, 75)];
+    imagv.image = DEF_IMAGE(@"luntan_shurukuang");
+    imagv.userInteractionEnabled = YES;
+    [bgImagv addSubview:imagv];
+    
+    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, imagv.width, imagv.height)];
+    tv.backgroundColor = [UIColor clearColor];
+    [imagv addSubview:tv];
+    self.tv = tv;
+    
+    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
+    tijiaoBtn.centerX = bgImagv.centerX;
+    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+    [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
+    [bgImagv addSubview:tijiaoBtn];
+    
+    NSDictionary * dic1 = @{@"version"         :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
@@ -149,6 +178,35 @@
         
     }];
 
+}
+
+-(void)tijiao
+{
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M031",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"content"          :self.tv.text,
+                           @"sign"             :[CACUtility getSignWithMethod:@"M031"]};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"提交成功"];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"提交失败"];
+        }
+
+    } failture:^(id result) {
+        [CACUtility showTips:@"提交失败"];
+    }];
 }
 
 -(void)chaxun
@@ -172,7 +230,7 @@
         self.M031Dic = result;
         [self.tabv1 reloadData];
         self.tabv1.hidden = NO;
-        
+        self.titleLb.text = [NSString stringWithFormat:@"论坛主题:  %@",result[@"title"]];
     } failture:^(id result) {
     }];
 
@@ -287,6 +345,19 @@
 
     cell.btn.tag = 1000+ indexPath.row;
     [cell.btn addTarget:self action:@selector(zan:) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.M031Dic[@"contents"][indexPath.row][@"ifVote"] intValue] == 1) {
+        cell.btn.enabled = NO;
+    }else{
+        cell.btn.enabled = YES;
+    }
+
+    cell.btn1.tag = 10000+ indexPath.row;
+    [cell.btn1 addTarget:self action:@selector(ding:) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.M031Dic[@"contents"][indexPath.row][@"ifSelect"] intValue] == 1) {
+        cell.btn1.enabled = NO;
+    }else{
+        cell.btn1.enabled = YES;
+    }
 
     return cell;
 
@@ -302,9 +373,69 @@
 -(void)zan:(UIButton *)sender
 {
     int tag = (int)sender.tag - 1000;
-    NSLog(@"ggggggg%d",tag);
-    
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M033",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"answerId"         :self.M031Dic[@"contents"][tag][@"answerId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M033"]};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"点赞成功"];
+            [self performSelector:@selector(chaxun) withObject:nil afterDelay:2];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"点赞失败"];
+        }
+
+    } failture:^(id result) {
+        [CACUtility showTips:@"点赞失败"];
+    }];
+
 }
+
+-(void)ding:(UIButton *)sender
+{
+    int tag = (int)sender.tag - 10000;
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M034",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"answerId"         :self.M031Dic[@"contents"][tag][@"answerId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M034"]};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"顶置成功"];
+            [self performSelector:@selector(chaxun) withObject:nil afterDelay:2];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"顶置失败"];
+        }
+        
+    } failture:^(id result) {
+        [CACUtility showTips:@"顶置失败"];
+    }];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

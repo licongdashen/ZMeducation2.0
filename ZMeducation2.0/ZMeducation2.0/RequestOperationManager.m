@@ -97,15 +97,13 @@ static RequestOperationManager *sessionManager;
 
     [manager POST:DEF_IPAddress parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        });
+        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
         [RequestOperationManager requestSuccess:responseObject task:task finishHandle:finishHandle];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        });
+        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
         [RequestOperationManager requestError:error task:task failHandle:failHandle];
     }];
     

@@ -10,5 +10,6 @@
 
 @interface LunTanCell : UITableViewCell
 @property (nonatomic, strong) UIButton *btn;
+@property (nonatomic, strong) UIButton *btn1;
 
 @end

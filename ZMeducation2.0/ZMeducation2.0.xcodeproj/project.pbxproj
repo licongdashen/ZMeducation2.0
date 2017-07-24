@@ -30,6 +30,7 @@
 		50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 50590E891EFA4D8400FF1F5A /* README.mdown */; };
 		505AEC111F20996600B0C1C0 /* DuoXuanTiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505AEC101F20996600B0C1C0 /* DuoXuanTiViewController.m */; };
 		505AEC141F209EC500B0C1C0 /* LunTanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505AEC131F209EC500B0C1C0 /* LunTanViewController.m */; };
+		505AEC171F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505AEC161F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m */; };
 		50A955811F14A82F00D12F40 /* CustomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A955801F14A82F00D12F40 /* CustomLine.m */; };
 		50A955841F17200000D12F40 /* TianKongTiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A955831F17200000D12F40 /* TianKongTiViewController.m */; };
 		50A955871F176E7100D12F40 /* YinPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A955861F176E7100D12F40 /* YinPinViewController.m */; };
@@ -111,6 +112,8 @@
 		505AEC101F20996600B0C1C0 /* DuoXuanTiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuoXuanTiViewController.m; sourceTree = "<group>"; };
 		505AEC121F209EC500B0C1C0 /* LunTanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LunTanViewController.h; sourceTree = "<group>"; };
 		505AEC131F209EC500B0C1C0 /* LunTanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LunTanViewController.m; sourceTree = "<group>"; };
+		505AEC151F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoZuHeZuoViewController.h; sourceTree = "<group>"; };
+		505AEC161F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoZuHeZuoViewController.m; sourceTree = "<group>"; };
 		50A9557F1F14A82F00D12F40 /* CustomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLine.h; sourceTree = "<group>"; };
 		50A955801F14A82F00D12F40 /* CustomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomLine.m; sourceTree = "<group>"; };
 		50A955821F17200000D12F40 /* TianKongTiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianKongTiViewController.h; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				505AEC131F209EC500B0C1C0 /* LunTanViewController.m */,
 				D96CF8C71F24DEC800E82985 /* LunTanCell.h */,
 				D96CF8C81F24DEC800E82985 /* LunTanCell.m */,
+				505AEC151F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.h */,
+				505AEC161F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m */,
 				500037E61EEFCF430007D164 /* XieZuoViewController.h */,
 				500037E71EEFCF430007D164 /* XieZuoViewController.m */,
 				500037E91EEFDA220007D164 /* LiuLanViewController.h */,
@@ -531,6 +536,7 @@
 				50A9558E1F1F5FFE00D12F40 /* DanXuanTiViewController.m in Sources */,
 				D96CF8BF1F248C1600E82985 /* PdfViewController.m in Sources */,
 				505AEC141F209EC500B0C1C0 /* LunTanViewController.m in Sources */,
+				505AEC171F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m in Sources */,
 				50A9558B1F1EF36A00D12F40 /* JianDaTiViewController.m in Sources */,
 				50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */,
 				505AEC111F20996600B0C1C0 /* DuoXuanTiViewController.m in Sources */,
