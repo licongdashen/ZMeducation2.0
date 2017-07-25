@@ -87,9 +87,35 @@
     [bgImagv addSubview:view4];
     self.view4 = view4;
 
-    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(35, 0, view1.width - 35, 18)];
+    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(35, 15, view1.width - 35, 18)];
     titleLb.text = @"主题:";
     [self.view1 addSubview:titleLb];
+    self.titleLb = titleLb;
+    
+    UILabel *title1Lb = [[UILabel alloc]initWithFrame:CGRectMake(35, titleLb.bottom + 23, view1.width - 35, 18)];
+    title1Lb.text = @"分项:";
+    [self.view1 addSubview:title1Lb];
+    self.title1Lb = title1Lb;
+    
+    UILabel *titleLb2 = [[UILabel alloc]initWithFrame:CGRectMake(35, title1Lb.bottom + 25, 44, 18)];
+    titleLb2.text = @"内容:";
+    [self.view1 addSubview:titleLb2];
+
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(80, title1Lb.bottom + 25, 700, 360)];
+    imagv.userInteractionEnabled = YES;
+    imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    [self.view1 addSubview:imagv];
+    
+    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+    [imagv addSubview:tv];
+    self.tv = tv;
+    
+    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 30, 180, 30)];
+    tijiaoBtn.centerX = bgImagv.centerX;
+    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+    [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
+    [self.view1 addSubview:tijiaoBtn];
+
     
     NSDictionary * dic1 = @{@"version"         :@"2.0.0",
                            @"clientType"       :@"1001",
@@ -104,12 +130,46 @@
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M241"]};
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
-       
+        
+        titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
+        
+        title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"content"]];
+
     } failture:^(id result) {
         
     }];
 
 }
+
+-(void)tijiao
+{
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M242",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"content"          :self.tv.text,
+                           @"sign"             :[CACUtility getSignWithMethod:@"M242"]};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"提交成功"];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"提交失败"];
+        }
+        
+    } failture:^(id result) {
+        [CACUtility showTips:@"提交失败"];
+    }];
+}
+
 
 -(void)segmentAction:(UISegmentedControl *)Seg
 {
