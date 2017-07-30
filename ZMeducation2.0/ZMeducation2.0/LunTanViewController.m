@@ -18,15 +18,15 @@
 
 @property (nonatomic, strong)UITableView *tabv;
 
-@property (nonatomic, strong)NSMutableArray *m007Arr;
+@property (nonatomic, strong)NSMutableArray *M2007Arr;
 
-@property (nonatomic, strong)NSMutableDictionary *m007Dic;
+@property (nonatomic, strong)NSMutableDictionary *M2007Dic;
 
 @property (nonatomic, weak)UIButton *selBtn;
 
 @property (nonatomic, weak)UILabel *selLb;
 
-@property (nonatomic, strong)NSMutableDictionary *M031Dic;
+@property (nonatomic, strong)NSMutableDictionary *M2031Dic;
 
 @property (nonatomic, strong) UITableView *tabv1;
 
@@ -93,6 +93,7 @@
     self.tabv.delegate = self;
     self.tabv.dataSource = self;
     self.tabv.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tabv.backgroundColor = [UIColor whiteColor];
     self.tabv.hidden = YES;
     [bgImagv addSubview:self.tabv];
     
@@ -166,13 +167,13 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M007",
+                           @"method"           :@"M2007",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M007"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2007"]};
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
-        self.m007Arr = result[@"users"];
+        self.M2007Arr = result[@"users"];
         [self.tabv reloadData];
     } failture:^(id result) {
         
@@ -186,7 +187,7 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M031",
+                           @"method"           :@"M2031",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
@@ -194,7 +195,7 @@
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"content"          :self.tv.text,
-                           @"sign"             :[CACUtility getSignWithMethod:@"M031"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2031"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
@@ -213,21 +214,25 @@
 {
     self.tabv.hidden = YES;
     
+    if (!self.M2007Dic) {
+        return;
+    }
+    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M032",
+                           @"method"           :@"M2032",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"authorId"         :self.m007Dic[@"userId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M032"]};
+                           @"authorId"         :self.M2007Dic[@"userId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2032"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        self.M031Dic = result;
+        self.M2031Dic = result;
         [self.tabv1 reloadData];
         self.tabv1.hidden = NO;
         self.titleLb.text = [NSString stringWithFormat:@"论坛主题:  %@",result[@"title"]];
@@ -238,6 +243,8 @@
 
 -(void)sel1:(UIButton *)sender
 {
+    [self.bgImagv bringSubviewToFront:self.tabv];
+    
     if (self.tabv.hidden == YES) {
         self.tabv.hidden = NO;
     }else{
@@ -273,9 +280,9 @@
 {
     
     if (tableView == self.tabv) {
-        return [self.m007Arr count];
+        return [self.M2007Arr count];
     }
-    return [self.M031Dic[@"contents"] count];
+    return [self.M2031Dic[@"contents"] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -296,7 +303,7 @@
             
         }
         
-        cell.textLabel.text = self.m007Arr[indexPath.row][@"userName"];
+        cell.textLabel.text = self.M2007Arr[indexPath.row][@"userName"];
         
         return cell;
 
@@ -335,17 +342,17 @@
     }
     
     UILabel *nameLb = [cell.contentView viewWithTag:200];
-    nameLb.text = self.M031Dic[@"contents"][indexPath.row][@"authorName"];
+    nameLb.text = self.M2031Dic[@"contents"][indexPath.row][@"authorName"];
     
     UILabel *contentLb = [cell.contentView viewWithTag:201];
-    contentLb.text = self.M031Dic[@"contents"][indexPath.row][@"content"];
+    contentLb.text = self.M2031Dic[@"contents"][indexPath.row][@"content"];
     
     UILabel *timeLb = [cell.contentView viewWithTag:202];
-    timeLb.text = self.M031Dic[@"contents"][indexPath.row][@"lastUpdateTime"];
+    timeLb.text = self.M2031Dic[@"contents"][indexPath.row][@"lastUpdateTime"];
 
     cell.btn.tag = 1000+ indexPath.row;
     [cell.btn addTarget:self action:@selector(zan:) forControlEvents:UIControlEventTouchUpInside];
-    if ([self.M031Dic[@"contents"][indexPath.row][@"ifVote"] intValue] == 1) {
+    if ([self.M2031Dic[@"contents"][indexPath.row][@"ifVote"] intValue] == 1) {
         cell.btn.enabled = NO;
     }else{
         cell.btn.enabled = YES;
@@ -353,7 +360,7 @@
 
     cell.btn1.tag = 10000+ indexPath.row;
     [cell.btn1 addTarget:self action:@selector(ding:) forControlEvents:UIControlEventTouchUpInside];
-    if ([self.M031Dic[@"contents"][indexPath.row][@"ifSelect"] intValue] == 1) {
+    if ([self.M2031Dic[@"contents"][indexPath.row][@"ifSelect"] intValue] == 1) {
         cell.btn1.enabled = NO;
     }else{
         cell.btn1.enabled = YES;
@@ -365,9 +372,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.m007Dic = self.m007Arr[indexPath.row];
+    self.M2007Dic = self.M2007Arr[indexPath.row];
     self.tabv.hidden = YES;
-    self.selLb.text = self.m007Dic[@"userName"];
+    self.selLb.text = self.M2007Dic[@"userName"];
 }
 
 -(void)zan:(UIButton *)sender
@@ -377,15 +384,15 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M033",
+                           @"method"           :@"M2033",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"answerId"         :self.M031Dic[@"contents"][tag][@"answerId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M033"]};
+                           @"answerId"         :self.M2031Dic[@"contents"][tag][@"answerId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2033"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
 
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
@@ -410,15 +417,15 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M034",
+                           @"method"           :@"M2034",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"answerId"         :self.M031Dic[@"contents"][tag][@"answerId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M034"]};
+                           @"answerId"         :self.M2031Dic[@"contents"][tag][@"answerId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2034"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {

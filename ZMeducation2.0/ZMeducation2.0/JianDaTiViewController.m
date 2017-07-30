@@ -144,14 +144,14 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M021",
+                           @"method"           :@"M2021",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M021"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2021"]};
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
@@ -170,7 +170,7 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M022",
+                           @"method"           :@"M2022",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
@@ -178,7 +178,7 @@
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"content"          :self.tv.text,
-                           @"sign"             :[CACUtility getSignWithMethod:@"M022"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2022"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
@@ -200,14 +200,14 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M023",
+                           @"method"           :@"M2023",
                            @"userId"           :self.userInfo[@"userId"],
                            @"gradeId"          :self.userInfo[@"gradeId"],
                            @"classId"          :self.userInfo[@"classId"],
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M023"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2023"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         self.chaxunArr = result[@"contents"];
         [self.tabv reloadData];

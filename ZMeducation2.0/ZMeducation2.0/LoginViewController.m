@@ -51,11 +51,11 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M001",
+                           @"method"           :@"M2001",
                            @"userName"         :self.userNameTf.text,
                            @"password"         :self.userPassWorldTf.text,
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :[CACUtility getSignWithMethod:@"M001"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2001"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
 

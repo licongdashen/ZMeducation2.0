@@ -76,11 +76,11 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M003",
+                           @"method"           :@"M2003",
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"1",
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         [self loadyuedunianji];
     } failture:^(id result) {
@@ -96,11 +96,11 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M003",
+                           @"method"           :@"M2003",
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
-                           @"sign"             :[CACUtility getSignWithMethod:@"m003"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2003"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         self.nianjiArr = result[@"grades"];
         [self loadxiezuonianji];
@@ -181,11 +181,11 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M004",
+                           @"method"           :@"M2004",
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"gradeId"          :self.nianjiArr[tag - 1000][@"gradeId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"m004"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2004"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
 
         self.banjiArr = result[@"classes"];
@@ -234,12 +234,12 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M005",
+                           @"method"           :@"M2005",
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"gradeId"          :self.gradeId,
                            @"classId"          :self.banjiArr[tag - 10000][@"classId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"m005"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         self.kechengArr = result[@"courses"];
@@ -285,13 +285,13 @@
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
                            @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M006",
+                           @"method"           :@"M2006",
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"gradeId"          :self.gradeId,
                            @"classId"          :self.classId,
                            @"courseId"         :self.courseId,
-                           @"sign"             :[CACUtility getSignWithMethod:@"m006"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2006"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         HomeViewController *VC = [[HomeViewController alloc]init];
