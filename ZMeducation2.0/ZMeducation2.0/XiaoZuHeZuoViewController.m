@@ -9,6 +9,7 @@
 #import "XiaoZuHeZuoViewController.h"
 #import "XiaoZuHeZuoCell.h"
 #import "TouPiaoJieguoViewController.h"
+#import "TouPiaoJieGuo1ViewController.h"
 
 @interface XiaoZuHeZuoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -52,6 +53,10 @@
 @property (nonatomic, strong)UITableView *tabv3;
 
 @property (nonatomic, strong)NSMutableArray * tempM2044Arr;
+
+@property (nonatomic, weak)UIButton *tijiaoBtn1;
+
+@property (nonatomic, weak)UIButton *jiegouBtn1;
 
 @end
 
@@ -202,12 +207,27 @@
     [chaxunBtn addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
     [self.view3 addSubview:chaxunBtn];
     
-    self.tabv3 = [[UITableView alloc]initWithFrame:CGRectMake(20, chaxunBtn.bottom + 10, self.view3.width - 40, self.view3.height - chaxunBtn.bottom - 10) style:UITableViewStylePlain];
+    self.tabv3 = [[UITableView alloc]initWithFrame:CGRectMake(20, chaxunBtn.bottom + 10, self.view3.width - 40, 300) style:UITableViewStylePlain];
     self.tabv3.delegate = self;
     self.tabv3.dataSource = self;
     self.tabv3.backgroundColor = [UIColor clearColor];
     [self.view3 addSubview:self.tabv3];
 
+    
+    UIButton *tijiaoBtn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tabv3.bottom + 10, 180, 30)];
+    tijiaoBtn1.centerX = bgImagv.centerX - 200;
+    [tijiaoBtn1 addTarget:self action:@selector(tijiao1) forControlEvents:UIControlEventTouchUpInside];
+    [self.view3 addSubview:tijiaoBtn1];
+    self.tijiaoBtn1 = tijiaoBtn1;
+    
+    UIButton *jiegouBtn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tabv3.bottom + 10, 180, 30)];
+    jiegouBtn1.centerX = bgImagv.centerX + 200;
+    [jiegouBtn1 addTarget:self action:@selector(jiegou1) forControlEvents:UIControlEventTouchUpInside];
+    [jiegouBtn1 setImage:DEF_IMAGE(@"hezuo_jieguo") forState:UIControlStateNormal];
+    jiegouBtn1.hidden = YES;
+    [self.view3 addSubview:jiegouBtn1];
+    self.jiegouBtn1 = jiegouBtn1;
+    
     NSDictionary * dic1 = @{@"version"         :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -336,6 +356,17 @@
             [self.tempM2044Arr addObject:dic1];
         }
 
+        if ([result[@"options"][0][@"ifVote"] intValue] == 1) {
+            [self.tijiaoBtn1 setImage:DEF_IMAGE(@"hezuo_yitoupiao") forState:UIControlStateNormal];
+            self.tijiaoBtn1.enabled = NO;
+            self.jiegouBtn1.hidden = NO;
+            
+        }else{
+            [self.tijiaoBtn1 setImage:DEF_IMAGE(@"hezuo_toupiao") forState:UIControlStateNormal];
+            self.tijiaoBtn1.enabled = YES;
+            self.jiegouBtn1.hidden = YES;
+            
+        }
     } failture:^(id result) {
         [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
 
@@ -354,11 +385,51 @@
     }
 }
 
+-(void)jiegou1
+{
+    TouPiaoJieGuo1ViewController *vc = [[TouPiaoJieGuo1ViewController alloc]init];
+    vc.dic = self.dic;
+    vc.M2045Dic = self.M2045Dic;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)jiegou
 {
     TouPiaoJieguoViewController *vc = [[TouPiaoJieguoViewController alloc]init];
     vc.dic = self.dic;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)tijiao1
+{
+    NSDictionary * dic = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M2046",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"voteContent"      :self.tempM2044Arr,
+                           @"type"             :@"2",
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2046"]};
+    [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"投票成功"];
+            self.tijiaoBtn1.enabled = NO;
+            self.jiegouBtn1.hidden = NO;
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"投票失败"];
+        }
+    } failture:^(id result) {
+        [CACUtility showTips:@"投票失败"];
+    }];
+
 }
 
 -(void)tijiao2
@@ -636,6 +707,15 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             
+            UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 400, 30)];
+            nameLb.tag = 202;
+            [cell addSubview:nameLb];
+            
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(60, nameLb.bottom, self.tabv3.width - 70, 90)];
+            tv.backgroundColor = [UIColor clearColor];
+            tv.editable = NO;
+            tv.tag = 203;
+            [cell.contentView addSubview:tv];
         }
         
         if ([self.tempM2044Arr[indexPath.row][@"flag"] intValue] == 1) {
@@ -645,6 +725,12 @@
         }
         cell.selBtn.tag = 10000 + indexPath.row;
         [cell.selBtn addTarget:self action:@selector(sel2:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *nameLb = [cell viewWithTag:202];
+        nameLb.text = [NSString stringWithFormat:@"%@(%@) :",self.M2044Arr[indexPath.row][@"author"],self.M2044Arr[indexPath.row][@"groupName"]];
+        
+        UITextView *tv = [cell viewWithTag:203];
+        tv.text = [NSString stringWithFormat:@"%@",self.M2044Arr[indexPath.row][@"content"]];
         
         return cell;
     

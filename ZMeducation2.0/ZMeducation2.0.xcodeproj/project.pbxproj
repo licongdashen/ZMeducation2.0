@@ -44,6 +44,7 @@
 		D96CF8C91F24DEC800E82985 /* LunTanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96CF8C81F24DEC800E82985 /* LunTanCell.m */; };
 		D98ACC4B1F28CD4F00822DFF /* XiaoZuHeZuoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */; };
 		D98B66581F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */; };
+		D99A36841F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,8 @@
 		D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoZuHeZuoCell.m; sourceTree = "<group>"; };
 		D98B66561F2A1E5A0003DA4F /* TouPiaoJieguoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieguoViewController.h; sourceTree = "<group>"; };
 		D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieguoViewController.m; sourceTree = "<group>"; };
+		D99A36821F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieGuo1ViewController.h; sourceTree = "<group>"; };
+		D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieGuo1ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +285,8 @@
 				505AEC161F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m */,
 				D98B66561F2A1E5A0003DA4F /* TouPiaoJieguoViewController.h */,
 				D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */,
+				D99A36821F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.h */,
+				D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */,
 				D98ACC491F28CD4F00822DFF /* XiaoZuHeZuoCell.h */,
 				D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */,
 				500037E61EEFCF430007D164 /* XieZuoViewController.h */,
@@ -550,6 +555,7 @@
 				505AEC171F25CCB400B0C1C0 /* XiaoZuHeZuoViewController.m in Sources */,
 				50A9558B1F1EF36A00D12F40 /* JianDaTiViewController.m in Sources */,
 				50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */,
+				D99A36841F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m in Sources */,
 				D98ACC4B1F28CD4F00822DFF /* XiaoZuHeZuoCell.m in Sources */,
 				505AEC111F20996600B0C1C0 /* DuoXuanTiViewController.m in Sources */,
 				50590E811EFA4C8F00FF1F5A /* CACUtility.m in Sources */,
