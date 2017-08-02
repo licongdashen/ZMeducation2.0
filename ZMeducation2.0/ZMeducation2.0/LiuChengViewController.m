@@ -16,6 +16,7 @@
 #import "PdfViewController.h"
 #import "ShiPinViewController.h"
 #import "XiaoZuHeZuoViewController.h"
+#import "toupiaoViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) ShiPinViewController *vc8;
 
 @property (nonatomic, strong) XiaoZuHeZuoViewController *vc9;
+
+@property (nonatomic, strong) toupiaoViewController *vc10;
 
 @end
 
@@ -391,7 +394,29 @@
         
     }else if ([dic[@"unitTypeId"] intValue] == 51) {
         //投票
+        if (!self.vc10) {
+            self.vc10 = [[toupiaoViewController alloc]init];
+            self.vc10.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
         
+        [self addChildViewController:self.vc10];
+        if (self.currentVc == self.vc10) {
+            self.vc10.dic = dic;
+            
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc10 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc10 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc10;
+                self.vc10.dic = dic;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 52) {
         //抢答
         

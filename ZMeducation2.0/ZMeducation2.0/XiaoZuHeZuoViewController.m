@@ -10,6 +10,7 @@
 #import "XiaoZuHeZuoCell.h"
 #import "TouPiaoJieguoViewController.h"
 #import "TouPiaoJieGuo1ViewController.h"
+#import "WenGaoViewController.h"
 
 @interface XiaoZuHeZuoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -58,6 +59,15 @@
 
 @property (nonatomic, weak)UIButton *jiegouBtn1;
 
+
+@property (nonatomic, strong)NSMutableArray * M2044Arr1;
+
+@property (nonatomic, strong)NSMutableArray * tempM2044Arr1;
+
+@property (nonatomic, strong)UITableView *tabv4;
+
+@property (nonatomic, strong)NSMutableArray *wengaoArr;
+
 @end
 
 @implementation XiaoZuHeZuoViewController
@@ -77,7 +87,9 @@
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
     self.tempM2043Arr = [[NSMutableArray alloc]init];
     self.tempM2044Arr = [[NSMutableArray alloc]init];
-
+    self.tempM2044Arr1 = [[NSMutableArray alloc]init];
+    self.wengaoArr = [[NSMutableArray alloc]init];
+    
 }
 
 -(void)setDic:(NSDictionary *)dic
@@ -212,7 +224,6 @@
     self.tabv3.dataSource = self;
     self.tabv3.backgroundColor = [UIColor clearColor];
     [self.view3 addSubview:self.tabv3];
-
     
     UIButton *tijiaoBtn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tabv3.bottom + 10, 180, 30)];
     tijiaoBtn1.centerX = bgImagv.centerX - 200;
@@ -228,6 +239,18 @@
     [self.view3 addSubview:jiegouBtn1];
     self.jiegouBtn1 = jiegouBtn1;
     
+    self.tabv4 = [[UITableView alloc]initWithFrame:CGRectMake(20, 10, self.view4.width - 40, 400) style:UITableViewStylePlain];
+    self.tabv4.delegate = self;
+    self.tabv4.dataSource = self;
+    self.tabv4.backgroundColor = [UIColor clearColor];
+    [self.view4 addSubview:self.tabv4];
+    
+    UIButton *wengaoBtn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tabv4.bottom + 10, 180, 30)];
+    wengaoBtn1.centerX = bgImagv.centerX;
+    [wengaoBtn1 addTarget:self action:@selector(wengao) forControlEvents:UIControlEventTouchUpInside];
+    [wengaoBtn1 setImage:DEF_IMAGE(@"xiaozuhezuo_wengao") forState:UIControlStateNormal];
+    [self.view4 addSubview:wengaoBtn1];
+
     NSDictionary * dic1 = @{@"version"         :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -319,9 +342,62 @@
 
     }];
 
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M2044",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"optionId"         :@"0",
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2044"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        
+        self.M2044Arr1 = result[@"options"];
+        
+        
+        for (NSDictionary *dic in self.M2044Arr1) {
+            NSArray *arr = dic[@"contents"];
+            NSMutableArray *arr11 = [[NSMutableArray alloc]init];
+            for (NSDictionary *dic1 in arr) {
+                NSMutableDictionary *aaa = [[NSMutableDictionary alloc]init];
+                [aaa setObject:@"0" forKey:@"flag"];
+                [aaa setObject:dic1[@"content"] forKey:@"content"];
+                [arr11 addObject:aaa];
+            }
+            [self.tempM2044Arr1 addObject:arr11];
+        }
+        
+        [self.tabv4 reloadData];
+    } failture:^(id result) {
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        
+    }];
 
 }
 
+-(void)wengao
+{
+    [self.wengaoArr removeAllObjects];
+    for (NSArray *arr111 in self.tempM2044Arr1) {
+        for (NSDictionary *dic1 in arr111) {
+            if ([dic1[@"flag"] intValue] == 1) {
+                [self.wengaoArr addObject:dic1[@"content"]];
+            }
+        }
+    }
+
+    WenGaoViewController *vc = [[WenGaoViewController alloc]init];
+    vc.arr = self.wengaoArr;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    NSLog(@"xxxxxx====%@",self.wengaoArr);
+}
 
 -(void)chaxun
 {
@@ -560,6 +636,11 @@
     }else if (tableView == self.tabv3){
     
         return nil;
+    }else if (tableView == self.tabv4){
+        UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 30)];
+        foot.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
+
+        return foot;
     }
 
     return nil;
@@ -594,6 +675,22 @@
     [self.tabv3 reloadData];
     NSLog(@"ggggggg%@",self.tempM2044Arr);
 }
+-(void)sel3:(UIButton *)sender
+{
+    int tag = (int)sender.tag - 100000;
+    int setion = tag/1000;
+    int row = tag%1000;
+    NSMutableDictionary * dic = self.tempM2044Arr1[setion][row];
+    
+    if ([dic[@"flag"] intValue] == 1) {
+        [dic setObject:@"0" forKey:@"flag"];
+    }else{
+        [dic setObject:@"1" forKey:@"flag"];
+    }
+    [self.tabv4 reloadData];
+
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView == self.tabv1) {
@@ -603,6 +700,8 @@
         return 0;
     }else if (tableView == self.tabv3){
         return 0;
+    }else if (tableView == self.tabv4){
+        return 30;
     }
     return 30;
 }
@@ -616,6 +715,8 @@
         return 1;
     }else if (tableView == self.tabv3){
         return 1;
+    }else if (tableView == self.tabv4){
+        return [self.M2044Arr1 count];
     }
     return 1;
 }
@@ -629,6 +730,8 @@
         return 50;
     }else if (tableView == self.tabv3){
     
+        return 120;
+    }else if (tableView == self.tabv4){
         return 120;
     }
     return 120;
@@ -645,6 +748,9 @@
     }else if (tableView == self.tabv3){
     
         return self.M2044Arr.count;
+    }else if (tableView == self.tabv4){
+        
+        return [self.M2044Arr1[section][@"contents"] count];
     }
     return 0;
     
@@ -734,6 +840,43 @@
         
         return cell;
     
+    }else if (tableView == self.tabv4){
+        
+        static NSString *CellIdentifier1 = @"Cell4";
+        
+        XiaoZuHeZuoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
+        if (!cell) {
+            cell = [[XiaoZuHeZuoCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor clearColor];
+            
+            UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 400, 30)];
+            nameLb.tag = 204;
+            [cell addSubview:nameLb];
+            
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(60, nameLb.bottom, self.tabv3.width - 70, 90)];
+            tv.backgroundColor = [UIColor clearColor];
+            tv.editable = NO;
+            tv.tag = 205;
+            [cell.contentView addSubview:tv];
+
+        }
+        
+        UILabel *nameLb = [cell viewWithTag:204];
+        nameLb.text = [NSString stringWithFormat:@"%@(%@) :",self.M2044Arr1[indexPath.section][@"contents"][indexPath.row][@"author"],self.M2044Arr1[indexPath.section][@"contents"][indexPath.row][@"groupName"]];
+
+        UITextView *tv = [cell viewWithTag:205];
+        tv.text = [NSString stringWithFormat:@"%@",self.M2044Arr1[indexPath.section][@"contents"][indexPath.row][@"content"]];
+
+        if ([self.tempM2044Arr1[indexPath.section][indexPath.row][@"flag"] intValue] == 1) {
+            [cell.selBtn setImage:DEF_IMAGE(@"danxuanti_sel") forState:UIControlStateNormal];
+        }else{
+            [cell.selBtn setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
+        }
+        cell.selBtn.tag = 100000 + indexPath.section*1000 + indexPath.row;
+        [cell.selBtn addTarget:self action:@selector(sel3:) forControlEvents:UIControlEventTouchUpInside];
+
+        return cell;
     }
     
     static NSString *CellIdentifier1 = @"Cell1";
