@@ -47,6 +47,7 @@
 		D98ACC4B1F28CD4F00822DFF /* XiaoZuHeZuoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */; };
 		D98B66581F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */; };
 		D99A36841F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */; };
+		D9A2DB951F36D2E800E8201F /* QiangDaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A2DB941F36D2E800E8201F /* QiangDaViewController.m */; };
 		D9B300311F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B300301F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,8 @@
 		D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieguoViewController.m; sourceTree = "<group>"; };
 		D99A36821F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieGuo1ViewController.h; sourceTree = "<group>"; };
 		D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieGuo1ViewController.m; sourceTree = "<group>"; };
+		D9A2DB931F36D2E800E8201F /* QiangDaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiangDaViewController.h; sourceTree = "<group>"; };
+		D9A2DB941F36D2E800E8201F /* QiangDaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiangDaViewController.m; sourceTree = "<group>"; };
 		D9B3002F1F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieGuo2ViewController.h; sourceTree = "<group>"; };
 		D9B300301F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieGuo2ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -304,6 +307,8 @@
 				D95A8B761F30A98D0016F3A7 /* toupiaoViewController.m */,
 				D9B3002F1F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.h */,
 				D9B300301F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m */,
+				D9A2DB931F36D2E800E8201F /* QiangDaViewController.h */,
+				D9A2DB941F36D2E800E8201F /* QiangDaViewController.m */,
 				500037E61EEFCF430007D164 /* XieZuoViewController.h */,
 				500037E71EEFCF430007D164 /* XieZuoViewController.m */,
 				500037E91EEFDA220007D164 /* LiuLanViewController.h */,
@@ -573,6 +578,7 @@
 				50590E8C1EFA4D8400FF1F5A /* README.mdown in Sources */,
 				D99A36841F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m in Sources */,
 				D98ACC4B1F28CD4F00822DFF /* XiaoZuHeZuoCell.m in Sources */,
+				D9A2DB951F36D2E800E8201F /* QiangDaViewController.m in Sources */,
 				D95A8B771F30A98D0016F3A7 /* toupiaoViewController.m in Sources */,
 				D97794FC1F3207DF008F6033 /* WenGaoViewController.m in Sources */,
 				505AEC111F20996600B0C1C0 /* DuoXuanTiViewController.m in Sources */,

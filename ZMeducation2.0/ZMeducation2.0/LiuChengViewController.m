@@ -17,6 +17,7 @@
 #import "ShiPinViewController.h"
 #import "XiaoZuHeZuoViewController.h"
 #import "toupiaoViewController.h"
+#import "QiangDaViewController.h"
 
 @interface LiuChengViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -43,6 +44,10 @@
 @property (nonatomic, strong) XiaoZuHeZuoViewController *vc9;
 
 @property (nonatomic, strong) toupiaoViewController *vc10;
+
+@property (nonatomic, strong) XiaoZuHeZuoViewController *vc11;
+
+@property (nonatomic, strong) QiangDaViewController *vc12;
 
 @end
 
@@ -385,6 +390,7 @@
                 [self.currentVc willMoveToParentViewController:nil];
                 [self.currentVc removeFromParentViewController];
                 self.currentVc = self.vc9;
+                self.vc9.str = @"1";
                 self.vc9.dic = dic;
             }
         }];
@@ -392,6 +398,30 @@
     }else if ([dic[@"unitTypeId"] intValue] == 42) {
         //合作完成分项
         
+        if (!self.vc11) {
+            self.vc11 = [[XiaoZuHeZuoViewController alloc]init];
+            self.vc11.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc11];
+        if (self.currentVc == self.vc11) {
+            self.vc11.dic = dic;
+            
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc11 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc11 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc11;
+                self.vc11.str = @"0";
+                self.vc11.dic = dic;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 51) {
         //投票
         if (!self.vc10) {
@@ -420,6 +450,29 @@
     }else if ([dic[@"unitTypeId"] intValue] == 52) {
         //抢答
         
+        if (!self.vc12) {
+            self.vc12 = [[QiangDaViewController alloc]init];
+            self.vc12.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
+        }
+        
+        [self addChildViewController:self.vc12];
+        if (self.currentVc == self.vc12) {
+            self.vc12.dic = dic;
+            
+            return;
+        }
+        [self transitionFromViewController:self.currentVc toViewController:self.vc12 duration:0.01 options:UIViewAnimationOptionTransitionNone animations:^{
+        } completion:^(BOOL finished) {
+            if (finished) {
+                
+                [self.vc12 didMoveToParentViewController:self];
+                [self.currentVc willMoveToParentViewController:nil];
+                [self.currentVc removeFromParentViewController];
+                self.currentVc = self.vc12;
+                self.vc12.dic = dic;
+            }
+        }];
+
     }else if ([dic[@"unitTypeId"] intValue] == 61) {
         //我的构思
         

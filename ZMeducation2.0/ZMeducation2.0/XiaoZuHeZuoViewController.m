@@ -26,6 +26,7 @@
 @property (nonatomic, weak)UILabel *titleLb;
 @property (nonatomic, weak)UILabel *title1Lb;
 @property (nonatomic, weak)UITextView *tv;
+@property (nonatomic, weak)UITextView *tv1;
 
 @property (nonatomic, weak)UITableView *tabv1;
 
@@ -151,20 +152,51 @@
     titleLb2.text = @"内容:";
     [self.view1 addSubview:titleLb2];
 
-    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(80, title1Lb.bottom + 25, 700, 360)];
-    imagv.userInteractionEnabled = YES;
-    imagv.image = DEF_IMAGE(@"hezuo_beijing");
-    [self.view1 addSubview:imagv];
+    if ([self.str isEqualToString:@"1"]) {
+        UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(80, title1Lb.bottom + 25, 700, 360)];
+        imagv.userInteractionEnabled = YES;
+        imagv.image = DEF_IMAGE(@"hezuo_beijing");
+        [self.view1 addSubview:imagv];
+        
+        UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        [imagv addSubview:tv];
+        self.tv = tv;
+        
+        UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 30, 180, 30)];
+        tijiaoBtn.centerX = bgImagv.centerX;
+        [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+        [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
+        [self.view1 addSubview:tijiaoBtn];
+
+    }else{
+        UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(80, title1Lb.bottom + 25, 700/2 - 10, 360)];
+        imagv.userInteractionEnabled = YES;
+        imagv.image = DEF_IMAGE(@"hezuo_beijing");
+        [self.view1 addSubview:imagv];
+        
+        UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        [imagv addSubview:tv];
+        self.tv = tv;
+        
+        
+        UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv.right + 10, title1Lb.bottom + 25, 700/2 - 10, 360)];
+        imagv1.userInteractionEnabled = YES;
+        imagv1.image = DEF_IMAGE(@"hezuo_beijing");
+        [self.view1 addSubview:imagv1];
+        
+        UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        [imagv1 addSubview:tv1];
+        self.tv1.editable = NO;
+        self.tv1 = tv1;
+        
+        UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 30, 180, 30)];
+        tijiaoBtn.centerX = bgImagv.centerX;
+        [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+        [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
+        [self.view1 addSubview:tijiaoBtn];
+
+    }
     
-    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
-    [imagv addSubview:tv];
-    self.tv = tv;
-    
-    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 30, 180, 30)];
-    tijiaoBtn.centerX = bgImagv.centerX;
-    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
-    [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
-    [self.view1 addSubview:tijiaoBtn];
     
     UILabel *title2Lb = [[UILabel alloc]initWithFrame:CGRectMake(0, 15, view1.width, 18)];
     title2Lb.text = @"主题:";
@@ -267,8 +299,10 @@
         
         titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
         
-        title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"content"]];
+        title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"optionTitle"]];
 
+        self.tv1.text = result[@"content"];
+        
     } failture:^(id result) {
         
     }];

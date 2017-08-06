@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSDictionary *dic;
 
+@property (nonatomic, strong) NSString *str;
+
 -(id)initWithDic:(NSDictionary *)dic;
 
 @end
