@@ -10,4 +10,6 @@
 
 @interface XieZuoViewController : ZMBaseViewController
 
+@property (nonatomic, strong) NSMutableDictionary *dic;
+
 @end

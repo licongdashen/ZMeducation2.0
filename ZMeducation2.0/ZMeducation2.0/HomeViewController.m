@@ -83,6 +83,7 @@
     self.currentVc = self.vc1;
     
     self.vc2 = [[XieZuoViewController alloc]init];
+    self.vc2.dic = self.dic;
     self.vc2.view.frame = CGRectMake(0, 95, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95);
     
     self.vc3 = [[LiuLanViewController alloc]init];
