@@ -9,7 +9,7 @@
 #import "XieZuoViewController.h"
 #import "CustomLine.h"
 
-@interface XieZuoViewController ()
+@interface XieZuoViewController ()<UITextViewDelegate>
 
 @property (nonatomic, strong)UIButton *btn1;
 
@@ -30,6 +30,15 @@
 
 @property (nonatomic, weak) UIScrollView *scro;
 
+@property (nonatomic, strong) NSMutableDictionary *M301Dic;
+
+@property (nonatomic, strong) NSMutableArray *tempM301Arr;
+
+@property (nonatomic, strong) NSMutableDictionary *M2067Dic;
+@property (nonatomic, strong) NSMutableDictionary *M2064Dic;
+
+@property (nonatomic, weak) UITextField *tf;
+
 @end
 
 @implementation XieZuoViewController
@@ -46,6 +55,8 @@
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
 
     self.M2009Arr = [[NSMutableArray alloc]init];
+    
+    self.tempM301Arr = [[NSMutableArray alloc]init];
     
     UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95)];
     imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
@@ -173,12 +184,140 @@
         self.gousiBackView.hidden = YES;
         self.wendangBackView.hidden = NO;
         self.ketangBackView.hidden = YES;
+        [self wodewendang];
     }else{
         self.gousiBackView.hidden = YES;
         self.wendangBackView.hidden = YES;
         self.ketangBackView.hidden = NO;
+        [self wodeketang];
     }
 
+}
+
+-(void)wodewendang
+{
+    for (UIView *view in [self.wendangBackView subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2064",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        self.M2064Dic = result;
+        
+    } failture:^(id result) {
+        
+    }];
+
+    UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
+    imagv1.image = DEF_IMAGE(@"wodewengao_title");
+    [self.wendangBackView addSubview:imagv1];
+    
+    UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 700, 35)];
+    imagv2.image = DEF_IMAGE(@"wodewengao_shurukuang");
+    imagv2.userInteractionEnabled = YES;
+    [self.wendangBackView addSubview:imagv2];
+    
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, imagv2.width - 40, 35)];
+    tf.placeholder = @"    (请在这里输入标题)";
+    [imagv2 addSubview:tf];
+    self.tf = tf;
+    
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.ketangBackView.width - 80, 450)];
+    imagv.userInteractionEnabled = YES;
+    imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    [self.wendangBackView addSubview:imagv];
+
+}
+
+-(void)wodeketang
+{
+    for (UIView *view in [self.ketangBackView subviews]) {
+        [view removeFromSuperview];
+    }
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 20, self.ketangBackView.width - 80, 550)];
+    imagv.userInteractionEnabled = YES;
+    imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    [self.ketangBackView addSubview:imagv];
+    
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2067",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2067"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        self.M2067Dic = result;
+        
+    } failture:^(id result) {
+        
+    }];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    int tag = (int)textView.tag;
+   
+    NSLog(@"tag=========%d",tag);
+    if (tag == 100000) {
+        
+        NSMutableDictionary *dic = (NSMutableDictionary *)self.M301Dic[@"list"][0];
+
+        
+        for (int i = 0; i < self.tempM301Arr.count ; i++) {
+            NSMutableDictionary *dicv = self.tempM301Arr[i];
+            if ([dicv[@"id"] isEqualToString:dic[@"id"]]) {
+                [self.tempM301Arr removeObjectAtIndex:i];
+            }
+        }
+        NSMutableDictionary *dddd = [[NSMutableDictionary alloc]init];
+        [dddd setObject:dic[@"id"] forKey:@"id"];
+        [dddd setObject:textView.text forKey:@"content"];
+        [self.tempM301Arr addObject:dddd];
+        
+    }else if (tag < 100000 && tag >= 10000){
+        int i = tag - 10000;
+        
+        NSMutableArray *arr2 = self.M301Dic[@"list"][0][@"list"];
+        NSMutableDictionary *dic = arr2[i];
+        
+        for (int i = 0; i < self.tempM301Arr.count ; i++) {
+            NSMutableDictionary *dicv = self.tempM301Arr[i];
+            if ([dicv[@"id"] isEqualToString:dic[@"id"]]) {
+                [self.tempM301Arr removeObjectAtIndex:i];
+            }
+        }
+        NSMutableDictionary *dddd = [[NSMutableDictionary alloc]init];
+        [dddd setObject:dic[@"id"] forKey:@"id"];
+        [dddd setObject:textView.text forKey:@"content"];
+        [self.tempM301Arr addObject:dddd];
+
+    }else if (tag < 10000 && tag >= 1000){
+    
+    }
+    
+    NSLog(@"nnnnnnnnnnnnnnn%@",self.tempM301Arr);
+    
+}
+
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    return YES;
 }
 
 -(void)loadGousi
@@ -200,10 +339,13 @@
     
     NSDictionary * dic = @{
                            @"method"           :@"M301",
-                           @"level2"           :@"6",
-                           @"level3"           :@"4",
-                           @"level4"           :@"2"};
+                           @"level2"           :@"4",
+                           @"level3"           :@"2",};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
+        
+        self.M301Dic = result;
+        
+        [self.tempM301Arr removeAllObjects];
         
         self.gousiScro.contentSize = CGSizeMake(2000, 3000);
         self.gousiScro.contentOffset = CGPointMake(self.gousiScro.contentSize.width/2 - self.gousiScro.size.width/2, self.gousiScro.contentSize.height/2 - self.gousiScro.size.height/2);
@@ -216,7 +358,15 @@
         level1.clipsToBounds = YES;
         [self.gousiScro addSubview:level1];
         
-        int count = 2;
+        UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(20, 30, level1.width - 40, level1.height - 60)];
+        tv.backgroundColor = [UIColor clearColor];
+        tv.delegate = self;
+        tv.text = result[@"list"][0][@"content"];
+        tv.tag = 100000;
+        [level1 addSubview:tv];
+        
+        
+        int count = 3;
         
         if (count == 2) {
             NSMutableArray *arr2 = result[@"list"][0][@"list"];
@@ -229,15 +379,23 @@
                 float y1 = level1.centerY - 300;
                 float y2 = level1.centerY - 300;
                 for (int i = 0; i < [arr2 count]; i ++) {
+                    NSMutableDictionary *dicf = arr2[i];
+
                     if (i < [arr2 count]/2) {
                         
                         //                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         //                        [self.gousiScro addSubview:line];
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
-                        y1 += 600/([arr2 count]/2 - 1);
-                        
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicf[@"content"],
+                                              @"tag"   :@(10000 + i)}];
+                        if ([arr2 count]/2 > 1) {
+                            y1 += 600/([arr2 count]/2 - 1);
+                            
+                        }else{
+                            y1 += 600/([arr2 count]/2);
+                        }
                     }else{
                         //                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
@@ -245,8 +403,15 @@
                         //[pointArr addObject:@{@"x" :[NSString stringWithFormat:@"%f",x2],@"y":[NSString stringWithFormat:@"%f",y2]}];
                         
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
-                        y2 += 600/([arr2 count]/2 - 1);
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicf[@"content"],
+                                              @"tag"   :@(10000 + i)}];
+                        if ([arr2 count]/2 > 1) {
+                            y1 += 600/([arr2 count]/2 - 1);
+                            
+                        }else{
+                            y1 += 600/([arr2 count]/2);
+                        }
                     }
                 }
                 
@@ -262,30 +427,48 @@
                 //                [self.gousiScro addSubview:line];
                 
                 [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",level1.centerX],@"y1":[NSString stringWithFormat:@"%f",level1.centerY - 300],
-                                      @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
+                                      @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                      @"content" :arr2[0][@"content"],
+                                      @"tag"   :@(10000 + 0)}];
                 
                 
                 NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:arr2];
                 [tempArr removeObjectAtIndex:0];
                 
                 for (int i = 0; i < [tempArr count]; i ++) {
+                    NSMutableDictionary *dicf = tempArr[i];
+
                     if (i < [tempArr count]/2) {
                         
                         //                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x1, y1)];
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         //                        [self.gousiScro addSubview:line];
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicf[@"content"],
+                                              @"tag"   :@(10001 + i)}];
                         
-                        y1 += 600/([tempArr count]/2 - 1);
+                        if ([tempArr count]/2 > 1) {
+                            y1 += 600/([tempArr count]/2 - 1);
+
+                        }else{
+                            y1 += 600/([tempArr count]/2);
+                        }
                     }else{
                         //                        CustomLine *line = [[CustomLine alloc]initWithStartPoint:CGPointMake(level1.centerX, level1.centerY) EndPoint:CGPointMake(x2, y2)];
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         //                        [self.gousiScro addSubview:line];
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicf[@"content"],
+                                              @"tag"   :@(10001 + i)}];
                         
-                        y2 += 600/([tempArr count]/2 - 1);
+                        if ([tempArr count]/2 > 1) {
+                            y1 += 600/([tempArr count]/2 - 1);
+                            
+                        }else{
+                            y1 += 600/([tempArr count]/2);
+                        }
                     }
                 }
                 
@@ -306,6 +489,13 @@
                 level11.centerX = [dicc[@"x1"] floatValue];
                 level11.centerY = [dicc[@"y1"] floatValue];
                 [self.gousiScro addSubview:level11];
+                
+                UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(20, 30, level11.width - 40, level11.height - 60)];
+                tv.backgroundColor = [UIColor clearColor];
+                tv.delegate = self;
+                tv.text = dicc[@"content"];
+                tv.tag = [dicc[@"tag"] intValue];
+                [level11 addSubview:tv];
             }
             
             
@@ -340,8 +530,8 @@
                 
                 for (int i = 0; i < [arr2 count]; i ++) {
                     
-                    NSMutableDictionary *dic = arr2[i];
-                    NSArray *arr3 = dic[@"list"];
+                    NSMutableDictionary *dicr = arr2[i];
+                    NSArray *arr3 = dicr[@"list"];
                     
                     if (i < [arr2 count]/2) {
                         
@@ -349,15 +539,19 @@
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         //                        [self.gousiScro addSubview:line];
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x1],@"y1":[NSString stringWithFormat:@"%f",y1],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
-                        
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicr[@"content"],
+                                              @"tag"     :@(1000 * i)}];
+                        int f = 0;
                         for (NSDictionary *dic in arr3) {
-                            
+                        
                             //                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x1, y1) EndPoint:CGPointMake(xx1, yy1)];
                             //                            line1.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                             //                            [self.gousiScro addSubview:line1];
                             [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx1],@"y1":[NSString stringWithFormat:@"%f",yy1],
-                                                  @"x"  :[NSString stringWithFormat:@"%f",x1],@"y" :[NSString stringWithFormat:@"%f",y1]}];
+                                                  @"x"  :[NSString stringWithFormat:@"%f",x1],@"y" :[NSString stringWithFormat:@"%f",y1],
+                                                  @"content" :dic[@"content"],
+                                                  @"tag"     :@(1000 * i + f)}];
                             
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
@@ -369,7 +563,15 @@
                             level1.centerY = yy1;
                             [self.gousiScro addSubview:level1];
                             
+                            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(20, 30, level1.width - 40, level1.height - 60)];
+                            tv.backgroundColor = [UIColor clearColor];
+                            tv.delegate = self;
+                            tv.text = dic[@"content"];
+                            tv.tag = 1000 * i + f;
+                            [level1 addSubview:tv];
+
                             yy1 += 150;
+                            f ++;
                         }
                         y1 += 600/([arr2 count]/2 - 1);
                         
@@ -378,8 +580,10 @@
                         //                        line.frame = CGRectMake(0, 0, self.gousiScro.contentSize.width, self.gousiScro.contentSize.height);
                         //                        [self.gousiScro addSubview:line];
                         [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",x2],@"y1":[NSString stringWithFormat:@"%f",y2],
-                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY]}];
-                        
+                                              @"x"  :[NSString stringWithFormat:@"%f",level1.centerX],@"y" :[NSString stringWithFormat:@"%f",level1.centerY],
+                                              @"content" :dicr[@"content"],
+                                              @"tag"     :@(1000 * i)}];
+                        int f = 0;
                         for (NSDictionary *dic in arr3) {
                             
                             //                            CustomLine *line1 = [[CustomLine alloc]initWithStartPoint:CGPointMake(x2, y2) EndPoint:CGPointMake(xx2, yy2)];
@@ -387,7 +591,9 @@
                             //                            [self.gousiScro addSubview:line1];
                             
                             [pointArr addObject:@{@"x1" :[NSString stringWithFormat:@"%f",xx2],@"y1":[NSString stringWithFormat:@"%f",yy2],
-                                                  @"x"  :[NSString stringWithFormat:@"%f",x2],@"y" :[NSString stringWithFormat:@"%f",y2]}];
+                                                  @"x"  :[NSString stringWithFormat:@"%f",x2],@"y" :[NSString stringWithFormat:@"%f",y2],
+                                                  @"content" :dic[@"content"],
+                                                  @"tag"     :@(1000 * i + f)}];
                             
                             UIImageView *level1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 240, 125)];
                             level1.userInteractionEnabled = YES;
@@ -399,7 +605,16 @@
                             level1.centerY = yy2;
                             [self.gousiScro addSubview:level1];
                             
+                            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(20, 30, level1.width - 40, level1.height - 60)];
+                            tv.backgroundColor = [UIColor clearColor];
+                            tv.delegate = self;
+                            tv.text = dic[@"content"];
+                            tv.tag = 1000 * i + f;
+                            [level1 addSubview:tv];
+                            
                             yy2 += 150;
+                            f ++;
+
                         }
                         
                         y2 += 600/([arr2 count]/2 - 1);
@@ -562,6 +777,13 @@
                 level1.centerX = [dicc[@"x"] floatValue];
                 level1.centerY = [dicc[@"y"] floatValue];
                 [self.gousiScro addSubview:level1];
+                
+                UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(20, 30, level1.width - 40, level1.height - 60)];
+                tv.backgroundColor = [UIColor clearColor];
+                tv.delegate = self;
+                tv.text = dicc[@"content"];
+                tv.tag = [dicc[@"tag"] intValue];
+                [level1 addSubview:tv];
             }
             
             [self.gousiScro bringSubviewToFront:level1];

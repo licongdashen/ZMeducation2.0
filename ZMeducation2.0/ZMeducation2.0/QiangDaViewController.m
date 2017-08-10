@@ -116,7 +116,7 @@
                             @"timestamp"        :[CACUtility getNowTime],
                             @"method"           :@"M2055",
                             @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"], 
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"raceId"           :self.dic[@"unitId"],
