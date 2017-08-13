@@ -9,5 +9,6 @@
 #import "ZMBaseViewController.h"
 
 @interface LiuLanViewController : ZMBaseViewController
+@property (nonatomic, strong) NSMutableDictionary *dic;
 
 @end

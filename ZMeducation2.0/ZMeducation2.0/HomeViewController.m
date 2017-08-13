@@ -88,6 +88,7 @@
     
     self.vc3 = [[LiuLanViewController alloc]init];
     self.vc3.view.frame = CGRectMake(0, 95, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95);
+    self.vc3.dic = self.dic;
     
     self.vc4 = [[GongJuViewController alloc]init];
     self.vc4.view.frame = CGRectMake(0, 95, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 95);
