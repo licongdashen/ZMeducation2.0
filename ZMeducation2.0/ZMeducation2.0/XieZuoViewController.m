@@ -39,6 +39,12 @@
 
 @property (nonatomic, weak) UITextField *tf;
 
+@property (nonatomic, strong) UITableView *tabv;
+
+@property (nonatomic, strong) UIScrollView *wendangscro;
+
+@property (nonatomic, strong) NSMutableArray *M2064Arr;
+
 @end
 
 @implementation XieZuoViewController
@@ -200,23 +206,7 @@
         [view removeFromSuperview];
     }
     
-    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
-                            @"clientType"       :@"1001",
-                            @"signType"         :@"md5",
-                            @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2064",
-                            @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
-                            @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"]};
-    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
-        
-        self.M2064Dic = result;
-        
-    } failture:^(id result) {
-        
-    }];
+
 
     UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
     imagv1.image = DEF_IMAGE(@"wodewengao_title");
@@ -235,8 +225,109 @@
     UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.ketangBackView.width - 80, 450)];
     imagv.userInteractionEnabled = YES;
     imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    imagv.userInteractionEnabled = YES;
     [self.wendangBackView addSubview:imagv];
 
+    UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
+    content.editable = NO;
+    [imagv addSubview:content];
+    
+    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
+    tijiaoBtn.centerX = self.wendangBackView.centerX;
+    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+    [tijiaoBtn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
+    [self.wendangBackView addSubview:tijiaoBtn];
+    
+    self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
+    [imagv addSubview:self.wendangscro];
+    
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2064",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        self.M2064Dic = result;
+        
+        self.M2064Arr = [[NSMutableArray alloc]initWithArray:result[@"files"]];
+        
+        [self.M2064Arr addObject:@""];
+        
+        content.text = result[@"content"];
+        [self LoadwendangImgv];
+        
+    } failture:^(id result) {
+        
+    }];
+}
+
+-(void)tijiao
+{
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2065",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2065"],
+                            @"title"            :self.tf.text,
+                            @"content"          :self.M2064Dic[@"content"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"提交成功"];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"提交失败"];
+        }
+
+    } failture:^(id result) {
+        [CACUtility showTips:@"提交失败"];
+
+    }];
+}
+
+-(void)tianjia
+{
+    
+}
+
+-(void)LoadwendangImgv
+{
+    for (UIView *view in [self.wendangscro subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    int x = 0;
+    for (int i = 0; i < self.M2064Arr.count; i++) {
+        if (i < self.M2064Arr.count - 1) {
+            UIImageView *imav = [[UIImageView alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [imav sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DEF_IPA,self.M2064Arr[i][@"fileUrl"]]]];
+            [self.wendangscro addSubview:imav];
+        }
+        
+        if (i == self.M2064Arr.count - 1) {
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [btn setTitle:@"添加" forState:0];
+            [btn addTarget:self action:@selector(tianjia) forControlEvents:UIControlEventTouchUpInside];
+            btn.backgroundColor = [UIColor grayColor];
+            [self.wendangscro addSubview:btn];
+        }
+        x += 80;
+
+        self.wendangscro.contentSize = CGSizeMake(self.M2064Arr.count * 80, 100);
+    }
 }
 
 -(void)wodeketang
