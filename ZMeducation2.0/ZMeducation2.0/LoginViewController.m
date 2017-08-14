@@ -34,7 +34,7 @@
     [self.view addSubview:self.userNameTf];
     
     self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];
-    self.userPassWorldTf.text = @"123.com";
+    self.userPassWorldTf.text = @"123456";
     [self.view addSubview:self.userPassWorldTf];
     
     UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(380, self.userPassWorldTf.bottom + 22, 280, 38)];

@@ -7,6 +7,7 @@
 //
 
 #import "LiuLanViewController.h"
+#import "dianpingliulanCell.h"
 
 @interface LiuLanViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
@@ -29,6 +30,10 @@
 @property (nonatomic, strong) NSMutableArray *M2005Arr;
 
 @property (nonatomic, strong) NSMutableDictionary *M2005dic;
+
+@property (nonatomic, strong) UITableView *view3tabv;
+
+@property (nonatomic, strong) NSMutableArray *M2073Arr;
 
 @end
 
@@ -113,6 +118,93 @@
     self.tabv1.hidden = YES;
     [self.view3 addSubview:self.tabv1];
     
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(10, selBtn.bottom + 10, self.view3.width - 20, self.view3.height - selBtn.bottom - 20)];
+    imagv.image = DEF_IMAGE(@"liulan_beijing");
+    imagv.userInteractionEnabled = YES;
+    [self.view3 addSubview:imagv];
+    
+    self.view3tabv = [[UITableView alloc]initWithFrame:CGRectMake(20, selBtn.bottom + 20, self.view3.width - 40, self.view3.height - selBtn.bottom - 40) style:UITableViewStylePlain];
+    self.view3tabv.delegate = self;
+    self.view3tabv.dataSource = self;
+    self.view3tabv.backgroundColor = [UIColor clearColor];
+    self.view3tabv.hidden = YES;
+    self.view3tabv.layer.cornerRadius = 12;
+    [self.view3 addSubview:self.view3tabv];
+
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view3tabv.width, 34)];
+    view.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    self.view3tabv.tableHeaderView = view;
+    
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 130, 34)];
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.textColor = [UIColor whiteColor];
+    label1.text = @"提交时间";
+    [view addSubview:label1];
+    
+    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(label1.right, 3, 1, 28)];
+    line1.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line1];
+    
+    
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(line1.right, 0, 125, 34)];
+    label2.textAlignment = NSTextAlignmentCenter;
+    label2.textColor = [UIColor whiteColor];
+    label2.text = @"试题名称";
+    [view addSubview:label2];
+    
+    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(label2.right, 3, 1, 28)];
+    line2.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line2];
+    
+    UILabel *label3 = [[UILabel alloc]initWithFrame:CGRectMake(line2.right, 0, 75, 34)];
+    label3.textAlignment = NSTextAlignmentCenter;
+    label3.textColor = [UIColor whiteColor];
+    label3.text = @"提交人";
+    [view addSubview:label3];
+    
+    UIView *line3 = [[UIView alloc]initWithFrame:CGRectMake(label3.right, 3, 1, 28)];
+    line3.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line3];
+
+    UILabel *label4 = [[UILabel alloc]initWithFrame:CGRectMake(line3.right, 0, 140, 34)];
+    label4.textAlignment = NSTextAlignmentCenter;
+    label4.textColor = [UIColor whiteColor];
+    label4.text = @"课程名称";
+    [view addSubview:label4];
+    
+    UIView *line4 = [[UIView alloc]initWithFrame:CGRectMake(label4.right, 3, 1, 28)];
+    line4.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line4];
+    
+    
+    UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(line4.right, 0, 100, 34)];
+    label5.textAlignment = NSTextAlignmentCenter;
+    label5.textColor = [UIColor whiteColor];
+    label5.text = @"模块名称";
+    [view addSubview:label5];
+    
+    UIView *line5 = [[UIView alloc]initWithFrame:CGRectMake(label5.right, 3, 1, 28)];
+    line5.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line5];
+    
+    
+    UILabel *label6 = [[UILabel alloc]initWithFrame:CGRectMake(line5.right, 0, 100, 34)];
+    label6.textAlignment = NSTextAlignmentCenter;
+    label6.textColor = [UIColor whiteColor];
+    label6.text = @"点评数量";
+    [view addSubview:label6];
+    
+    UIView *line6 = [[UIView alloc]initWithFrame:CGRectMake(label6.right, 3, 1, 28)];
+    line6.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line6];
+    
+    UILabel *label7 = [[UILabel alloc]initWithFrame:CGRectMake(line6.right, 0, 110, 34)];
+    label7.textAlignment = NSTextAlignmentCenter;
+    label7.textColor = [UIColor whiteColor];
+    label7.text = @"点评";
+    [view addSubview:label7];
+
+    
     UIButton *chaxunBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view3.width - 130, 45, 90, 30)];
     [chaxunBtn setImage:DEF_IMAGE(@"luntan_chaxun") forState:UIControlStateNormal];
     [chaxunBtn addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
@@ -165,6 +257,11 @@
                             @"sign"             :[CACUtility getSignWithMethod:@"M2073"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
+        self.M2073Arr = result[@"myFeedbacks"];
+        self.view3tabv.hidden = NO;
+
+        [self.view3tabv reloadData];
+        
     } failture:^(id result) {
         
     }];
@@ -186,6 +283,18 @@
 
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 1)];
+    foot.alpha = 0.0f;
+    return foot;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (tableView == self.tav) {
@@ -194,6 +303,9 @@
     }else if (tableView == self.tabv1){
     
         return 55;
+    }else if (tableView == self.view3tabv){
+    
+        return 40;
     }
     
     return 100;
@@ -208,6 +320,9 @@
 
     }else if (tableView == self.tabv1){
         return [self.M2005Arr count];
+    }else if (tableView == self.view3tabv){
+    
+        return self.M2073Arr.count;
     }
     return 0;
 
@@ -246,6 +361,84 @@
         
         return cell;
 
+    }else if (tableView == self.view3tabv){
+    
+        static NSString *CellIdentifier = @"Cell2";
+        
+        dianpingliulanCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[dianpingliulanCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+            //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor clearColor];
+            
+            UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 130, 34)];
+            label1.textAlignment = NSTextAlignmentCenter;
+            label1.textColor = [UIColor blackColor];
+            label1.tag = 201;
+            label1.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label1];
+            
+            UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.right, 0, 125, 34)];
+            label2.textAlignment = NSTextAlignmentCenter;
+            label2.textColor = [UIColor blackColor];
+            label2.tag = 202;
+            label2.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label2];
+            
+            UILabel *label3 = [[UILabel alloc]initWithFrame:CGRectMake(label2.right, 0, 75, 34)];
+            label3.textAlignment = NSTextAlignmentCenter;
+            label3.textColor = [UIColor blackColor];
+            label3.tag = 203;
+            label3.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label3];
+            
+            UILabel *label4 = [[UILabel alloc]initWithFrame:CGRectMake(label3.right, 0, 140, 34)];
+            label4.textAlignment = NSTextAlignmentCenter;
+            label4.textColor = [UIColor blackColor];
+            label4.tag = 204;
+            label4.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label4];
+            
+            UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(label4.right, 0, 100, 34)];
+            label5.textAlignment = NSTextAlignmentCenter;
+            label5.textColor = [UIColor blackColor];
+            label5.tag = 205;
+            label5.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label5];
+            
+            UILabel *label6 = [[UILabel alloc]initWithFrame:CGRectMake(label5.right, 0, 100, 34)];
+            label6.textAlignment = NSTextAlignmentCenter;
+            label6.textColor = [UIColor blackColor];
+            label6.tag = 206;
+            label6.adjustsFontSizeToFitWidth = YES;
+            [cell addSubview:label6];
+            
+        }
+        
+        NSMutableDictionary *dic = self.M2073Arr[indexPath.row];
+        UILabel *label1 = [cell viewWithTag:201];
+        label1.text = dic[@"commitTime"];
+        
+        UILabel *label2 = [cell viewWithTag:202];
+        label2.text = dic[@"course"];
+        
+        UILabel *label3 = [cell viewWithTag:203];
+        label3.text = dic[@"author"];
+
+        UILabel *label4 = [cell viewWithTag:204];
+        label4.text = dic[@"unit"];
+
+        UILabel *label5 = [cell viewWithTag:205];
+        label5.text = dic[@"module"];
+
+        UILabel *label6 = [cell viewWithTag:206];
+        label6.text = @"999";
+
+        cell.selBtn.tag = 1000 + indexPath.row;
+        [cell.selBtn addTarget:self action:@selector(detail:) forControlEvents:UIControlEventTouchUpInside];
+
+        return cell;
+
     }
     
     static NSString *CellIdentifier = @"Cellq";
@@ -259,6 +452,15 @@
     
     return cell;
 
+}
+
+-(void)detail:(UIButton *)sender
+{
+    int tag = (int)sender.tag - 1000;
+    
+    NSMutableDictionary *dic = self.M2073Arr[tag];
+    
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
