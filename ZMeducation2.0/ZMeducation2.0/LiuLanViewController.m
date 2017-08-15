@@ -8,6 +8,7 @@
 
 #import "LiuLanViewController.h"
 #import "dianpingliulanCell.h"
+#import "LiuLanDetailViewController.h"
 
 @interface LiuLanViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
@@ -252,7 +253,6 @@
                             @"userId"           :self.userInfo[@"userId"],
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
                             @"courseId"         :self.M2005dic[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2073"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
@@ -460,7 +460,10 @@
     
     NSMutableDictionary *dic = self.M2073Arr[tag];
     
+    LiuLanDetailViewController *vc = [[LiuLanDetailViewController alloc]init];
+    vc.dic = dic;
     
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
