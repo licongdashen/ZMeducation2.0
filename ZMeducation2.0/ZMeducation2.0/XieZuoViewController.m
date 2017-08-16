@@ -9,7 +9,7 @@
 #import "XieZuoViewController.h"
 #import "CustomLine.h"
 
-@interface XieZuoViewController ()<UITextViewDelegate>
+@interface XieZuoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong)UIButton *btn1;
 
@@ -298,9 +298,105 @@
     }];
 }
 
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag ==255) {
+        
+        NSUInteger sourceType = 0;
+        
+        // 判断是否支持相机
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            
+            switch (buttonIndex) {
+                case 0:
+                    // 取消
+                    return;
+                case 1:
+                    // 相机
+                    sourceType = UIImagePickerControllerSourceTypeCamera;
+                    break;
+                    
+                case 2:
+                    // 相册
+                    sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                    break;
+            }
+        }
+        else {
+            if (buttonIndex == 0) {
+                
+                return;
+            } else {
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            }
+        }
+        // 跳转到相机或相册页面
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = sourceType;
+        
+        __weak typeof(self) weakSelf = self;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [weakSelf presentViewController:imagePickerController animated:YES completion:^{
+                
+            }];
+        }];
+        
+    }
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+    
+    NSData *fileData = UIImageJPEGRepresentation(image, 0.1);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2066",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2066"],
+                            @"file"             :fileData,
+                            @"filename"         :@"123.png"};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"图片上传成功"];
+            [self wodewendang];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"图片上传失败"];
+        }
+        
+    } failture:^(id result) {
+        [CACUtility showTips:@"图片上传失败"];
+        
+    }];
+
+}
+
 -(void)tianjia
 {
+    UIActionSheet *sheet;
+    // 判断是否支持相机
     
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        sheet  = [[UIActionSheet alloc] initWithTitle:@"选择"delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消"otherButtonTitles:@"拍照",@"从相册选择",nil];
+    }
+    else {
+        sheet = [[UIActionSheet alloc] initWithTitle:@"选择"delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消"otherButtonTitles:@"从相册选择",nil];
+    }
+    sheet.tag = 255;
+    [sheet showInView:self.view];
 }
 
 -(void)LoadwendangImgv
