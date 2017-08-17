@@ -229,17 +229,32 @@
     NSInteger tag = sender.tag;
 
     self.classId = self.banjiArr[tag - 10000][@"classId"];
+    NSDictionary * dic;
+    if ([self.userInfo[@"role"] isEqualToString:@"04"]) {
+        dic = @{@"version"          :@"2.0.0",
+                @"clientType"       :@"1001",
+                @"signType"         :@"md5",
+                @"timestamp"        :[CACUtility getNowTime],
+                @"method"           :@"M2005",
+                @"userId"           :self.userInfo[@"userId"],
+                @"typeId"           :self.userInfo[@"currentTypeId"],
+                @"gradeId"          :self.gradeId,
+                @"classId"          :self.banjiArr[tag - 10000][@"classId"],
+                @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
+
+    }else{
+        dic = @{@"version"          :@"2.0.0",
+                @"clientType"       :@"1001",
+                @"signType"         :@"md5",
+                @"timestamp"        :[CACUtility getNowTime],
+                @"method"           :@"M2005",
+                @"userId"           :self.userInfo[@"userId"],
+                @"typeId"           :@"2",
+                @"gradeId"          :self.gradeId,
+                @"classId"          :self.banjiArr[tag - 10000][@"classId"],
+                @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
+    }
     
-    NSDictionary * dic = @{@"version"          :@"2.0.0",
-                           @"clientType"       :@"1001",
-                           @"signType"         :@"md5",
-                           @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M2005",
-                           @"userId"           :self.userInfo[@"userId"],
-                           @"typeId"           :@"2",
-                           @"gradeId"          :self.gradeId,
-                           @"classId"          :self.banjiArr[tag - 10000][@"classId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
         self.kechengArr = result[@"courses"];

@@ -13,6 +13,10 @@
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
 @property (nonatomic, strong)NSMutableDictionary *M2071Dic;
+@property (nonatomic, strong)UIButton *btn1;
+@property (nonatomic, strong)UIButton *btn2;
+@property (nonatomic, strong)UIView *view1dianpingView;
+@property (nonatomic, strong)UIView *view1gousiView;
 
 @end
 
@@ -46,14 +50,13 @@
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"unitId"           :self.dic[@"unitId"],
-                            @"unitTypeId"       :self.dic[@"unitType"],
                             @"authorId"         :self.dic[@"authorId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2071"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2071Dic = result;
         if ([result[@"reviewType"] intValue] == 1) {
-            
+            [self loadview1];
         }else if ([result[@"reviewType"] intValue] == 2){
         
             [self loadview2];
@@ -66,6 +69,77 @@
         
     }];
     
+}
+
+-(void)loadview1
+{
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    [self.view addSubview:self.view1dianpingView];
+    
+    self.view1gousiView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1gousiView.hidden = YES;
+    [self.view addSubview:self.view1gousiView];
+    
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
+    [self.view1dianpingView addSubview:label1];
+    
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
+    [self.view1dianpingView addSubview:label2];
+    
+    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, self.view1dianpingView.width, self.view1dianpingView.height - 20)];
+    bg_selfCommentImagv.image = DEF_IMAGE(@"bg_selfComment");
+    bg_selfCommentImagv.userInteractionEnabled = YES;
+    [self.view1dianpingView addSubview:bg_selfCommentImagv];
+    
+}
+
+-(void)action1:(UIButton *)sender
+{
+    self.view1gousiView.hidden = YES;
+    self.view1dianpingView.hidden = NO;
+
+    self.btn2.backgroundColor = [UIColor clearColor];
+    [self.btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+}
+
+-(void)action2:(UIButton *)sender
+{
+    self.view1gousiView.hidden = NO;
+    self.view1dianpingView.hidden = YES;
+    
+    self.btn1.backgroundColor = [UIColor clearColor];
+    [self.btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(void)loadview2

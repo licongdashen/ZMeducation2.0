@@ -211,17 +211,34 @@
     [chaxunBtn addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
     [self.view3 addSubview:chaxunBtn];
 
-    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
-                            @"clientType"       :@"1001",
-                            @"signType"         :@"md5",
-                            @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2005",
-                            @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
-                            @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
-                            @"typeId"           :@"2",
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
+    NSDictionary * dic4;
+    if ([self.userInfo[@"role"] isEqualToString:@"04"]) {
+        dic4 = @{@"version"         :@"2.0.0",
+                @"clientType"       :@"1001",
+                @"signType"         :@"md5",
+                @"timestamp"        :[CACUtility getNowTime],
+                @"method"           :@"M2005",
+                @"userId"           :self.userInfo[@"userId"],
+                @"gradeId"          :self.userInfo[@"gradeId"],
+                @"classId"          :self.userInfo[@"classId"],
+                @"courseId"         :self.userInfo[@"courseId"],
+                @"typeId"           :self.userInfo[@"currentTypeId"],
+                @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
+
+    }else{
+        dic4 = @{@"version"         :@"2.0.0",
+                 @"clientType"       :@"1001",
+                 @"signType"         :@"md5",
+                 @"timestamp"        :[CACUtility getNowTime],
+                 @"method"           :@"M2005",
+                 @"userId"           :self.userInfo[@"userId"],
+                 @"gradeId"          :self.userInfo[@"gradeId"],
+                 @"classId"          :self.userInfo[@"classId"],
+                 @"courseId"         :self.userInfo[@"courseId"],
+                 @"typeId"           :@"2",
+                 @"sign"             :[CACUtility getSignWithMethod:@"M2005"]};
+    }
+    
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2005Arr = result[@"courses"];
