@@ -115,6 +115,10 @@
     bg_selfCommentImagv.userInteractionEnabled = YES;
     [self.view1dianpingView addSubview:bg_selfCommentImagv];
     
+    UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 250, 80)];
+    label11.text = self.M2071Dic[@"titles"][0][0];
+    label11.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label11];
 }
 
 -(void)action1:(UIButton *)sender
