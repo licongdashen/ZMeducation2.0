@@ -115,10 +115,113 @@
     bg_selfCommentImagv.userInteractionEnabled = YES;
     [self.view1dianpingView addSubview:bg_selfCommentImagv];
     
-    UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 250, 80)];
+    UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 265, 93)];
     label11.text = self.M2071Dic[@"titles"][0][0];
     label11.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label11];
+    
+    UILabel *label12 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, 0, 220, 93)];
+    label12.text = self.M2071Dic[@"titles"][0][1];
+    label12.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label12];
+    
+    UILabel *label13 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, 0, 220, 93)];
+    label13.text = self.M2071Dic[@"titles"][0][2];
+    label13.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label13];
+    
+    UILabel *label14 = [[UILabel alloc]initWithFrame:CGRectMake(label13.right, 0, 220, 93)];
+    label14.text = self.M2071Dic[@"titles"][0][3];
+    label14.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label14];
+    
+    UILabel *label15 = [[UILabel alloc]initWithFrame:CGRectMake(label14.right, 0, 80, 93)];
+    label15.text = self.M2071Dic[@"titles"][0][4];
+    label15.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label15];
+    
+    
+    UILabel *label21 = [[UILabel alloc]initWithFrame:CGRectMake(0, label11.bottom, 265 - 90, 93)];
+    label21.text = self.M2071Dic[@"titles"][1][0];
+    label21.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label21];
+    
+    UILabel *label22 = [[UILabel alloc]initWithFrame:CGRectMake(label21.right, label11.bottom, 90, 93)];
+    label22.text = self.M2071Dic[@"titles"][1][1];
+    label22.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label22];
+
+    UILabel *label23 = [[UILabel alloc]initWithFrame:CGRectMake(label22.right, label11.bottom, 220, 93)];
+    label23.text = self.M2071Dic[@"titles"][1][2];
+    label23.numberOfLines = 0;
+    label23.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label23];
+    
+    UILabel *label24 = [[UILabel alloc]initWithFrame:CGRectMake(label23.right, label11.bottom, 220, 93)];
+    label24.text = self.M2071Dic[@"titles"][1][3];
+    label24.numberOfLines = 0;
+    label23.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label24];
+    
+    UILabel *label25 = [[UILabel alloc]initWithFrame:CGRectMake(label24.right, label11.bottom, 220, 93)];
+    label25.text = self.M2071Dic[@"titles"][1][4];
+    label25.numberOfLines = 0;
+    label25.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label25];
+    
+    UILabel *label31 = [[UILabel alloc]initWithFrame:CGRectMake(0, label21.bottom, 265 - 90, 93 * 2)];
+    label31.text = self.M2071Dic[@"titles"][2][0];
+    label31.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label31];
+    
+    UILabel *label32 = [[UILabel alloc]initWithFrame:CGRectMake(label31.right, label21.bottom, 90, 93)];
+    label32.text = self.M2071Dic[@"titles"][2][1];
+    label32.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label32];
+    
+    UILabel *label33 = [[UILabel alloc]initWithFrame:CGRectMake(label32.right, label21.bottom, 220, 93)];
+    label33.text = self.M2071Dic[@"titles"][2][2];
+    label33.textAlignment = NSTextAlignmentCenter;
+    label33.numberOfLines = 0;
+    label33.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label33];
+    
+    UILabel *label34 = [[UILabel alloc]initWithFrame:CGRectMake(label33.right, label21.bottom, 220, 93)];
+    label34.text = self.M2071Dic[@"titles"][2][3];
+    label34.textAlignment = NSTextAlignmentCenter;
+    label34.numberOfLines = 0;
+    label34.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label34];
+    
+    UILabel *label35 = [[UILabel alloc]initWithFrame:CGRectMake(label34.right, label21.bottom, 220, 93)];
+    label35.text = self.M2071Dic[@"titles"][2][4];
+    label35.numberOfLines = 0;
+    label35.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label35];
+    
+    UILabel *label42 = [[UILabel alloc]initWithFrame:CGRectMake(label31.right, label32.bottom, 90, 93)];
+    label42.text = self.M2071Dic[@"titles"][3][1];
+    label42.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label42];
+    
+    UILabel *label43 = [[UILabel alloc]initWithFrame:CGRectMake(label42.right, label32.bottom, 220, 93)];
+    label43.text = self.M2071Dic[@"titles"][3][2];
+    label43.numberOfLines = 0;
+    label43.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label43];
+    
+    UILabel *label44 = [[UILabel alloc]initWithFrame:CGRectMake(label43.right, label32.bottom, 220, 93)];
+    label44.text = self.M2071Dic[@"titles"][3][3];
+    label44.numberOfLines = 0;
+    label44.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label44];
+    
+    UILabel *label45 = [[UILabel alloc]initWithFrame:CGRectMake(label44.right, label32.bottom, 220, 93)];
+    label45.text = self.M2071Dic[@"titles"][3][4];
+    label45.numberOfLines = 0;
+    label45.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label45];
+
 }
 
 -(void)action1:(UIButton *)sender
