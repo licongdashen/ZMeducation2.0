@@ -18,7 +18,9 @@
 @property (nonatomic, strong)UIView *view1dianpingView;
 @property (nonatomic, strong)UIView *view1gousiView;
 
-@property (nonatomic, strong)NSMutableDictionary *tempM2071Dic;
+@property (nonatomic, strong)NSMutableArray *tempM2071Arr;
+
+@property (nonatomic, strong)UIView *navView;
 
 @end
 
@@ -29,15 +31,20 @@
     
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 64)];
-    view.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
-    [self.view addSubview:view];
+    self.navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 64)];
+    self.navView.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
+    [self.view addSubview:self.navView];
     
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 23, 65, 30)];
     [backBtn setTitle:@"返回" forState:0];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:backBtn];
+    [self.navView addSubview:backBtn];
 
+    UIButton *commintBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.navView.width - 75, 23, 65, 30)];
+    [commintBtn setTitle:@"提交" forState:0];
+    [commintBtn addTarget:self action:@selector(commint) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:commintBtn];
+    
     UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 64)];
     imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
     imagvBg.userInteractionEnabled = YES;
@@ -59,14 +66,53 @@
         
         self.M2071Dic = result;
         if ([result[@"reviewType"] intValue] == 1) {
-            self.tempM2071Dic = [[NSMutableDictionary alloc]initWithDictionary:self.M2071Dic[@"contents"]];
+            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 6; i++) {
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:@"" forKey:@"advice"];
+                    [self.tempM2071Arr addObject:dic];
+                }
+            }else{
+                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+            }
             [self loadview1];
         }else if ([result[@"reviewType"] intValue] == 2){
-        
+            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+                NSMutableArray *arr2 = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 4; i++) {
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:@"" forKey:@"advice1"];
+                    [arr1 addObject:dic];
+                    
+                    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                    [dic1 setObject:@"" forKey:@"advice2"];
+                    [arr2 addObject:dic1];
+                }
+                
+                [self.tempM2071Arr addObject:arr1];
+                [self.tempM2071Arr addObject:arr2];
+                
+            }else{
+                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+            }
+
             [self loadview2];
             
         }else if ([result[@"reviewType"] intValue] == 3){
-        
+            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 2; i++) {
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:@"" forKey:@"advice"];
+                    [self.tempM2071Arr addObject:dic];
+                }
+            }else{
+                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+            }
+            [self loadview3];
         }
         
     } failture:^(id result) {
@@ -311,7 +357,7 @@
     int y = 93;
     for (int i = 0; i < 6; i++) {
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label75.right, y, 90, 93)];
-        tv.text = self.M2071Dic[@"contents"][@"advice"];
+        tv.text = self.tempM2071Arr[i][@"advice"];
         tv.tag = 1000 + i;
         tv.delegate = self;
         tv.backgroundColor = [UIColor clearColor];
@@ -321,9 +367,256 @@
     }
 }
 
+-(void)loadview2
+{
+    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20 + 65, self.view.width, self.view.height - 20 - 65)];
+    bg_selfCommentImagv.image = DEF_IMAGE(@"bg_interComment");
+    bg_selfCommentImagv.userInteractionEnabled = YES;
+    [self.view addSubview:bg_selfCommentImagv];
+    
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
+    [self.view1dianpingView addSubview:label1];
+    
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
+    [self.view1dianpingView addSubview:label2];
+    
+
+    UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 132, 112)];
+    label11.text = self.M2071Dic[@"titles"][0][0];
+    label11.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label11];
+
+    UILabel *label12 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, 0, 545, 112)];
+    label12.text = self.M2071Dic[@"titles"][0][1];
+    label12.numberOfLines = 0;
+    label12.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label12];
+
+    UILabel *label13 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, 0, 120, 112)];
+    label13.text = self.M2071Dic[@"titles"][0][2];
+    label13.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label13];
+    
+    UILabel *label21 = [[UILabel alloc]initWithFrame:CGRectMake(0, label11.bottom, 132, 112)];
+    label21.text = self.M2071Dic[@"titles"][1][0];
+    label21.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label21];
+    
+    UILabel *label22 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label11.bottom, 545, 112)];
+    label22.text = self.M2071Dic[@"titles"][1][1];
+    label22.numberOfLines = 0;
+    label22.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label22];
+    
+    UILabel *label23 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, label11.bottom, 120, 112)];
+    label23.text = self.M2071Dic[@"titles"][1][2];
+    label23.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label23];
+    
+    UILabel *label31 = [[UILabel alloc]initWithFrame:CGRectMake(0, label21.bottom, 132, 112)];
+    label31.text = self.M2071Dic[@"titles"][2][0];
+    label31.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label31];
+    
+    UILabel *label32 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label21.bottom, 545, 112)];
+    label32.text = self.M2071Dic[@"titles"][2][1];
+    label32.numberOfLines = 0;
+    label32.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label32];
+    
+    UILabel *label33 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, label21.bottom, 120, 112)];
+    label33.text = self.M2071Dic[@"titles"][2][2];
+    label33.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label33];
+
+    UILabel *label41 = [[UILabel alloc]initWithFrame:CGRectMake(0, label31.bottom, 132, 190)];
+    label41.text = self.M2071Dic[@"titles"][3][0];
+    label41.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label41];
+    
+    UILabel *label42 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label31.bottom, 545, 190)];
+    label42.text = self.M2071Dic[@"titles"][3][1];
+    label42.numberOfLines = 0;
+    label42.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label42];
+    
+    UILabel *label43 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, label31.bottom, 120, 190)];
+    label43.text = self.M2071Dic[@"titles"][3][2];
+    label43.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label43];
+    
+    
+    UILabel *label51 = [[UILabel alloc]initWithFrame:CGRectMake(0, label41.bottom, 132, 100)];
+    label51.text = self.M2071Dic[@"titles"][4][0];
+    label51.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label51];
+    
+    UILabel *label52 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label41.bottom, 545, 100)];
+    label52.text = self.M2071Dic[@"titles"][4][1];
+    label52.numberOfLines = 0;
+    label52.adjustsFontSizeToFitWidth = YES;
+    [bg_selfCommentImagv addSubview:label52];
+    
+    UILabel *label53 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, label41.bottom, 120, 100)];
+    label53.text = self.M2071Dic[@"titles"][4][2];
+    label53.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label53];
+    
+    UILabel *label61 = [[UILabel alloc]initWithFrame:CGRectMake(0, label51.bottom, 132, 70)];
+    label61.text = @"总分";
+    label61.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label61];
+    
+    UILabel *label63 = [[UILabel alloc]initWithFrame:CGRectMake(label12.right, label51.bottom, 120, 70)];
+    label63.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"titles"][1][2] intValue] + [self.M2071Dic[@"titles"][2][2] intValue] + [self.M2071Dic[@"titles"][3][2] intValue] + [self.M2071Dic[@"titles"][4][2] intValue]];
+    label63.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label63];
+
+    UILabel *label64 = [[UILabel alloc]initWithFrame:CGRectMake(label63.right, label51.bottom, 120, 70)];
+    label64.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][0][0][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][1][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][2][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][3][@"advice1"] intValue]];
+    label64.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label64];
+    
+    UILabel *label65 = [[UILabel alloc]initWithFrame:CGRectMake(label64.right, label51.bottom, 120, 70)];
+    label65.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][1][0][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][1][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][2][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][3][@"advice2"] intValue]];
+    label65.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label65];
+
+    UILabel *label14 = [[UILabel alloc]initWithFrame:CGRectMake(label13.right, 0, 240, 112/2)];
+    label14.text = @"得分";
+    label14.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label14];
+    
+    UILabel *label15 = [[UILabel alloc]initWithFrame:CGRectMake(label13.right, label14.bottom, 120, 112/2)];
+    label15.text = @"自评";
+    label15.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label15];
+    
+    UILabel *label16 = [[UILabel alloc]initWithFrame:CGRectMake(label15.right, label14.bottom, 120, 112/2)];
+    label16.text = @"同学评";
+    label16.textAlignment = NSTextAlignmentCenter;
+    [bg_selfCommentImagv addSubview:label16];
+    
+    int y = label15.bottom;
+    for (int i = 0; i < 4; i++) {
+        UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right, y, 120, 112)];
+        tv.text = self.M2071Dic[@"contents"][0][i][@"advice1"];
+        tv.tag = 2000 + i;
+        tv.delegate = self;
+        tv.backgroundColor = [UIColor clearColor];
+        [bg_selfCommentImagv addSubview:tv];
+        
+        UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right, y, 120, 112)];
+        tv1.text = self.M2071Dic[@"contents"][1][i][@"advice2"];
+        tv1.tag = 3000 + i;
+        tv1.delegate = self;
+        tv1.backgroundColor = [UIColor clearColor];
+        [bg_selfCommentImagv addSubview:tv1];
+        
+        if (i == 2) {
+            y += 190;
+        }else{
+            y += 112;
+        }
+    }
+    
+}
+
+-(void)loadview3
+{
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
+    [self.view addSubview:label1];
+    
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
+    [self.view addSubview:label2];
+
+    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 150, 150, 30)];
+    titleLb.text = @"我欣赏的是";
+    [self.view addSubview:titleLb];
+    
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100, 600, 300)];
+    tv1.text = self.M2071Dic[@"contents"][0][@"advice"];
+    tv1.layer.borderColor = [UIColor grayColor].CGColor;
+    tv1.layer.borderWidth = 1;
+    tv1.backgroundColor = [UIColor clearColor];
+    tv1.tag = 5555;
+    tv1.delegate = self;
+    [self.view addSubview:tv1];
+    
+    UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(50, 500, 250, 30)];
+    titleLb1.text = @"我建议你改变的是的是";
+    [self.view addSubview:titleLb1];
+    
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450, 600, 300)];
+    tv2.text = self.M2071Dic[@"contents"][1][@"advice"];
+    tv2.layer.borderColor = [UIColor grayColor].CGColor;
+    tv2.layer.borderWidth = 1;
+    tv2.backgroundColor = [UIColor clearColor];
+    tv2.tag = 6666;
+    tv2.delegate = self;
+    [self.view addSubview:tv2];
+}
+
+-(void)commint
+{
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2072",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"authorId"         :self.dic[@"authorId"],
+                            @"contents"         :self.tempM2071Arr,
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2072"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"提交成功"];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"提交失败"];
+        }
+    } failture:^(id result) {
+        [CACUtility showTips:@"提交失败"];
+
+    }];
+}
+
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
-    int tag = (int)textView.tag - 1000;
+    if ([self.M2071Dic[@"reviewType"] intValue] == 1) {
+        int tag = (int)textView.tag - 1000;
+        NSMutableDictionary *dic = self.tempM2071Arr[tag];
+        [dic setObject:textView.text forKey:@"advice"];
+
+    }else if ([self.M2071Dic[@"reviewType"] intValue] == 2){
+        if (textView.tag >= 3000) {
+            int tag = (int)textView.tag - 3000;
+            NSMutableDictionary *dic = self.tempM2071Arr[1][tag];
+            [dic setObject:textView.text forKey:@"advice2"];
+        }else{
+            int tag = (int)textView.tag - 2000;
+            NSMutableDictionary *dic = self.tempM2071Arr[0][tag];
+            [dic setObject:textView.text forKey:@"advice1"];
+        }
+    }else if ([self.M2071Dic[@"reviewType"] intValue] == 3){
+        if (textView.tag == 5555) {
+            NSMutableDictionary *dic = self.tempM2071Arr[0];
+            [dic setObject:textView.text forKey:@"advice"];
+        }else{
+            NSMutableDictionary *dic = self.tempM2071Arr[1];
+            [dic setObject:textView.text forKey:@"advice"];
+
+        }
+    }
     
 }
 
@@ -352,16 +645,6 @@
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
--(void)loadview2
-{
-    UILabel *labele = [[UILabel alloc]initWithFrame:CGRectMake(0, 75, DEF_DEVICE_WIDTH, 40)];
-    labele.text = self.M2071Dic[@"author"];
-    
-    NSArray *arr = self.M2071Dic[@"feedstr"];
-    for (int i = 0; i < [arr count]; i ++ ) {
-        
-    }
-}
 
 -(void)back
 {
