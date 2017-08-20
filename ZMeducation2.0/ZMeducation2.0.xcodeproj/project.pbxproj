@@ -48,6 +48,19 @@
 		D98A5F1E1F4318F5000E863A /* LiuLanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98A5F1D1F4318F5000E863A /* LiuLanDetailViewController.m */; };
 		D98ACC4B1F28CD4F00822DFF /* XiaoZuHeZuoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */; };
 		D98B66581F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */; };
+		D98D2C201F49544200572F3B /* GouSiDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98D2C1F1F49544200572F3B /* GouSiDetailViewController.m */; };
+		D98D2C231F495BD800572F3B /* WenGaoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98D2C221F495BD800572F3B /* WenGaoDetailViewController.m */; };
+		D98D2C251F49680200572F3B /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C241F49680200572F3B /* iflyMSC.framework */; };
+		D98D2C271F49680D00572F3B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C261F49680D00572F3B /* libz.tbd */; };
+		D98D2C291F49681E00572F3B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C281F49681E00572F3B /* SystemConfiguration.framework */; };
+		D98D2C2B1F49682700572F3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C2A1F49682700572F3B /* Foundation.framework */; };
+		D98D2C2D1F49684500572F3B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C2C1F49684500572F3B /* CoreTelephony.framework */; };
+		D98D2C2F1F49685400572F3B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C2E1F49685400572F3B /* AudioToolbox.framework */; };
+		D98D2C311F49685D00572F3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C301F49685D00572F3B /* UIKit.framework */; };
+		D98D2C331F49686600572F3B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C321F49686600572F3B /* CoreLocation.framework */; };
+		D98D2C351F49687100572F3B /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C341F49687100572F3B /* Contacts.framework */; };
+		D98D2C371F49687900572F3B /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C361F49687900572F3B /* AddressBook.framework */; };
+		D98D2C391F49688000572F3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D98D2C381F49688000572F3B /* QuartzCore.framework */; };
 		D99A36841F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */; };
 		D9A2DB951F36D2E800E8201F /* QiangDaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A2DB941F36D2E800E8201F /* QiangDaViewController.m */; };
 		D9B300311F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B300301F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m */; };
@@ -155,6 +168,21 @@
 		D98ACC4A1F28CD4F00822DFF /* XiaoZuHeZuoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoZuHeZuoCell.m; sourceTree = "<group>"; };
 		D98B66561F2A1E5A0003DA4F /* TouPiaoJieguoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieguoViewController.h; sourceTree = "<group>"; };
 		D98B66571F2A1E5B0003DA4F /* TouPiaoJieguoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieguoViewController.m; sourceTree = "<group>"; };
+		D98D2C1E1F49544200572F3B /* GouSiDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GouSiDetailViewController.h; sourceTree = "<group>"; };
+		D98D2C1F1F49544200572F3B /* GouSiDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GouSiDetailViewController.m; sourceTree = "<group>"; };
+		D98D2C211F495BD800572F3B /* WenGaoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WenGaoDetailViewController.h; sourceTree = "<group>"; };
+		D98D2C221F495BD800572F3B /* WenGaoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WenGaoDetailViewController.m; sourceTree = "<group>"; };
+		D98D2C241F49680200572F3B /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
+		D98D2C261F49680D00572F3B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D98D2C281F49681E00572F3B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D98D2C2A1F49682700572F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D98D2C2C1F49684500572F3B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D98D2C2E1F49685400572F3B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D98D2C301F49685D00572F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D98D2C321F49686600572F3B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D98D2C341F49687100572F3B /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		D98D2C361F49687900572F3B /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		D98D2C381F49688000572F3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D99A36821F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouPiaoJieGuo1ViewController.h; sourceTree = "<group>"; };
 		D99A36831F2F5D4F008273A9 /* TouPiaoJieGuo1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouPiaoJieGuo1ViewController.m; sourceTree = "<group>"; };
 		D9A2DB931F36D2E800E8201F /* QiangDaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiangDaViewController.h; sourceTree = "<group>"; };
@@ -168,8 +196,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D96CF8C61F2492EA00E82985 /* AVKit.framework in Frameworks */,
+				D98D2C391F49688000572F3B /* QuartzCore.framework in Frameworks */,
+				D98D2C371F49687900572F3B /* AddressBook.framework in Frameworks */,
+				D98D2C351F49687100572F3B /* Contacts.framework in Frameworks */,
+				D98D2C331F49686600572F3B /* CoreLocation.framework in Frameworks */,
+				D98D2C311F49685D00572F3B /* UIKit.framework in Frameworks */,
+				D98D2C2F1F49685400572F3B /* AudioToolbox.framework in Frameworks */,
+				D98D2C2D1F49684500572F3B /* CoreTelephony.framework in Frameworks */,
+				D98D2C2B1F49682700572F3B /* Foundation.framework in Frameworks */,
+				D98D2C291F49681E00572F3B /* SystemConfiguration.framework in Frameworks */,
 				D96CF8C41F2492E500E82985 /* AVFoundation.framework in Frameworks */,
+				D98D2C271F49680D00572F3B /* libz.tbd in Frameworks */,
+				D98D2C251F49680200572F3B /* iflyMSC.framework in Frameworks */,
+				D96CF8C61F2492EA00E82985 /* AVKit.framework in Frameworks */,
 				746D9F6A7F5B0EE23C6BF468 /* Pods_ZMeducation2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +360,10 @@
 				500037EA1EEFDA220007D164 /* LiuLanViewController.m */,
 				D98A5F1C1F4318F5000E863A /* LiuLanDetailViewController.h */,
 				D98A5F1D1F4318F5000E863A /* LiuLanDetailViewController.m */,
+				D98D2C1E1F49544200572F3B /* GouSiDetailViewController.h */,
+				D98D2C1F1F49544200572F3B /* GouSiDetailViewController.m */,
+				D98D2C211F495BD800572F3B /* WenGaoDetailViewController.h */,
+				D98D2C221F495BD800572F3B /* WenGaoDetailViewController.m */,
 				D91CE1041F41E0ED00F4DD5A /* dianpingliulanCell.h */,
 				D91CE1051F41E0ED00F4DD5A /* dianpingliulanCell.m */,
 				500037EC1EEFDA340007D164 /* GongJuViewController.h */,
@@ -367,6 +410,17 @@
 		A4B65CD91E007949D08849BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D98D2C381F49688000572F3B /* QuartzCore.framework */,
+				D98D2C361F49687900572F3B /* AddressBook.framework */,
+				D98D2C341F49687100572F3B /* Contacts.framework */,
+				D98D2C321F49686600572F3B /* CoreLocation.framework */,
+				D98D2C301F49685D00572F3B /* UIKit.framework */,
+				D98D2C2E1F49685400572F3B /* AudioToolbox.framework */,
+				D98D2C2C1F49684500572F3B /* CoreTelephony.framework */,
+				D98D2C2A1F49682700572F3B /* Foundation.framework */,
+				D98D2C281F49681E00572F3B /* SystemConfiguration.framework */,
+				D98D2C261F49680D00572F3B /* libz.tbd */,
+				D98D2C241F49680200572F3B /* iflyMSC.framework */,
 				D96CF8C51F2492EA00E82985 /* AVKit.framework */,
 				D96CF8C31F2492E500E82985 /* AVFoundation.framework */,
 				756773D42C30F3BF5397F889 /* Pods_ZMeducation2_0.framework */,
@@ -577,6 +631,7 @@
 				500037EB1EEFDA220007D164 /* LiuLanViewController.m in Sources */,
 				50A955841F17200000D12F40 /* TianKongTiViewController.m in Sources */,
 				500037DF1EEE8E5A0007D164 /* LoginViewController.m in Sources */,
+				D98D2C231F495BD800572F3B /* WenGaoDetailViewController.m in Sources */,
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
 				D9B300311F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m in Sources */,
@@ -600,6 +655,7 @@
 				50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */,
 				50590E841EFA4D4000FF1F5A /* NSString+MD5.m in Sources */,
 				50A955871F176E7100D12F40 /* YinPinViewController.m in Sources */,
+				D98D2C201F49544200572F3B /* GouSiDetailViewController.m in Sources */,
 				50A955811F14A82F00D12F40 /* CustomLine.m in Sources */,
 				500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */,
 				D96CF8C21F248C2D00E82985 /* ShiPinViewController.m in Sources */,
@@ -739,6 +795,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B5X8VCZJRX;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZMeducation2.0/PrefixHeader.pch";
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -754,6 +815,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B5X8VCZJRX;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZMeducation2.0/PrefixHeader.pch";
 				INFOPLIST_FILE = ZMeducation2.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

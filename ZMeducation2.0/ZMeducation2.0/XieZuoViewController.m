@@ -8,8 +8,8 @@
 
 #import "XieZuoViewController.h"
 #import "CustomLine.h"
-
-@interface XieZuoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate>
+#import <iflyMSC/iflyMSC.h>
+@interface XieZuoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate,IFlySpeechRecognizerDelegate>
 
 @property (nonatomic, strong)UIButton *btn1;
 
@@ -44,6 +44,11 @@
 @property (nonatomic, strong) UIScrollView *wendangscro;
 
 @property (nonatomic, strong) NSMutableArray *M2064Arr;
+@property (nonatomic, strong) IFlySpeechRecognizer *iFlySpeechRecognizer;
+
+@property (nonatomic, strong) UIButton *luyinBtn;
+
+@property (nonatomic, weak)UITextView *content;
 
 @end
 
@@ -57,6 +62,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //创建语音识别对象
+    _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance]; //设置识别参数
+    _iFlySpeechRecognizer.delegate = self;
+    //设置为听写模式
+    [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
+
+    [_iFlySpeechRecognizer setParameter: @"iat" forKey: [IFlySpeechConstant IFLY_DOMAIN]];
+    //asr_audio_path 是录音文件名，设置 value 为 nil 或者为空取消保存，默认保存目录在 Library/cache 下。
+    [_iFlySpeechRecognizer setParameter:@"iat.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    //设置音频来源为麦克风
+    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_MIC forKey:@"audio_source"];
+    
+    //设置听写结果格式为json
+    [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
+
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
 
@@ -163,7 +184,40 @@
     
     
 }
+//识别结果返回代理
+- (void) onResults:(NSArray *) results isLast:(BOOL)isLast{
+    
+    NSMutableString *resultString = [[NSMutableString alloc] init];
+    NSDictionary *dic = results[0];
+    for (NSString *key in dic) {
+        [resultString appendFormat:@"%@",key];
+    }
+    NSString * resultFromJson =  [self stringFromJson:resultString];
 
+    self.content.text = [NSString stringWithFormat:@"%@%@",self.content.text,resultFromJson];
+    NSLog(@"jjjjjjj======%@",resultFromJson);
+    
+} //识别会话结束返回代理
+- (void)onError: (IFlySpeechError *) error{
+    
+}
+//停止录音回调
+- (void) onEndOfSpeech{
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    self.luyinBtn.enabled = YES;
+}
+//开始录音回调
+- (void) onBeginOfSpeech{
+    
+}
+//音量回调函数
+- (void) onVolumeChanged: (int)volume{
+    
+}
+//会话取消回调
+- (void) onCancel{
+    
+}
 -(void)action:(UIButton *)sender
 {
     for (UIView *view in [self.scro subviews]) {
@@ -206,13 +260,11 @@
         [view removeFromSuperview];
     }
     
-
-
     UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
     imagv1.image = DEF_IMAGE(@"wodewengao_title");
     [self.wendangBackView addSubview:imagv1];
     
-    UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 700, 35)];
+    UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 650, 35)];
     imagv2.image = DEF_IMAGE(@"wodewengao_shurukuang");
     imagv2.userInteractionEnabled = YES;
     [self.wendangBackView addSubview:imagv2];
@@ -222,6 +274,11 @@
     [imagv2 addSubview:tf];
     self.tf = tf;
     
+    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(imagv2.right + 20, imagv2.y, 80, 35)];
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
+    [self.wendangBackView addSubview:self.luyinBtn];
+    
     UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.ketangBackView.width - 80, 450)];
     imagv.userInteractionEnabled = YES;
     imagv.image = DEF_IMAGE(@"hezuo_beijing");
@@ -229,8 +286,8 @@
     [self.wendangBackView addSubview:imagv];
 
     UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
-    content.editable = NO;
     [imagv addSubview:content];
+    self.content = content;
     
     UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
     tijiaoBtn.centerX = self.wendangBackView.centerX;
@@ -268,6 +325,18 @@
     }];
 }
 
+-(void)luyin
+{
+    BOOL ret = [_iFlySpeechRecognizer startListening];
+    if (ret) {
+        [self.luyinBtn setTitle:@"正在录音" forState:0];
+        self.luyinBtn.enabled = NO;
+    }else{
+        
+        
+    }
+}
+
 -(void)tijiao
 {
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
@@ -281,7 +350,7 @@
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2065"],
                             @"title"            :self.tf.text,
-                            @"content"          :self.M2064Dic[@"content"]};
+                            @"content"          :self.content.text};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
@@ -296,6 +365,7 @@
         [CACUtility showTips:@"提交失败"];
 
     }];
+
 }
 
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -346,6 +416,32 @@
     }
 }
 
+- (NSString *)stringFromJson:(NSString*)params
+{
+    if (params == NULL) {
+        return nil;
+    }
+    
+    NSMutableString *tempStr = [[NSMutableString alloc] init];
+    NSDictionary *resultDic  = [NSJSONSerialization JSONObjectWithData:    //返回的格式必须为utf8的,否则发生未知错误
+                                [params dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
+    if (resultDic!= nil) {
+        NSArray *wordArray = [resultDic objectForKey:@"ws"];
+        
+        for (int i = 0; i < [wordArray count]; i++) {
+            NSDictionary *wsDic = [wordArray objectAtIndex: i];
+            NSArray *cwArray = [wsDic objectForKey:@"cw"];
+            
+            for (int j = 0; j < [cwArray count]; j++) {
+                NSDictionary *wDic = [cwArray objectAtIndex:j];
+                NSString *str = [wDic objectForKey:@"w"];
+                [tempStr appendString: str];
+            }
+        }
+    }
+    return tempStr;
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
     

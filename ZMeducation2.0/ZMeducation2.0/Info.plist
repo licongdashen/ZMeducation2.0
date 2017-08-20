@@ -37,5 +37,13 @@
 	<string>aaa</string>
 	<key>NSCameraUsageDescription</key>
 	<string>aaaa</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
+	<key>NSLocationUsageDescription</key>
+	<string></string>
+	<key>NSContactsUsageDescription</key>
+	<string></string>
 </dict>
 </plist>
