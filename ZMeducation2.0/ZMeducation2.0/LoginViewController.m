@@ -30,7 +30,7 @@
     [self.view addSubview:backgroundImagv];
     
     self.userNameTf = [[UITextField alloc]initWithFrame:CGRectMake(380, 283, 280, 35)];
-    self.userNameTf.text = @"T002";
+    self.userNameTf.text = @"t002";
     [self.view addSubview:self.userNameTf];
     
     self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];
@@ -57,13 +57,25 @@
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
                            @"sign"             :[CACUtility getSignWithMethod:@"M2001"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
+        
+        if ([result[@"responseCode"] isEqualToString:@"00"]) {
+            [CACUtility showTips:@"登录成功"];
+            
+            [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
+            SelectViewController *vc = [[SelectViewController alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
+            [CACUtility showTips:result[@"responseMessage"]];
+        }else{
+            [CACUtility showTips:@"登录失败"];
+        }
 
-        SelectViewController *vc = [[SelectViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+
         
     } failture:^(id result) {
-        
+        [CACUtility showTips:@"登录失败"];
+
     }];
 
 }
