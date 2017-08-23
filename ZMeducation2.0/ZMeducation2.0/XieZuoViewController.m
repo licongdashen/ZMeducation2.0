@@ -824,96 +824,77 @@
             tv1.text = self.tempM2061Arr[0][@"advice"];
             tv1.tag = 2001;
             tv1.delegate = self;
-            tv1.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv1];
             
             UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
             tv2.text = self.tempM2061Arr[1][@"advice"];
             tv2.tag = 2002;
             tv2.delegate = self;
-            tv2.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv2];
 
-            UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 70, tv1.y + 10, 220, 70)];
-            tv3.text = self.tempM2061Arr[2][@"advice"];
-            tv3.tag = 2003;
-            tv3.delegate = self;
-            tv3.backgroundColor = [UIColor redColor];
-            [imagv addSubview:tv3];
-            
             UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 70, tv1.y + 10, 220, 70)];
-            tv4.text = self.tempM2061Arr[3][@"advice"];
-            tv4.tag = 2004;
+            tv4.text = self.tempM2061Arr[2][@"advice"];
+            tv4.tag = 2003;
             tv4.delegate = self;
-            tv4.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv4];
             
             UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv4.bottom + 50, 120, 90)];
-            tv5.text = self.tempM2061Arr[4][@"advice"];
-            tv5.tag = 2005;
+            tv5.text = self.tempM2061Arr[3][@"advice"];
+            tv5.tag = 2004;
             tv5.delegate = self;
-            tv5.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv5];
             
             UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv5.bottom + 60, 120, 90)];
-            tv6.text = self.tempM2061Arr[5][@"advice"];
-            tv6.tag = 2006;
+            tv6.text = self.tempM2061Arr[4][@"advice"];
+            tv6.tag = 2005;
             tv6.delegate = self;
-            tv6.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv6];
             
             UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv6.bottom + 60, 120, 90)];
-            tv7.text = self.tempM2061Arr[6][@"advice"];
-            tv7.tag = 2007;
+            tv7.text = self.tempM2061Arr[5][@"advice"];
+            tv7.tag = 2006;
             tv7.delegate = self;
-            tv7.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv7];
             
             UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv4.bottom + 50, 120, 90)];
-            tv8.text = self.tempM2061Arr[7][@"advice"];
-            tv8.tag = 2008;
+            tv8.text = self.tempM2061Arr[6][@"advice"];
+            tv8.tag = 2007;
             tv8.delegate = self;
-            tv8.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv8];
             
             UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv8.bottom + 70, 120, 90)];
-            tv9.text = self.tempM2061Arr[8][@"advice"];
-            tv9.tag = 2009;
+            tv9.text = self.tempM2061Arr[7][@"advice"];
+            tv9.tag = 2008;
             tv9.delegate = self;
-            tv9.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv9];
             
             UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv9.bottom + 70, 120, 90)];
-            tv10.text = self.tempM2061Arr[9][@"advice"];
-            tv10.tag = 2010;
+            tv10.text = self.tempM2061Arr[8][@"advice"];
+            tv10.tag = 2009;
             tv10.delegate = self;
-            tv10.backgroundColor = [UIColor redColor];
             [imagv addSubview:tv10];
             
-//            UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv1.y + 20, 160, 110)];
-//            tv11.text = self.tempM2061Arr[10][@"advice"];
-//            tv11.tag = 2011;
-//            tv11.delegate = self;
-//            tv11.backgroundColor = [UIColor redColor];
-//            [imagv addSubview:tv11];
-//            
-//            UITextView *tv12 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv9.bottom + 60, 160, 110)];
-//            tv12.text = self.tempM2061Arr[11][@"advice"];
-//            tv12.tag = 2012;
-//            tv12.delegate = self;
-//            tv12.backgroundColor = [UIColor redColor];
-//            [imagv addSubview:tv12];
-//            
-//            UITextView *tv13 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv10.bottom + 60, 160, 110)];
-//            tv13.text = self.tempM2061Arr[12][@"advice"];
-//            tv13.tag = 2013;
-//            tv13.delegate = self;
-//            tv13.backgroundColor = [UIColor redColor];
-//            [imagv addSubview:tv13];
-//            
-//            UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv11.right - 80, tv11.bottom + 20, 80, 80)];
-//            [commit addTarget:self action:@selector(gousicommit) forControlEvents:UIControlEventTouchUpInside];
-//            [imagv addSubview:commit];
+            UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv1.y + 20, 150, 110)];
+            tv11.text = self.tempM2061Arr[9][@"advice"];
+            tv11.tag = 2010;
+            tv11.delegate = self;
+            [imagv addSubview:tv11];
+            
+            UITextView *tv12 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv11.bottom + 60, 150, 110)];
+            tv12.text = self.tempM2061Arr[10][@"advice"];
+            tv12.tag = 2011;
+            tv12.delegate = self;
+            [imagv addSubview:tv12];
+            
+            UITextView *tv13 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv12.bottom + 60, 150, 110)];
+            tv13.text = self.tempM2061Arr[11][@"advice"];
+            tv13.tag = 2012;
+            tv13.delegate = self;
+            [imagv addSubview:tv13];
+            
+            UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv13.right - 80, tv13.bottom + 20, 80, 80)];
+            [commit addTarget:self action:@selector(gousicommit) forControlEvents:UIControlEventTouchUpInside];
+            [imagv addSubview:commit];
 
             
         }else if ([str intValue] == 64) {
@@ -936,6 +917,76 @@
             imagv.contentMode = UIViewContentModeScaleAspectFit;
             [self.gousiBackView addSubview:imagv];
 
+            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(120, 50, 190, 50)];
+            tv1.text = self.tempM2061Arr[0][@"advice"];
+            tv1.tag = 2001;
+            tv1.delegate = self;
+            [imagv addSubview:tv1];
+            
+            UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
+            tv2.text = self.tempM2061Arr[1][@"advice"];
+            tv2.tag = 2002;
+            tv2.delegate = self;
+            [imagv addSubview:tv2];
+
+            UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 200, tv1.bottom + 180, 120, 120)];
+            tv3.text = self.tempM2061Arr[2][@"advice"];
+            tv3.tag = 2003;
+            tv3.delegate = self;
+            tv3.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv3];
+            
+            UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x, tv3.y - 160, 120, 120)];
+            tv4.text = self.tempM2061Arr[3][@"advice"];
+            tv4.tag = 2004;
+            tv4.delegate = self;
+            tv4.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv4];
+            
+            UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 70, tv3.bottom + 40, 100, 100)];
+            tv5.text = self.tempM2061Arr[4][@"advice"];
+            tv5.tag = 2005;
+            tv5.delegate = self;
+            tv5.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv5];
+            
+            UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x + 80, tv3.bottom + 40, 100, 100)];
+            tv6.text = self.tempM2061Arr[5][@"advice"];
+            tv6.tag = 2006;
+            tv6.delegate = self;
+            [imagv addSubview:tv6];
+            
+            UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 130, tv3.y - 10, 100, 100)];
+            tv7.text = self.tempM2061Arr[6][@"advice"];
+            tv7.tag = 2007;
+            tv7.delegate = self;
+            tv7.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv7];
+            
+            UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 30, tv3.y - 10, 100, 100)];
+            tv8.text = self.tempM2061Arr[7][@"advice"];
+            tv8.tag = 2008;
+            tv8.delegate = self;
+            tv8.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv8];
+
+            UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv1.y + 20, 150, 110)];
+            tv9.text = self.tempM2061Arr[8][@"advice"];
+            tv9.tag = 2009;
+            tv9.delegate = self;
+            tv9.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv9];
+            
+            UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv8.bottom + 30, 150, 110)];
+            tv10.text = self.tempM2061Arr[9][@"advice"];
+            tv10.tag = 2010;
+            tv10.delegate = self;
+            tv10.backgroundColor = [UIColor redColor];
+            [imagv addSubview:tv10];
+            
+            UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv10.right - 80, tv10.bottom + 20, 80, 80)];
+            [commit addTarget:self action:@selector(gousicommit) forControlEvents:UIControlEventTouchUpInside];
+            [imagv addSubview:commit];
         }
         
     } failture:^(id result) {
