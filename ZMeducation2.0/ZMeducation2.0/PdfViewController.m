@@ -30,7 +30,9 @@
     
     web = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width - 175, self.view.height - 95)];
     NSURL *pdfURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DEF_IPA,self.dic[@"unitURL"]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:pdfURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:pdfURL
+                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                         timeoutInterval:60];
     [web setScalesPageToFit:YES];
     [web loadRequest:request];
     [self.view addSubview:web];
@@ -42,7 +44,9 @@
     _dic = dic;
     
     NSURL *pdfURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DEF_IPA,dic[@"unitURL"]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:pdfURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:pdfURL
+                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                         timeoutInterval:60];
     [web loadRequest:request];
 
 }
