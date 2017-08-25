@@ -661,6 +661,7 @@
 
 -(void)gousicommit
 {
+    
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",

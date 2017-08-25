@@ -25,6 +25,7 @@ static RequestOperationManager *sessionManager;
         sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
         sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
         sessionManager.requestSerializer.timeoutInterval = 10;
+        sessionManager.responseSerializer.acceptableContentTypes =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
     });
     
     return sessionManager;
