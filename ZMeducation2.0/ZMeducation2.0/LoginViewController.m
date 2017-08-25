@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "SelectViewController.h"
+#import "HomeViewController.h"
 
 @interface LoginViewController ()
 
@@ -30,17 +31,48 @@
     [self.view addSubview:backgroundImagv];
     
     self.userNameTf = [[UITextField alloc]initWithFrame:CGRectMake(380, 283, 280, 35)];
-    self.userNameTf.text = @"t002";
+    self.userNameTf.text = @"sjy660101";
     [self.view addSubview:self.userNameTf];
     
     self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];
-    self.userPassWorldTf.text = @"123456";
+    self.userPassWorldTf.text = @"111111";
     [self.view addSubview:self.userPassWorldTf];
     
     UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(380, self.userPassWorldTf.bottom + 22, 280, 38)];
     [loginBtn setImage:DEF_IMAGENAME(@"Login_Btn") forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
+}
+
+-(void)M2006Load:(NSMutableDictionary *)dic
+{
+    NSDictionary * dic1 = @{@"version"          :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M2006",
+                           @"userId"           :dic[@"userId"],
+                           @"typeId"           :@"2",
+                           @"gradeId"          :dic[@"gradeId"],
+                           @"classId"          :dic[@"classId"],
+                           @"courseId"         :dic[@"currentCourseId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2006"]};
+    [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
+        
+        HomeViewController *VC = [[HomeViewController alloc]init];
+        VC.dic = result;
+        [self.navigationController pushViewController:VC animated:YES];
+        
+        NSMutableDictionary *dic2 = [[NSMutableDictionary alloc]initWithDictionary:dic];
+        [dic2 setObject:dic[@"gradeId"] forKey:@"gradeId"];
+        [dic2 setObject:dic[@"classId"] forKey:@"classId"];
+        [dic2 setObject:dic[@"currentCourseId"] forKey:@"courseId"];
+        [DEF_UserDefaults setObject:dic2 forKey:SAVE_USERINFO];
+        
+    } failture:^(id result) {
+        
+    }];
+
 }
 
 -(void)login
@@ -57,14 +89,22 @@
                            @"deviceToken"      :@"9a6c75bc32ccb2f1f4cdf060ba216046a68e964bcb230081102b61e9925e6e8a",
                            @"sign"             :[CACUtility getSignWithMethod:@"M2001"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
-        
+        [CACUtility showTips:@"登录成功"];
+
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
-            [CACUtility showTips:@"登录成功"];
-            
             [DEF_UserDefaults setObject:result forKey:SAVE_USERINFO];
-            SelectViewController *vc = [[SelectViewController alloc]init];
+
+            if ([result[@"role"] isEqualToString:@"04"]) {
+                
+                [self M2006Load:result];
+                
+            }else if ([result[@"role"] isEqualToString:@"02"]) {
+                SelectViewController *vc = [[SelectViewController alloc]init];
+                
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             
-            [self.navigationController pushViewController:vc animated:YES];
+            
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
             [CACUtility showTips:result[@"responseMessage"]];
         }else{
