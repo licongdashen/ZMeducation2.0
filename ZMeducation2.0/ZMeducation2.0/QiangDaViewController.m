@@ -128,7 +128,9 @@
             [self.tijiao2Btn setImage:DEF_IMAGE(@"qiangda_sel") forState:UIControlStateNormal];
             self.tijiao2Btn.enabled = NO;
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"抢答失败"];
         }

@@ -69,6 +69,8 @@
 
 @property (nonatomic, strong)NSMutableArray *wengaoArr;
 
+@property (nonatomic, strong)NSMutableDictionary *m2041Dic;
+
 @end
 
 @implementation XiaoZuHeZuoViewController
@@ -296,6 +298,8 @@
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M2041"]};
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
+        
+        self.m2041Dic = result;
         
         titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
         
@@ -532,7 +536,9 @@
             self.tijiaoBtn1.enabled = NO;
             self.jiegouBtn1.hidden = NO;
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"投票失败"];
         }
@@ -564,7 +570,9 @@
             self.tijiao2Btn.enabled = NO;
             self.jiegouBtn.hidden = NO;
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"投票失败"];
         }
@@ -588,12 +596,15 @@
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
                            @"content"          :self.tv.text,
-                           @"sign"             :[CACUtility getSignWithMethod:@"M2042"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2042"],
+                           @"optionId"         :self.m2041Dic[@"optionId"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }

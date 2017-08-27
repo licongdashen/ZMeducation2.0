@@ -31,7 +31,7 @@
     [self.view addSubview:backgroundImagv];
     
     self.userNameTf = [[UITextField alloc]initWithFrame:CGRectMake(380, 283, 280, 35)];
-    self.userNameTf.text = @"sjy660101";
+    self.userNameTf.text = @"aaa";
     [self.view addSubview:self.userNameTf];
     
     self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];
@@ -106,7 +106,9 @@
             
             
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"登录失败"];
         }

@@ -183,6 +183,10 @@
 
 -(void)tijiao
 {
+ 
+    NSData *jsonData = [self.tv.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *result = [[NSString alloc] initWithData:jsonData  encoding:NSUTF8StringEncoding];
+
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -200,7 +204,10 @@
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }
@@ -399,7 +406,9 @@
             [CACUtility showTips:@"点赞成功"];
             [self performSelector:@selector(chaxun) withObject:nil afterDelay:2];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"点赞失败"];
         }
@@ -432,7 +441,9 @@
             [CACUtility showTips:@"顶置成功"];
             [self performSelector:@selector(chaxun) withObject:nil afterDelay:2];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"顶置失败"];
         }

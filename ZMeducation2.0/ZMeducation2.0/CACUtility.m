@@ -763,6 +763,7 @@
         progressHUD.mode = MBProgressHUDModeIndeterminate;
         [progressHUD showAnimated:YES];
         progressHUD.label.text = _msg;
+        [progressHUD hideAnimated:YES afterDelay:7];
         [_targetView addSubview:progressHUD];
     });
 }

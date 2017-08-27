@@ -25,7 +25,6 @@ static RequestOperationManager *sessionManager;
         sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
         sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
         sessionManager.requestSerializer.timeoutInterval = 10;
-        sessionManager.responseSerializer.acceptableContentTypes =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
     });
     
     return sessionManager;
@@ -96,7 +95,7 @@ static RequestOperationManager *sessionManager;
     NSLog(@"requestUrl:%@",parameters);
     [CACUtility showMBProgress:DEF_MyAppDelegate.window message:@""];
 
-    [manager POST:DEF_IPAddress parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager GET:DEF_IPAddress parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [CACUtility hideMBProgress:DEF_MyAppDelegate.window];

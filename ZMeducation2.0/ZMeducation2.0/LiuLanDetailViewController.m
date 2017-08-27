@@ -580,7 +580,9 @@
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }

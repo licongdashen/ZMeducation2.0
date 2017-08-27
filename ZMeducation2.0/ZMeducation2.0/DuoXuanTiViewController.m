@@ -131,16 +131,8 @@
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
-        NSString *str = self.result[@"content"];
-        NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-        
-        NSError *err;
-        
-        self.arr2 = [NSJSONSerialization JSONObjectWithData:jsonData
-                     
-                                                    options:NSJSONReadingMutableContainers
-                     
-                                                      error:&err];
+
+        self.arr2 = self.result[@"content"];
         
         NSArray *arr1 = result[@"options"];
         int y = imagetiwen.bottom + 20;
@@ -235,7 +227,9 @@
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }

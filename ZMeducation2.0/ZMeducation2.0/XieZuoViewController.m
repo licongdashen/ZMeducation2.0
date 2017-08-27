@@ -369,7 +369,9 @@
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }
@@ -458,7 +460,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
     
-    NSData *fileData = UIImageJPEGRepresentation(image, 0.1);
+    NSData *fileData = UIImageJPEGRepresentation(image, 0.05);
     
     [self dismissViewControllerAnimated:YES completion:nil];
 
@@ -480,7 +482,9 @@
             [CACUtility showTips:@"图片上传成功"];
             [self wodewendang];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"图片上传失败"];
         }
@@ -654,6 +658,32 @@
     NSLog(@"hahahahahahaha%@",self.tempM2061Arr);
 }
 
+
++ (NSString *)arrayToJSONString:(NSArray *)array
+{
+    NSError *error = nil;
+    //    NSMutableArray *muArray = [NSMutableArray array];
+    //    for (NSString *userId in array) {
+    //        [muArray addObject:[NSString stringWithFormat:@"\"%@\"", userId]];
+    //    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //    NSLog(@"json array is: %@", jsonResult);
+    return jsonString;
+}
+
++ (NSString *)dictionaryToJSONString:(NSArray *)dictionary
+{
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return jsonString;
+}
+
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
     return YES;
@@ -661,6 +691,8 @@
 
 -(void)gousicommit
 {
+    
+    NSString *str = [XieZuoViewController arrayToJSONString:self.tempM2061Arr];
     
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
@@ -674,12 +706,14 @@
                             @"sign"             :[CACUtility getSignWithMethod:@"M2062"],
                             @"unitTypeId"       :self.m2009Dic[@"unitTypeId"],
                             @"unitId"           :self.m2009Dic[@"unitId"],
-                            @"content"          :self.tempM2061Arr};
+                            @"content"          :str};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }
@@ -721,7 +755,12 @@
                     [self.tempM2061Arr addObject:dic];
                 }
             }else{
-                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:result[@"contents"]];
+                
+                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                           options:NSJSONReadingMutableContainers
+                                                                             error:nil];
+                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:arr];
             }
 
             UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];
@@ -811,7 +850,11 @@
                     [self.tempM2061Arr addObject:dic];
                 }
             }else{
-                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:result[@"contents"]];
+                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
+                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:arr];
             }
 
             UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];
@@ -908,7 +951,12 @@
                     [self.tempM2061Arr addObject:dic];
                 }
             }else{
-                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:result[@"contents"]];
+                
+                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
+                self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:arr];
             }
 
             UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];

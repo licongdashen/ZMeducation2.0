@@ -146,7 +146,9 @@
             self.tijiao2Btn.enabled = NO;
             self.jiegouBtn.hidden = NO;
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"投票失败"];
         }

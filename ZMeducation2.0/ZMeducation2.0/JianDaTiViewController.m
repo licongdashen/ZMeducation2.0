@@ -106,7 +106,7 @@
     [btn1 addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
     [bgImagv addSubview:btn1];
     
-    self.tabv = [[UITableView alloc]initWithFrame:CGRectMake(25, btn.bottom + 15, self.view.width - 30 - 175 - 50, 350) style:UITableViewStylePlain];
+    self.tabv = [[UITableView alloc]initWithFrame:CGRectMake(25, btn.bottom + 15, self.view.width - 30 - 50, 350) style:UITableViewStylePlain];
     self.tabv.delegate = self;
     self.tabv.dataSource = self;
     self.tabv.backgroundColor = [UIColor clearColor];
@@ -155,8 +155,11 @@
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
-        NSString *str = self.result[@"content"];
-        tv.text = str;
+        NSArray *arr = self.result[@"content"];
+        
+        for (NSString *str in arr) {
+            self.tv.text = [self.tv.text stringByAppendingString:str];
+        }
         
     } failture:^(id result) {
         
@@ -184,7 +187,9 @@
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            [CACUtility showTips:result[@"responseMessage"]];
+            if (result[@"responseMessage"] != nil) {
+                [CACUtility showTips:result[@"responseMessage"]];
+            }
         }else{
             [CACUtility showTips:@"提交失败"];
         }
