@@ -132,7 +132,11 @@
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
 
-        self.arr2 = self.result[@"content"];
+        self.arr2 = [[NSMutableArray alloc]init];
+        for (NSDictionary *dic in self.result[@"content"]) {
+            NSMutableDictionary *dic111 = [[NSMutableDictionary alloc]initWithDictionary:dic];
+            [self.arr2 addObject:dic111];
+        }
         
         NSArray *arr1 = result[@"options"];
         int y = imagetiwen.bottom + 20;

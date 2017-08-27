@@ -134,8 +134,11 @@
         @strongify(self);
         self.result = result;
         self.tiwenLb.text = self.result[@"title"];
-
-        self.arr2 = self.result[@"content"];
+        self.arr2 = [[NSMutableArray alloc]init];
+        for (NSDictionary *dic in self.result[@"content"]) {
+            NSMutableDictionary *dic111 = [[NSMutableDictionary alloc]initWithDictionary:dic];
+            [self.arr2 addObject:dic111];
+        }
         
         NSArray *arr1 = result[@"options"];
         int y = imagetiwen.bottom + 20;
@@ -196,7 +199,7 @@
     int tag = (int)sender.tag - 1000;
     
     for (int i = 0; i <[self.arr2 count]; i++) {
-        NSMutableDictionary *dic = self.arr2[i];
+        NSMutableDictionary *dic = (NSMutableDictionary *)self.arr2[i];
 
         UIButton *btn = [self.bgImagv viewWithTag:i + 1000];
         [btn setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
