@@ -91,8 +91,9 @@
     titleLb.font = DEF_MyFont(16);
     [tiwenScro addSubview:titleLb];
     
-    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(titleLb.right, 0, 700,55)];
+    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(titleLb.right, 0, tiwenScro.width - 45,55)];
     tv.backgroundColor = [UIColor clearColor];
+    tv.font = DEF_MyFont(16);
     [tiwenScro addSubview:tv];
     self.tv = tv;
     
@@ -169,6 +170,8 @@
 -(void)tijiao
 {
     
+    NSArray *arr= [NSArray arrayWithObject:self.tv.text];
+    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -180,7 +183,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"content"          :self.tv.text,
+                           @"content"          :arr,
                            @"sign"             :[CACUtility getSignWithMethod:@"M2022"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         

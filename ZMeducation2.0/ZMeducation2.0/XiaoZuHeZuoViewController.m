@@ -71,6 +71,8 @@
 
 @property (nonatomic, strong)NSMutableDictionary *m2041Dic;
 
+@property (nonatomic, weak) UILabel *title2Lb;
+
 @end
 
 @implementation XiaoZuHeZuoViewController
@@ -161,6 +163,8 @@
         [self.view1 addSubview:imagv];
         
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        tv.font = DEF_MyFont(16);
+
         [imagv addSubview:tv];
         self.tv = tv;
         
@@ -177,6 +181,8 @@
         [self.view1 addSubview:imagv];
         
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        tv.font = DEF_MyFont(16);
+
         [imagv addSubview:tv];
         self.tv = tv;
         
@@ -187,10 +193,11 @@
         [self.view1 addSubview:imagv1];
         
         UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, imagv.height - 20)];
+        tv1.font = DEF_MyFont(16);
+
         [imagv1 addSubview:tv1];
         self.tv1.editable = NO;
         self.tv1 = tv1;
-        
         UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 30, 180, 30)];
         tijiaoBtn.centerX = bgImagv.centerX;
         [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
@@ -204,6 +211,8 @@
     title2Lb.text = @"主题:";
     title2Lb.textAlignment = NSTextAlignmentCenter;
     [self.view2 addSubview:title2Lb];
+    self.title2Lb = title2Lb;
+    
     
     UITableView *tabv1= [[UITableView alloc]initWithFrame:CGRectMake(40, title2Lb.bottom + 10, self.view1.width - 80, 430) style:UITableViewStylePlain];
     tabv1.delegate = self;
@@ -305,59 +314,17 @@
         
         title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"optionTitle"]];
 
-        self.tv1.text = result[@"content"];
-        
-    } failture:^(id result) {
-        
-    }];
-    
-    
-    NSDictionary * dic2 = @{@"version"         :@"2.0.0",
-                            @"clientType"       :@"1001",
-                            @"signType"         :@"md5",
-                            @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2043",
-                            @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
-                            @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
-                            @"unitId"           :self.dic[@"unitId"],
-                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2043"]};
-    [RequestOperationManager getParametersDic:dic2 success:^(NSMutableDictionary *result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-
-        title2Lb.text = [NSString stringWithFormat:@"主题:  %@",result[@"title"]];
-        
-        self.M2043Arr = result[@"groups"];
-        
-        [self.tempM2043Arr removeAllObjects];
-        
-        for (NSDictionary *dic in self.M2043Arr) {
-            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
-            [dic1 setObject:dic[@"groupId"] forKey:@"optionId"];
-            [dic1 setObject:[NSString stringWithFormat:@"%@",dic[@"ifSelect"]] forKey:@"flag"];
-            [self.tempM2043Arr addObject:dic1];
-        }
-        
-        if ([result[@"ifVote"] intValue] == 1) {
-            [self.tijiao2Btn setImage:DEF_IMAGE(@"hezuo_yitoupiao") forState:UIControlStateNormal];
-            self.tijiao2Btn.enabled = NO;
-            self.jiegouBtn.hidden = NO;
-
+        if ([self.str isEqualToString:@"1"]) {
+            self.tv.text = result[@"content"];
         }else{
-            [self.tijiao2Btn setImage:DEF_IMAGE(@"hezuo_toupiao") forState:UIControlStateNormal];
-            self.tijiao2Btn.enabled = YES;
-            self.jiegouBtn.hidden = YES;
-
+            self.tv1.text = result[@"content"];
         }
-        [self.tabv1 reloadData];
-
+        
+        
     } failture:^(id result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-
+        
     }];
-
+    
     
     NSDictionary * dic3 = @{@"version"         :@"2.0.0",
                             @"clientType"       :@"1001",
@@ -514,8 +481,25 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (NSString *)arrayToJSONString:(NSArray *)array
+{
+    NSError *error = nil;
+    //    NSMutableArray *muArray = [NSMutableArray array];
+    //    for (NSString *userId in array) {
+    //        [muArray addObject:[NSString stringWithFormat:@"\"%@\"", userId]];
+    //    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //    NSLog(@"json array is: %@", jsonResult);
+    return jsonString;
+}
+
 -(void)tijiao1
 {
+    NSString *str = [self arrayToJSONString:self.tempM2044Arr];
+
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -527,7 +511,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"voteContent"      :self.tempM2044Arr,
+                           @"voteContent"      :str,
                            @"type"             :@"2",
                            @"sign"             :[CACUtility getSignWithMethod:@"M2046"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
@@ -582,6 +566,41 @@
 
 }
 
+-(void)m2041
+{
+    NSDictionary * dic1 = @{@"version"         :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2041",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"unitTypeId"       :self.dic[@"unitTypeId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2041"]};
+    [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
+        
+        self.m2041Dic = result;
+        
+        self.titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
+        
+        self.title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"optionTitle"]];
+        
+        if ([self.str isEqualToString:@"1"]) {
+            self.tv.text = result[@"content"];
+        }else{
+            self.tv1.text = result[@"content"];
+        }
+        
+        
+    } failture:^(id result) {
+        
+    }];
+
+}
+
 -(void)tijiao
 {
     NSDictionary * dic = @{@"version"          :@"2.0.0",
@@ -601,6 +620,7 @@
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
+            [self m2041];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
             if (result[@"responseMessage"] != nil) {
                 [CACUtility showTips:result[@"responseMessage"]];
@@ -627,6 +647,52 @@
         self.view2.hidden = NO;
         self.view3.hidden = YES;
         self.view4.hidden = YES;
+        NSDictionary * dic2 = @{@"version"         :@"2.0.0",
+                                @"clientType"       :@"1001",
+                                @"signType"         :@"md5",
+                                @"timestamp"        :[CACUtility getNowTime],
+                                @"method"           :@"M2043",
+                                @"userId"           :self.userInfo[@"userId"],
+                                @"gradeId"          :self.userInfo[@"gradeId"],
+                                @"classId"          :self.userInfo[@"classId"],
+                                @"courseId"         :self.userInfo[@"courseId"],
+                                @"unitId"           :self.dic[@"unitId"],
+                                @"unitTypeId"       :self.dic[@"unitTypeId"],
+                                @"sign"             :[CACUtility getSignWithMethod:@"M2043"]};
+        [RequestOperationManager getParametersDic:dic2 success:^(NSMutableDictionary *result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            
+            self.title2Lb.text = [NSString stringWithFormat:@"主题:  %@",result[@"title"]];
+            
+            self.M2043Arr = result[@"groups"];
+            
+            [self.tempM2043Arr removeAllObjects];
+            
+            for (NSDictionary *dic in self.M2043Arr) {
+                NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                [dic1 setObject:dic[@"groupId"] forKey:@"optionId"];
+                [dic1 setObject:[NSString stringWithFormat:@"%@",dic[@"ifSelect"]] forKey:@"flag"];
+                [self.tempM2043Arr addObject:dic1];
+            }
+            
+            if ([result[@"ifVote"] intValue] == 1) {
+                [self.tijiao2Btn setImage:DEF_IMAGE(@"hezuo_yitoupiao") forState:UIControlStateNormal];
+                self.tijiao2Btn.enabled = NO;
+                self.jiegouBtn.hidden = NO;
+                
+            }else{
+                [self.tijiao2Btn setImage:DEF_IMAGE(@"hezuo_toupiao") forState:UIControlStateNormal];
+                self.tijiao2Btn.enabled = YES;
+                self.jiegouBtn.hidden = YES;
+                
+            }
+            [self.tabv1 reloadData];
+            
+        } failture:^(id result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            
+        }];
+
     }else if (Seg.selectedSegmentIndex == 2){
         self.view1.hidden = YES;
         self.view2.hidden = YES;
@@ -669,10 +735,10 @@
         }else{
             [imgv setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
         }
-        UILabel *title2Lb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, self.tabv1.width - 70, 30)];
-        title2Lb.text = [NSString stringWithFormat:@"%@:    %d票",self.M2043Arr[section][@"groupName"],[self.M2043Arr[section][@"voteCount"] intValue]];
-        title2Lb.textColor = [UIColor whiteColor];
-        [foot addSubview:title2Lb];
+        UILabel *title2Lb11 = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, self.tabv1.width - 70, 30)];
+        title2Lb11.text = [NSString stringWithFormat:@"%@:    %d票",self.M2043Arr[section][@"groupName"],[self.M2043Arr[section][@"voteCount"] intValue]];
+        title2Lb11.textColor = [UIColor whiteColor];
+        [foot addSubview:title2Lb11];
         
         return foot;
     }else if (tableView == self.tabv2){
@@ -822,6 +888,8 @@
             tv.backgroundColor = [UIColor clearColor];
             tv.editable = NO;
             tv.tag = 201;
+            tv.font = DEF_MyFont(16);
+
             [cell.contentView addSubview:tv];
         }
         
@@ -866,6 +934,8 @@
             tv.backgroundColor = [UIColor clearColor];
             tv.editable = NO;
             tv.tag = 203;
+            tv.font = DEF_MyFont(16);
+
             [cell.contentView addSubview:tv];
         }
         
@@ -903,6 +973,8 @@
             tv.backgroundColor = [UIColor clearColor];
             tv.editable = NO;
             tv.tag = 205;
+            tv.font = DEF_MyFont(16);
+
             [cell.contentView addSubview:tv];
 
         }

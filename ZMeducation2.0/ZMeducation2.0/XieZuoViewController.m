@@ -299,6 +299,8 @@
     [self.wendangBackView addSubview:imagv];
 
     UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
+    content.font = DEF_MyFont(16);
+
     [imagv addSubview:content];
     self.content = content;
     
@@ -747,7 +749,7 @@
         if ([str intValue] == 62) {
             
             self.tempM2061Arr = [[NSMutableArray alloc]init];
-            if (result[@"contents"] == nil || [result[@"contents"] count] == 0) {
+            if (result[@"content"] == nil || [result[@"content"] isEqualToString:@""]) {
                 self.tempM2061Arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i < 11; i++) {
                     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -756,7 +758,7 @@
                 }
             }else{
                 
-                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *jsonData = [result[@"content"] dataUsingEncoding:NSUTF8StringEncoding];
                 NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                            options:NSJSONReadingMutableContainers
                                                                              error:nil];
@@ -773,66 +775,87 @@
             tv1.text = self.tempM2061Arr[0][@"advice"];
             tv1.tag = 2001;
             tv1.delegate = self;
+            tv1.font = DEF_MyFont(16);
             [imagv addSubview:tv1];
             
             UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
             tv2.text = self.tempM2061Arr[1][@"advice"];
             tv2.tag = 2002;
             tv2.delegate = self;
+            tv2.font = DEF_MyFont(16);
+
             [imagv addSubview:tv2];
             
             UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv1.y + 20, 190, 50)];
             tv3.text = self.tempM2061Arr[2][@"advice"];
             tv3.tag = 2003;
             tv3.delegate = self;
+            tv3.font = DEF_MyFont(16);
+
             [imagv addSubview:tv3];
             
             UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv3.bottom + 40, 190, 50)];
             tv4.text = self.tempM2061Arr[3][@"advice"];
             tv4.tag = 2004;
             tv4.delegate = self;
+            tv4.font = DEF_MyFont(16);
+
             [imagv addSubview:tv4];
             
             UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv4.bottom + 40, 190, 50)];
             tv5.text = self.tempM2061Arr[4][@"advice"];
             tv5.tag = 2005;
             tv5.delegate = self;
+            tv5.font = DEF_MyFont(16);
+
             [imagv addSubview:tv5];
             
             UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv5.bottom + 45, 190, 50)];
             tv6.text = self.tempM2061Arr[5][@"advice"];
             tv6.tag = 2006;
             tv6.delegate = self;
+            tv6.font = DEF_MyFont(16);
+
             [imagv addSubview:tv6];
             
             UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv6.bottom + 45, 190, 50)];
             tv7.text = self.tempM2061Arr[6][@"advice"];
             tv7.tag = 2007;
             tv7.delegate = self;
+            tv7.font = DEF_MyFont(16);
+
             [imagv addSubview:tv7];
             
             UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv7.bottom + 45, 190, 50)];
             tv8.text = self.tempM2061Arr[7][@"advice"];
             tv8.tag = 2008;
             tv8.delegate = self;
+            tv8.font = DEF_MyFont(16);
+
             [imagv addSubview:tv8];
             
             UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv1.y + 20, 160, 110)];
             tv9.text = self.tempM2061Arr[8][@"advice"];
             tv9.tag = 2009;
             tv9.delegate = self;
+            tv9.font = DEF_MyFont(16);
+
             [imagv addSubview:tv9];
             
             UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv9.bottom + 60, 160, 110)];
             tv10.text = self.tempM2061Arr[9][@"advice"];
             tv10.tag = 2010;
             tv10.delegate = self;
+            tv10.font = DEF_MyFont(16);
+
             [imagv addSubview:tv10];
             
             UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv10.bottom + 60, 160, 110)];
             tv11.text = self.tempM2061Arr[10][@"advice"];
             tv11.tag = 2011;
             tv11.delegate = self;
+            tv11.font = DEF_MyFont(16);
+
             [imagv addSubview:tv11];
             
             UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv11.right - 80, tv11.bottom + 20, 80, 80)];
@@ -842,7 +865,7 @@
             
         }else if ([str intValue] == 63) {
             self.tempM2061Arr = [[NSMutableArray alloc]init];
-            if (result[@"contents"] == nil || [result[@"contents"] count] == 0) {
+            if (result[@"content"] == nil || [result[@"content"] isEqualToString:@""]) {
                 self.tempM2061Arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i < 12; i++) {
                     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -850,7 +873,7 @@
                     [self.tempM2061Arr addObject:dic];
                 }
             }else{
-                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *jsonData = [result[@"content"] dataUsingEncoding:NSUTF8StringEncoding];
                 NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                options:NSJSONReadingMutableContainers
                                                                  error:nil];
@@ -868,60 +891,80 @@
             tv1.text = self.tempM2061Arr[0][@"advice"];
             tv1.tag = 2001;
             tv1.delegate = self;
+            tv1.font = DEF_MyFont(16);
+
             [imagv addSubview:tv1];
             
             UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
             tv2.text = self.tempM2061Arr[1][@"advice"];
             tv2.tag = 2002;
             tv2.delegate = self;
+            tv2.font = DEF_MyFont(16);
+
             [imagv addSubview:tv2];
 
             UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 70, tv1.y + 10, 220, 70)];
             tv4.text = self.tempM2061Arr[2][@"advice"];
             tv4.tag = 2003;
             tv4.delegate = self;
+            tv4.font = DEF_MyFont(16);
+
             [imagv addSubview:tv4];
             
             UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv4.bottom + 50, 120, 90)];
             tv5.text = self.tempM2061Arr[3][@"advice"];
             tv5.tag = 2004;
             tv5.delegate = self;
+            tv5.font = DEF_MyFont(16);
+
             [imagv addSubview:tv5];
             
             UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv5.bottom + 60, 120, 90)];
             tv6.text = self.tempM2061Arr[4][@"advice"];
             tv6.tag = 2005;
             tv6.delegate = self;
+            tv6.font = DEF_MyFont(16);
+
             [imagv addSubview:tv6];
             
             UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv6.bottom + 60, 120, 90)];
             tv7.text = self.tempM2061Arr[5][@"advice"];
             tv7.tag = 2006;
             tv7.delegate = self;
+            tv7.font = DEF_MyFont(16);
+
             [imagv addSubview:tv7];
             
             UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv4.bottom + 50, 120, 90)];
             tv8.text = self.tempM2061Arr[6][@"advice"];
             tv8.tag = 2007;
             tv8.delegate = self;
+            tv8.font = DEF_MyFont(16);
+
             [imagv addSubview:tv8];
             
             UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv8.bottom + 70, 120, 90)];
             tv9.text = self.tempM2061Arr[7][@"advice"];
             tv9.tag = 2008;
             tv9.delegate = self;
+            tv9.font = DEF_MyFont(16);
+
             [imagv addSubview:tv9];
             
             UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv9.bottom + 70, 120, 90)];
             tv10.text = self.tempM2061Arr[8][@"advice"];
             tv10.tag = 2009;
             tv10.delegate = self;
+            tv10.font = DEF_MyFont(16);
+
             [imagv addSubview:tv10];
             
             UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv1.y + 20, 150, 110)];
             tv11.text = self.tempM2061Arr[9][@"advice"];
             tv11.tag = 2010;
             tv11.delegate = self;
+            tv11.font = DEF_MyFont(16);
+
             [imagv addSubview:tv11];
             
             UITextView *tv12 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv11.bottom + 60, 150, 110)];
@@ -934,6 +977,8 @@
             tv13.text = self.tempM2061Arr[11][@"advice"];
             tv13.tag = 2012;
             tv13.delegate = self;
+            tv13.font = DEF_MyFont(16);
+
             [imagv addSubview:tv13];
             
             UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv13.right - 80, tv13.bottom + 20, 80, 80)];
@@ -943,7 +988,7 @@
             
         }else if ([str intValue] == 64) {
             self.tempM2061Arr = [[NSMutableArray alloc]init];
-            if (result[@"contents"] == nil || [result[@"contents"] count] == 0) {
+            if (result[@"content"] == nil || [result[@"content"] isEqualToString:@""]) {
                 self.tempM2061Arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i < 10; i++) {
                     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
@@ -952,7 +997,7 @@
                 }
             }else{
                 
-                NSData *jsonData = [result[@"contents"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *jsonData = [result[@"content"] dataUsingEncoding:NSUTF8StringEncoding];
                 NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                options:NSJSONReadingMutableContainers
                                                                  error:nil];
@@ -970,60 +1015,83 @@
             tv1.text = self.tempM2061Arr[0][@"advice"];
             tv1.tag = 2001;
             tv1.delegate = self;
+            tv1.font = DEF_MyFont(16);
+
+            tv1.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv1];
             
             UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
             tv2.text = self.tempM2061Arr[1][@"advice"];
             tv2.tag = 2002;
             tv2.delegate = self;
+            tv2.font = DEF_MyFont(16);
+            tv2.backgroundColor = [UIColor clearColor];
+
             [imagv addSubview:tv2];
 
             UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 200, tv1.bottom + 180, 120, 120)];
             tv3.text = self.tempM2061Arr[2][@"advice"];
             tv3.tag = 2003;
             tv3.delegate = self;
+            tv3.font = DEF_MyFont(16);
+            tv3.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv3];
             
             UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x, tv3.y - 160, 120, 120)];
             tv4.text = self.tempM2061Arr[3][@"advice"];
             tv4.tag = 2004;
             tv4.delegate = self;
+            tv4.font = DEF_MyFont(16);
+            tv4.backgroundColor = [UIColor clearColor];
+
             [imagv addSubview:tv4];
             
             UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 70, tv3.bottom + 40, 100, 100)];
             tv5.text = self.tempM2061Arr[4][@"advice"];
             tv5.tag = 2005;
             tv5.delegate = self;
+            tv5.font = DEF_MyFont(16);
+            tv5.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv5];
             
             UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x + 80, tv3.bottom + 40, 100, 100)];
             tv6.text = self.tempM2061Arr[5][@"advice"];
             tv6.tag = 2006;
             tv6.delegate = self;
+            tv6.font = DEF_MyFont(16);
+            tv6.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv6];
             
             UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 130, tv3.y - 10, 100, 100)];
             tv7.text = self.tempM2061Arr[6][@"advice"];
             tv7.tag = 2007;
             tv7.delegate = self;
+            tv7.font = DEF_MyFont(16);
+            tv7.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv7];
             
             UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 30, tv3.y - 10, 100, 100)];
             tv8.text = self.tempM2061Arr[7][@"advice"];
             tv8.tag = 2008;
             tv8.delegate = self;
+            tv8.font = DEF_MyFont(16);
+            tv8.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv8];
 
             UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv1.y + 20, 150, 110)];
             tv9.text = self.tempM2061Arr[8][@"advice"];
             tv9.tag = 2009;
             tv9.delegate = self;
+            tv9.font = DEF_MyFont(16);
+            tv9.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv9];
             
             UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv8.bottom + 30, 150, 110)];
             tv10.text = self.tempM2061Arr[9][@"advice"];
             tv10.tag = 2010;
             tv10.delegate = self;
+            tv10.font = DEF_MyFont(16);
+            tv10.backgroundColor = [UIColor clearColor];
             [imagv addSubview:tv10];
             
             UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv10.right - 80, tv10.bottom + 20, 80, 80)];

@@ -117,6 +117,9 @@
     [bgImagv addSubview:lable4];
     self.lable4 = lable4;
     
+    UIScrollView *scr = [[UIScrollView alloc]initWithFrame:CGRectMake(120, imagetiwen.bottom + 20, 250, 37*4)];
+    [bgImagv addSubview:scr];
+    
     NSDictionary * dic1 = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -141,50 +144,51 @@
         }
         
         NSArray *arr1 = result[@"options"];
-        int y = imagetiwen.bottom + 20;
+        int y = 0;
         for (int i = 0; i < [arr1 count]; i++) {
             NSDictionary *dic = arr1[i];
             if ([self.arr2 count] > 0) {
                 NSDictionary *dic1 = self.arr2[i];
                 if ([dic1[@"flag"] intValue] == 1) {
-                    UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(145, y, 25, 25)];
+                    UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(0, y, 25, 25)];
                     [imgv setImage:DEF_IMAGE(@"danxuanti_sel") forState:UIControlStateNormal];
                     imgv.tag = 1000 + i;
                     [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
-                    [bgImagv addSubview:imgv];
+                    [scr addSubview:imgv];
                     
                     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
                     label.text = dic[@"title"];
-                    [bgImagv addSubview:label];
+                    [scr addSubview:label];
                     
                 }else{
-                    UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(145, y, 25, 25)];
+                    UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(0, y, 25, 25)];
                     [imgv setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
                     [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
                     imgv.tag = 1000 + i;
-                    [bgImagv addSubview:imgv];
+                    [scr addSubview:imgv];
                     
                     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
                     label.text = dic[@"title"];
-                    [bgImagv addSubview:label];
+                    [scr addSubview:label];
                 }
                 
             }else{
                 
-                UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(145, y, 25, 25)];
+                UIButton *imgv = [[UIButton alloc]initWithFrame:CGRectMake(0, y, 25, 25)];
                 [imgv setImage:DEF_IMAGE(@"danxuanti_unsel") forState:UIControlStateNormal];
                 [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
                 imgv.tag = 1000 + i;
-                [bgImagv addSubview:imgv];
+                [scr addSubview:imgv];
                 
                 UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
                 label.text = dic[@"title"];
-                [bgImagv addSubview:label];
+                [scr addSubview:label];
             }
             
             y+=37;
-            
         }
+        scr.contentSize =CGSizeMake(250, 37 *arr1.count);
+
         [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
 
     } failture:^(id result) {

@@ -154,6 +154,7 @@
     
     UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, imagv.width, imagv.height)];
     tv.backgroundColor = [UIColor clearColor];
+    tv.font = DEF_MyFont(16);
     [imagv addSubview:tv];
     self.tv = tv;
     

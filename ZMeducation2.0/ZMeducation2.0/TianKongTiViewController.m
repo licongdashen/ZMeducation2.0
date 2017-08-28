@@ -289,6 +289,7 @@
             
             UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(lable.right, 0, imagV.width, imagV.height)];
             tv.text = str;
+            tv.font = DEF_MyFont(16);
             tv.backgroundColor = [UIColor clearColor];
             [tiwenScro addSubview:tv];
             
@@ -303,13 +304,13 @@
 -(void)tijiao
 {
 
-    NSMutableString *str = [NSMutableString string];
+    NSMutableArray *str = [[NSMutableArray alloc]init];;
     
     for (UIView *view in [self.tiwenScro subviews]) {
         if ([view isKindOfClass:[UITextView class]]) {
             UITextView *tv = (UITextView *)view;
             
-            [str appendString:[NSString stringWithFormat:@"%@,",tv.text]];
+            [str addObject:[NSString stringWithFormat:@"%@,",tv.text]];
             NSLog(@"tttttttt%@",str);
             
         }

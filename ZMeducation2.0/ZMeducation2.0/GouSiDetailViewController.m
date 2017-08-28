@@ -356,6 +356,7 @@
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label75.right, y, 90, 93)];
         tv.text = self.tempM2071Arr[i][@"advice"];
         tv.tag = 1000 + i;
+        tv.font = DEF_MyFont(16);
         tv.delegate = self;
         tv.backgroundColor = [UIColor clearColor];
         [bg_selfCommentImagv addSubview:tv];
@@ -502,6 +503,7 @@
         tv.text = self.M2071Dic[@"contents"][0][i][@"advice1"];
         tv.tag = 2000 + i;
         tv.delegate = self;
+        tv.font = DEF_MyFont(16);
         tv.backgroundColor = [UIColor clearColor];
         [bg_selfCommentImagv addSubview:tv];
         
@@ -509,6 +511,7 @@
         tv1.text = self.M2071Dic[@"contents"][1][i][@"advice2"];
         tv1.tag = 3000 + i;
         tv1.delegate = self;
+        tv1.font = DEF_MyFont(16);
         tv1.backgroundColor = [UIColor clearColor];
         [bg_selfCommentImagv addSubview:tv1];
         
@@ -541,6 +544,8 @@
     tv1.layer.borderWidth = 1;
     tv1.backgroundColor = [UIColor clearColor];
     tv1.tag = 5555;
+    tv1.font = DEF_MyFont(16);
+
     tv1.delegate = self;
     [self.view addSubview:tv1];
     
@@ -554,6 +559,7 @@
     tv2.layer.borderWidth = 1;
     tv2.backgroundColor = [UIColor clearColor];
     tv2.tag = 6666;
+    tv2.font = DEF_MyFont(16);
     tv2.delegate = self;
     [self.view addSubview:tv2];
 }

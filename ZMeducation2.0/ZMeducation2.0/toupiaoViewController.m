@@ -125,8 +125,25 @@
     }];
 }
 
+- (NSString *)arrayToJSONString:(NSArray *)array
+{
+    NSError *error = nil;
+    //    NSMutableArray *muArray = [NSMutableArray array];
+    //    for (NSString *userId in array) {
+    //        [muArray addObject:[NSString stringWithFormat:@"\"%@\"", userId]];
+    //    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //    NSLog(@"json array is: %@", jsonResult);
+    return jsonString;
+}
+
 -(void)tijiao2
 {
+    NSString *str = [self arrayToJSONString:self.tempM2051Arr];
+
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -138,7 +155,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"voteContent"      :self.tempM2051Arr,
+                           @"voteContent"      :str,
                            @"sign"             :[CACUtility getSignWithMethod:@"M2052"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
