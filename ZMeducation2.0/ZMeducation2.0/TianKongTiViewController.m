@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong)NSMutableDictionary *result;
 
-@property (nonatomic, weak) UILabel *tiwenLb;
+@property (nonatomic, weak) UITextView *tiwenLb;
 
 @property (nonatomic, weak)UIScrollView *tiwenScro;
 
@@ -195,10 +195,12 @@
     UIImageView *imagetiwen = [[UIImageView alloc]initWithFrame:CGRectMake(imagetouxiang.right + 16, 50, 1354/2, 55)];
     imagetiwen.contentMode = UIViewContentModeScaleAspectFit;
     imagetiwen.image = DEF_IMAGE(@"tiankongti_tiwen");
+    imagetiwen.userInteractionEnabled = YES;
     [bgImagv addSubview:imagetiwen];
     
-    UILabel *tiwenLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
+    UITextView *tiwenLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 30, imagetiwen.height)];
     tiwenLb.font = DEF_MyFont(16);
+    tiwenLb.editable = NO;
     [imagetiwen addSubview:tiwenLb];
     self.tiwenLb = tiwenLb;
     
@@ -304,13 +306,13 @@
 -(void)tijiao
 {
 
-    NSMutableArray *str = [[NSMutableArray alloc]init];;
+    NSMutableString *str = [NSMutableString string];
     
     for (UIView *view in [self.tiwenScro subviews]) {
         if ([view isKindOfClass:[UITextView class]]) {
             UITextView *tv = (UITextView *)view;
             
-            [str addObject:[NSString stringWithFormat:@"%@,",tv.text]];
+            [str appendString:[NSString stringWithFormat:@"%@,",tv.text]];
             NSLog(@"tttttttt%@",str);
             
         }

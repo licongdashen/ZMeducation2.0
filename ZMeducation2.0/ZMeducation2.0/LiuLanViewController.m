@@ -190,7 +190,6 @@
     label7.text = @"点评";
     [view addSubview:label7];
     
-    
     UIButton *chaxunBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view1.width - 130, 45, 90, 30)];
     [chaxunBtn setImage:DEF_IMAGE(@"luntan_chaxun") forState:UIControlStateNormal];
     [chaxunBtn addTarget:self action:@selector(chaxun1) forControlEvents:UIControlEventTouchUpInside];

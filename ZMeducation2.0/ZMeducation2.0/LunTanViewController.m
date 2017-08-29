@@ -174,7 +174,12 @@
                            @"classId"          :self.userInfo[@"classId"],
                            @"sign"             :[CACUtility getSignWithMethod:@"M2007"]};
     [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
-        self.M2007Arr = result[@"users"];
+        self.M2007Arr = [NSMutableArray arrayWithArray:result[@"users"]];
+        
+        NSDictionary *dic = @{@"userId"   :@"0",
+                              @"userName" :@"全部"};
+        [self.M2007Arr addObject:dic];
+        
         [self.tabv reloadData];
     } failture:^(id result) {
         
@@ -380,9 +385,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.M2007Dic = self.M2007Arr[indexPath.row];
-    self.tabv.hidden = YES;
-    self.selLb.text = self.M2007Dic[@"userName"];
+    if (tableView == self.tabv) {
+        self.M2007Dic = self.M2007Arr[indexPath.row];
+        self.tabv.hidden = YES;
+        self.selLb.text = self.M2007Dic[@"userName"];
+
+    }
+  
 }
 
 -(void)zan:(UIButton *)sender

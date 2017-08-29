@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong)NSMutableDictionary *result;
 
-@property (nonatomic, weak) UILabel *tiwenLb;
+@property (nonatomic, weak) UITextView *tiwenLb;
 
 @property (nonatomic, weak)UIImageView *tiwenScro;
 
@@ -79,18 +79,18 @@
     imagetiwen.image = DEF_IMAGE(@"tiankongti_tiwen");
     [bgImagv addSubview:imagetiwen];
     
-    UILabel *tiwenLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
+    UITextView *tiwenLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
     tiwenLb.font = DEF_MyFont(16);
+    tiwenLb.editable = NO;
     [imagetiwen addSubview:tiwenLb];
     self.tiwenLb = tiwenLb;
     
-    
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(365, 242, 180, 30)];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(365, 242 + 20, 180, 30)];
     [btn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
     [bgImagv addSubview:btn];
     
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(btn.right + 40, 242, 180, 30)];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(btn.right + 40, 242 + 20, 180, 30)];
     [btn1 setImage:DEF_IMAGE(@"tiankongti_chaxun") forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(chaxun) forControlEvents:UIControlEventTouchUpInside];
     [bgImagv addSubview:btn1];
@@ -116,7 +116,7 @@
     [bgImagv addSubview:lable4];
     self.lable4 = lable4;
     
-    UIScrollView *scr = [[UIScrollView alloc]initWithFrame:CGRectMake(120, imagetiwen.bottom + 20, 250, 37*4)];
+    UIScrollView *scr = [[UIScrollView alloc]initWithFrame:CGRectMake(120, imagetiwen.bottom + 20, 600, 37*4)];
     [bgImagv addSubview:scr];
 
     
@@ -155,7 +155,7 @@
                     [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
                     [scr addSubview:imgv];
                     
-                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
+                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
                     label.text = dic[@"title"];
                     [scr addSubview:label];
                     
@@ -166,7 +166,7 @@
                     imgv.tag = 1000 + i;
                     [scr addSubview:imgv];
                     
-                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
+                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
                     label.text = dic[@"title"];
                     [scr addSubview:label];
                 }
@@ -179,7 +179,7 @@
                 imgv.tag = 1000 + i;
                 [scr addSubview:imgv];
                 
-                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 400, 25)];
+                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
                 label.text = dic[@"title"];
                 [scr addSubview:label];
             }
@@ -187,7 +187,7 @@
             y+=37;
             
         }
-        scr.contentSize =CGSizeMake(250, 37 *arr1.count);
+        scr.contentSize =CGSizeMake(600, 37 *arr1.count);
 
     } failture:^(id result) {
         

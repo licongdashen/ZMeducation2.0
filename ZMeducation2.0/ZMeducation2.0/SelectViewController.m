@@ -185,7 +185,9 @@
                            @"userId"           :self.userInfo[@"userId"],
                            @"typeId"           :@"2",
                            @"gradeId"          :self.nianjiArr[tag - 1000][@"gradeId"],
-                           @"sign"             :[CACUtility getSignWithMethod:@"M2004"]};
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2004"],
+                           @"schoolId"         :self.nianjiArr[tag - 1000][@"schoolId"]
+                           };
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
 
         self.banjiArr = result[@"classes"];

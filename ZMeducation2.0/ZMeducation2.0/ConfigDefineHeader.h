@@ -9,9 +9,9 @@
 #ifndef ConfigDefineHeader_h
 #define ConfigDefineHeader_h
 
-#define DEF_IPAddress @"http://121.40.33.206:8280/rs/invoke"
+#define DEF_IPAddress @"http://121.40.33.206:8380/rs/invoke"
 
-#define DEF_IPA @"http://121.40.33.206:8280"
+#define DEF_IPA @"http://121.40.33.206:8380"
 
 #define SAVE_USERINFO @"SAVE_USERINFO"
 

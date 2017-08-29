@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong)NSMutableDictionary *result;
 
-@property (nonatomic, weak) UILabel *tiwenLb;
+@property (nonatomic, weak) UITextView *tiwenLb;
 
 @property (nonatomic, weak)UIImageView *tiwenScro;
 
@@ -73,10 +73,12 @@
     UIImageView *imagetiwen = [[UIImageView alloc]initWithFrame:CGRectMake(imagetouxiang.right + 16, 50, 1354/2, 55)];
     imagetiwen.contentMode = UIViewContentModeScaleAspectFit;
     imagetiwen.image = DEF_IMAGE(@"tiankongti_tiwen");
+    imagetiwen.userInteractionEnabled = YES;
     [bgImagv addSubview:imagetiwen];
     
-    UILabel *tiwenLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
+    UITextView *tiwenLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 30, imagetiwen.height)];
     tiwenLb.font = DEF_MyFont(16);
+    tiwenLb.editable = NO;
     [imagetiwen addSubview:tiwenLb];
     self.tiwenLb = tiwenLb;
     
@@ -91,7 +93,7 @@
     titleLb.font = DEF_MyFont(16);
     [tiwenScro addSubview:titleLb];
     
-    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(titleLb.right, 0, tiwenScro.width - 45,55)];
+    UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(titleLb.right, 0, tiwenScro.width - 45,70)];
     tv.backgroundColor = [UIColor clearColor];
     tv.font = DEF_MyFont(16);
     [tiwenScro addSubview:tv];
@@ -170,8 +172,6 @@
 -(void)tijiao
 {
     
-    NSArray *arr= [NSArray arrayWithObject:self.tv.text];
-    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -183,7 +183,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"content"          :arr,
+                           @"content"          :self.tv.text,
                            @"sign"             :[CACUtility getSignWithMethod:@"M2022"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         

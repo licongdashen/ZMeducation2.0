@@ -409,7 +409,6 @@
     self.tabv2.hidden = YES;
     
     
-    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -430,9 +429,11 @@
         self.TitleLb2.text = result[@"title"];
         [self.tabv3 reloadData];
         
+        [self.tempM2044Arr removeAllObjects];
+
         for (NSDictionary *dic in self.M2044Arr) {
             NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
-            [dic1 setObject:dic[@"groupId"] forKey:@"optionId"];
+            [dic1 setObject:dic[@"userOptionId"] forKey:@"optionId"];
             [dic1 setObject:[NSString stringWithFormat:@"%@",dic[@"ifSelect"]] forKey:@"flag"];
             [self.tempM2044Arr addObject:dic1];
         }
@@ -534,6 +535,7 @@
 
 -(void)tijiao2
 {
+    
     NSDictionary * dic = @{@"version"          :@"2.0.0",
                            @"clientType"       :@"1001",
                            @"signType"         :@"md5",
@@ -545,7 +547,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"voteContent"      :self.tempM2043Arr,
+                           @"voteContent"      :[CACUtility dictionaryToJson:self.tempM2043Arr],
                            @"type"             :@"1",
                            @"sign"             :[CACUtility getSignWithMethod:@"M2046"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
