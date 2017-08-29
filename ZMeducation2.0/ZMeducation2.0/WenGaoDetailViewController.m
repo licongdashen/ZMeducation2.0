@@ -579,7 +579,7 @@
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"unitId"           :self.dic[@"unitId"],
                             @"authorId"         :self.dic[@"authorId"],
-                            @"contents"         :self.tempM2071Arr,
+                            @"contents"         :[CACUtility dictionaryToJson:self.tempM2071Arr],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2072"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
