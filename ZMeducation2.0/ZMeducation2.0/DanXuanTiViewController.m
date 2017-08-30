@@ -26,10 +26,10 @@
 
 @property (nonatomic, weak) UIImageView *bgImagv;
 
-@property (nonatomic, weak) UILabel *lable1;
-@property (nonatomic, weak) UILabel *lable2;
-@property (nonatomic, weak) UILabel *lable3;
-@property (nonatomic, weak) UILabel *lable4;
+@property (nonatomic, weak) UITextView *lable1;
+@property (nonatomic, weak) UITextView *lable2;
+@property (nonatomic, weak) UITextView *lable3;
+@property (nonatomic, weak) UITextView *lable4;
 
 
 @end
@@ -101,19 +101,34 @@
     lineView.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
     [bgImagv addSubview:lineView];
     
-    UILabel *lable1 = [[UILabel alloc]initWithFrame:CGRectMake(25, lineView.bottom + 10, lineView.width, 70)];
+    UITextView *lable1 = [[UITextView alloc]initWithFrame:CGRectMake(25, lineView.bottom + 10, lineView.width, 70)];
+    lable1.editable = NO;
+    lable1.backgroundColor = [UIColor clearColor];
+    lable1.font = DEF_MyFont(16);
     [bgImagv addSubview:lable1];
     self.lable1 = lable1;
     
-    UILabel *lable2 = [[UILabel alloc]initWithFrame:CGRectMake(25, lable1.bottom + 10, lineView.width, 70)];
+    UITextView *lable2 = [[UITextView alloc]initWithFrame:CGRectMake(25, lable1.bottom + 10, lineView.width, 70)];
+    lable2.editable = NO;
+    lable2.backgroundColor = [UIColor clearColor];
+    lable2.font = DEF_MyFont(16);
+
     [bgImagv addSubview:lable2];
     self.lable2 = lable2;
     
-    UILabel *lable3 = [[UILabel alloc]initWithFrame:CGRectMake(25, lable2.bottom + 10, lineView.width, 70)];
+    UITextView *lable3 = [[UITextView alloc]initWithFrame:CGRectMake(25, lable2.bottom + 10, lineView.width, 70)];
+    lable3.editable = NO;
+    lable3.backgroundColor = [UIColor clearColor];
+    lable3.font = DEF_MyFont(16);
+
     [bgImagv addSubview:lable3];
     self.lable3 = lable3;
     
-    UILabel *lable4 = [[UILabel alloc]initWithFrame:CGRectMake(25, lable3.bottom + 10, lineView.width, 70)];
+    UITextView *lable4 = [[UITextView alloc]initWithFrame:CGRectMake(25, lable3.bottom + 10, lineView.width, 70)];
+    lable4.editable = NO;
+    lable4.backgroundColor = [UIColor clearColor];
+    lable4.font = DEF_MyFont(16);
+
     [bgImagv addSubview:lable4];
     self.lable4 = lable4;
     
@@ -156,8 +171,10 @@
                     [imgv addTarget:self action:@selector(sel:) forControlEvents:UIControlEventTouchUpInside];
                     [scr addSubview:imgv];
                     
-                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
+                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 40)];
                     label.text = dic[@"title"];
+                    label.numberOfLines = 2;
+                    label.font = DEF_MyFont(15);
                     [scr addSubview:label];
                     
                 }else{
@@ -167,8 +184,11 @@
                     imgv.tag = 1000 + i;
                     [scr addSubview:imgv];
                     
-                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
+                    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 40)];
                     label.text = dic[@"title"];
+                    label.numberOfLines = 2;
+                    label.font = DEF_MyFont(15);
+
                     [scr addSubview:label];
                 }
                 
@@ -180,14 +200,17 @@
                 imgv.tag = 1000 + i;
                 [scr addSubview:imgv];
                 
-                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 25)];
+                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgv.right + 15, y, 600, 40)];
                 label.text = dic[@"title"];
+                label.numberOfLines = 2;
+                label.font = DEF_MyFont(15);
+
                 [scr addSubview:label];
             }
             
-            y+=37;
+            y+= 37 + 15 ;
         }
-        scr.contentSize =CGSizeMake(600, 37 *arr1.count);
+        scr.contentSize = CGSizeMake(600, (37 + 15) *arr1.count);
 
         [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
 
