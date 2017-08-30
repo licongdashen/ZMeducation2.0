@@ -253,7 +253,7 @@
         self.wendangBackView.hidden = YES;
         self.ketangBackView.hidden = YES;
         [self loadGousi];
-    }else if ([self.M2009Arr[tag][@"unitName"] isEqualToString:@"我的文稿"]) {
+    }else if ([self.M2009Arr[tag][@"unitName"] rangeOfString:@"文稿"].location !=NSNotFound) {
         self.gousiBackView.hidden = YES;
         self.wendangBackView.hidden = NO;
         self.ketangBackView.hidden = YES;

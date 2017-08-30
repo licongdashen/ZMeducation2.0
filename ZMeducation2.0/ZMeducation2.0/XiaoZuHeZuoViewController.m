@@ -326,64 +326,8 @@
     }];
     
     
-    NSDictionary * dic3 = @{@"version"         :@"2.0.0",
-                            @"clientType"       :@"1001",
-                            @"signType"         :@"md5",
-                            @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2045",
-                            @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
-                            @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
-                            @"unitId"           :self.dic[@"unitId"],
-                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2045"]};
-    [RequestOperationManager getParametersDic:dic3 success:^(NSMutableDictionary *result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        self.M2045Arr = result[@"options"];
-        [self.tabv2 reloadData];
-    } failture:^(id result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-
-    }];
-
-    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
-                           @"clientType"       :@"1001",
-                           @"signType"         :@"md5",
-                           @"timestamp"        :[CACUtility getNowTime],
-                           @"method"           :@"M2044",
-                           @"userId"           :self.userInfo[@"userId"],
-                           @"gradeId"          :self.userInfo[@"gradeId"],
-                           @"classId"          :self.userInfo[@"classId"],
-                           @"courseId"         :self.userInfo[@"courseId"],
-                           @"unitId"           :self.dic[@"unitId"],
-                           @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"optionId"         :@"0",
-                           @"sign"             :[CACUtility getSignWithMethod:@"M2044"]};
-    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        
-        self.M2044Arr1 = result[@"options"];
-        
-        
-        for (NSDictionary *dic in self.M2044Arr1) {
-            NSArray *arr = dic[@"contents"];
-            NSMutableArray *arr11 = [[NSMutableArray alloc]init];
-            for (NSDictionary *dic1 in arr) {
-                NSMutableDictionary *aaa = [[NSMutableDictionary alloc]init];
-                [aaa setObject:@"0" forKey:@"flag"];
-                [aaa setObject:dic1[@"content"] forKey:@"content"];
-                [arr11 addObject:aaa];
-            }
-            [self.tempM2044Arr1 addObject:arr11];
-        }
-        
-        [self.tabv4 reloadData];
-    } failture:^(id result) {
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        
-    }];
-
+    
+    
 }
 
 -(void)wengao
@@ -644,6 +588,38 @@
         self.view2.hidden = YES;
         self.view3.hidden = YES;
         self.view4.hidden = YES;
+        
+        NSDictionary * dic1 = @{@"version"         :@"2.0.0",
+                                @"clientType"       :@"1001",
+                                @"signType"         :@"md5",
+                                @"timestamp"        :[CACUtility getNowTime],
+                                @"method"           :@"M2041",
+                                @"userId"           :self.userInfo[@"userId"],
+                                @"gradeId"          :self.userInfo[@"gradeId"],
+                                @"classId"          :self.userInfo[@"classId"],
+                                @"courseId"         :self.userInfo[@"courseId"],
+                                @"unitId"           :self.dic[@"unitId"],
+                                @"unitTypeId"       :self.dic[@"unitTypeId"],
+                                @"sign"             :[CACUtility getSignWithMethod:@"M2041"]};
+        [RequestOperationManager getParametersDic:dic1 success:^(NSMutableDictionary *result) {
+            
+            self.m2041Dic = result;
+            
+            self.titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
+            
+            self.title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"optionTitle"]];
+            
+            if ([self.str isEqualToString:@"1"]) {
+                self.tv.text = result[@"content"];
+            }else{
+                self.tv1.text = result[@"content"];
+            }
+            
+            
+        } failture:^(id result) {
+            
+        }];
+
     }else if (Seg.selectedSegmentIndex == 1){
         self.view1.hidden = YES;
         self.view2.hidden = NO;
@@ -700,11 +676,71 @@
         self.view2.hidden = YES;
         self.view3.hidden = NO;
         self.view4.hidden = YES;
+        
+        NSDictionary * dic3 = @{@"version"         :@"2.0.0",
+                                @"clientType"       :@"1001",
+                                @"signType"         :@"md5",
+                                @"timestamp"        :[CACUtility getNowTime],
+                                @"method"           :@"M2045",
+                                @"userId"           :self.userInfo[@"userId"],
+                                @"gradeId"          :self.userInfo[@"gradeId"],
+                                @"classId"          :self.userInfo[@"classId"],
+                                @"courseId"         :self.userInfo[@"courseId"],
+                                @"unitId"           :self.dic[@"unitId"],
+                                @"unitTypeId"       :self.dic[@"unitTypeId"],
+                                @"sign"             :[CACUtility getSignWithMethod:@"M2045"]};
+        [RequestOperationManager getParametersDic:dic3 success:^(NSMutableDictionary *result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            self.M2045Arr = result[@"options"];
+            [self.tabv2 reloadData];
+        } failture:^(id result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            
+        }];
+
     }else if (Seg.selectedSegmentIndex == 3){
         self.view1.hidden = YES;
         self.view2.hidden = YES;
         self.view3.hidden = YES;
         self.view4.hidden = NO;
+        
+        NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                                @"clientType"       :@"1001",
+                                @"signType"         :@"md5",
+                                @"timestamp"        :[CACUtility getNowTime],
+                                @"method"           :@"M2044",
+                                @"userId"           :self.userInfo[@"userId"],
+                                @"gradeId"          :self.userInfo[@"gradeId"],
+                                @"classId"          :self.userInfo[@"classId"],
+                                @"courseId"         :self.userInfo[@"courseId"],
+                                @"unitId"           :self.dic[@"unitId"],
+                                @"unitTypeId"       :self.dic[@"unitTypeId"],
+                                @"optionId"         :@"0",
+                                @"sign"             :[CACUtility getSignWithMethod:@"M2044"]};
+        [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            
+            self.M2044Arr1 = result[@"options"];
+            
+            
+            for (NSDictionary *dic in self.M2044Arr1) {
+                NSArray *arr = dic[@"contents"];
+                NSMutableArray *arr11 = [[NSMutableArray alloc]init];
+                for (NSDictionary *dic1 in arr) {
+                    NSMutableDictionary *aaa = [[NSMutableDictionary alloc]init];
+                    [aaa setObject:@"0" forKey:@"flag"];
+                    [aaa setObject:dic1[@"content"] forKey:@"content"];
+                    [arr11 addObject:aaa];
+                }
+                [self.tempM2044Arr1 addObject:arr11];
+            }
+            
+            [self.tabv4 reloadData];
+        } failture:^(id result) {
+            [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+            
+        }];
+
     }
 }
 

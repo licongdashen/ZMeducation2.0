@@ -62,6 +62,15 @@
     self.tav.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tav];
     
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 175, 40)];
+    view.backgroundColor = [UIColor grayColor];
+    self.tav.tableHeaderView = view;
+
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 175, 40)];
+    label.text = self.dic[@"courseName"];
+    label.backgroundColor = [UIColor whiteColor];
+    [view addSubview:label];
+    
     UIViewController* currentVc = [[UIViewController alloc]init];
     currentVc.view.frame = CGRectMake(175, 0, DEF_DEVICE_WIDTH - 175, self.view.height);
     [self addChildViewController:currentVc];
@@ -138,7 +147,15 @@
     NSMutableDictionary *dic1 = arr1[indexPath.row];
     cell.textLabel.text = dic1[@"unitName"];
     cell.textLabel.textColor = DEF_COLOR_RGB(58, 62, 62);
-    
+    cell.imageView.image = DEF_IMAGE(@"wujiaoxing");
+    cell.imageView.contentMode = UIViewContentModeCenter;
+    cell.imageView.frame = CGRectMake(0, 0, 20, 55);
+    if ([dic1[@"ifPoint"] intValue] == 1) {
+        cell.imageView.hidden = NO;
+    }else{
+        cell.imageView.hidden = YES;
+
+    }
     return cell;
 }
 
