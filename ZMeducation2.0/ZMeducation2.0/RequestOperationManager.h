@@ -29,4 +29,8 @@ typedef void (^failtureBlock) (id result);
                       success:(void (^)(NSMutableDictionary *result))successBlock
                      failture:(void (^)(id result))failtureBlock;
 
+
++(void)getParametersDic1:(NSDictionary *)parameterDic
+                 success:(void (^)(NSMutableDictionary *result))successBlock
+                failture:(void (^)(id result))failtureBlock;
 @end

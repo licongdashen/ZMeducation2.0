@@ -593,7 +593,8 @@
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.M2005dic[@"courseId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2063"]};
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2063"],
+                            @"type"             :@"1"};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2073Arr = result[@"contents"];
@@ -618,7 +619,8 @@
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.M2005dic[@"courseId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2063"]};
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2063"],
+                            @"type"             :@"2"};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2073Arr = result[@"contents"];

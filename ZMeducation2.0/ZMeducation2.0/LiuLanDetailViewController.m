@@ -448,7 +448,6 @@
     label43.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label43];
     
-    
     UILabel *label51 = [[UILabel alloc]initWithFrame:CGRectMake(0, label41.bottom, 132, 100)];
     label51.text = self.M2071Dic[@"titles"][4][0];
     label51.textAlignment = NSTextAlignmentCenter;

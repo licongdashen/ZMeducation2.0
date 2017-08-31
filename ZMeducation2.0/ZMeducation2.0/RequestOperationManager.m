@@ -112,6 +112,54 @@ static RequestOperationManager *sessionManager;
     return manager;
 }
 
+//post请求
++ (AFHTTPSessionManager *)requestPostWithParameters1:(NSDictionary *)parameters
+                                          urlString:(NSString *)urlString
+                                       finishHandle:(void (^)(id result))finishHandle
+                                         failHandle:(void (^)(id result))failHandle
+{
+    AFHTTPSessionManager *manager = [RequestOperationManager shareInstance];
+    
+    NSLog(@"requestUrl:%@",parameters);
+    [CACUtility showMBProgress:DEF_MyAppDelegate.window message:@""];
+    
+    [manager POST:DEF_IPAddress parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        [RequestOperationManager requestSuccess:responseObject task:task finishHandle:finishHandle];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        [RequestOperationManager requestError:error task:task failHandle:failHandle];
+    }];
+    
+    // 添加到任务字典中保存
+    
+    return manager;
+}
+
+/**
+ 用户登录请求
+ 
+ @param parameterDic 请求字典
+ @param successBlock 成功返回
+ @param failtureBlock 失败返回
+ */
++(void)getParametersDic1:(NSDictionary *)parameterDic
+                success:(void (^)(NSMutableDictionary *result))successBlock
+               failture:(void (^)(id result))failtureBlock
+{
+    [RequestOperationManager requestPostWithParameters1:parameterDic
+                                             urlString:@"M2001"
+                                          finishHandle:^(id result) {
+                                              successBlock(result);
+                                          } failHandle:^(id result) {
+                                              failtureBlock(result);
+                                          }];
+}
+
 /**
  用户登录请求
  

@@ -323,7 +323,9 @@
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"]};
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"],
+                            @"unitId"                 :self.m2009Dic[@"unitId"],
+                            @"unitTypeId"                 :self.m2009Dic[@"unitTypeId"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2064Dic = result;
@@ -477,8 +479,10 @@
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2066"],
                             @"file"             :fileData,
-                            @"filename"         :@"123.png"};
-    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+                            @"filename"         :@"123.png",
+                            @"unitId"                 :self.m2009Dic[@"unitId"],
+                            @"unitTypeId"                 :self.m2009Dic[@"unitTypeId"]};
+    [RequestOperationManager getParametersDic1:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"图片上传成功"];
