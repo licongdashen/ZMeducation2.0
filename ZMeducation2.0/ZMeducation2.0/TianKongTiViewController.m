@@ -306,13 +306,12 @@
 -(void)tijiao
 {
 
-    NSMutableString *str = [NSMutableString string];
+    NSMutableArray *str = [[NSMutableArray alloc]init];
     
     for (UIView *view in [self.tiwenScro subviews]) {
         if ([view isKindOfClass:[UITextView class]]) {
             UITextView *tv = (UITextView *)view;
-            
-            [str appendString:[NSString stringWithFormat:@"%@,",tv.text]];
+            [str addObject:tv.text];
             NSLog(@"tttttttt%@",str);
             
         }
@@ -329,7 +328,7 @@
                            @"courseId"         :self.userInfo[@"courseId"],
                            @"unitId"           :self.dic[@"unitId"],
                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                           @"content"          :str,
+                           @"content"          :[CACUtility dictionaryToJson:str],
                            @"sign"             :[CACUtility getSignWithMethod:@"M2022"]};
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         
