@@ -51,7 +51,7 @@
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",
                             @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2074",
+                            @"method"           :@"M2061",
                             @"userId"           :self.userInfo[@"userId"],
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
@@ -59,7 +59,7 @@
                             @"unitId"           :self.dic[@"unitId"],
                             @"authorId"         :self.dic[@"authorId"],
                             @"unitTypeId"       :self.dic[@"unitTypeId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2074"]};
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2061"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2071Dic = result;
@@ -473,12 +473,12 @@
     [bg_selfCommentImagv addSubview:label63];
     
     UILabel *label64 = [[UILabel alloc]initWithFrame:CGRectMake(label63.right, label51.bottom, 120, 70)];
-    label64.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][0][0][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][1][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][2][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][3][@"advice1"] intValue]];
+    label64.text = [NSString stringWithFormat:@"%d",[self.tempM2071Arr[0][0][@"advice1"] intValue] + [self.tempM2071Arr[0][1][@"advice1"] intValue] + [self.tempM2071Arr[0][2][@"advice1"] intValue] + [self.tempM2071Arr[0][3][@"advice1"] intValue]];
     label64.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label64];
     
     UILabel *label65 = [[UILabel alloc]initWithFrame:CGRectMake(label64.right, label51.bottom, 120, 70)];
-    label65.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][1][0][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][1][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][2][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][3][@"advice2"] intValue]];
+    label65.text = [NSString stringWithFormat:@"%d",[self.tempM2071Arr[1][0][@"advice2"] intValue] + [self.tempM2071Arr[1][1][@"advice2"] intValue] + [self.tempM2071Arr[1][2][@"advice2"] intValue] + [self.tempM2071Arr[1][3][@"advice2"] intValue]];
     label65.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label65];
     
@@ -500,7 +500,7 @@
     int y = label15.bottom;
     for (int i = 0; i < 4; i++) {
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right, y, 120, 112)];
-        tv.text = self.M2071Dic[@"contents"][0][i][@"advice1"];
+        tv.text = self.tempM2071Arr[0][i][@"advice1"];
         tv.tag = 2000 + i;
         tv.delegate = self;
         tv.font = DEF_MyFont(16);
@@ -508,7 +508,7 @@
         [bg_selfCommentImagv addSubview:tv];
         
         UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right, y, 120, 112)];
-        tv1.text = self.M2071Dic[@"contents"][1][i][@"advice2"];
+        tv1.text = self.tempM2071Arr[1][i][@"advice2"];
         tv1.tag = 3000 + i;
         tv1.delegate = self;
         tv1.font = DEF_MyFont(16);
@@ -539,7 +539,7 @@
     [self.view addSubview:titleLb];
     
     UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100, 600, 300)];
-    tv1.text = self.M2071Dic[@"contents"][0][@"advice"];
+    tv1.text = self.tempM2071Arr[0][@"advice"];
     tv1.layer.borderColor = [UIColor grayColor].CGColor;
     tv1.layer.borderWidth = 1;
     tv1.backgroundColor = [UIColor clearColor];
@@ -554,7 +554,7 @@
     [self.view addSubview:titleLb1];
     
     UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450, 600, 300)];
-    tv2.text = self.M2071Dic[@"contents"][1][@"advice"];
+    tv2.text = self.tempM2071Arr[1][@"advice"];
     tv2.layer.borderColor = [UIColor grayColor].CGColor;
     tv2.layer.borderWidth = 1;
     tv2.backgroundColor = [UIColor clearColor];
@@ -578,7 +578,7 @@
                             @"unitId"           :self.dic[@"unitId"],
                             @"authorId"         :self.dic[@"authorId"],
                             @"contents"         :[CACUtility dictionaryToJson:self.tempM2071Arr],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2072"]};
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2062"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
