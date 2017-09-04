@@ -180,6 +180,9 @@
                               @"userName" :@"全部"};
         [self.M2007Arr insertObject:dic atIndex:0];
         
+        self.M2007Dic = self.M2007Arr[0];
+        self.selLb.text = self.M2007Dic[@"userName"];
+        
         [self.tabv reloadData];
     } failture:^(id result) {
         

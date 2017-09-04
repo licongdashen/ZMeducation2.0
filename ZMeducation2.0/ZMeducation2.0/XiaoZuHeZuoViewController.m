@@ -692,6 +692,8 @@
         [RequestOperationManager getParametersDic:dic3 success:^(NSMutableDictionary *result) {
             [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
             self.M2045Arr = result[@"options"];
+            self.M2045Dic = self.M2045Arr[0];
+            self.selLb.text = self.M2045Dic[@"optionName"];
             [self.tabv2 reloadData];
         } failture:^(id result) {
             [CACUtility hideMBProgress:DEF_MyAppDelegate.window];

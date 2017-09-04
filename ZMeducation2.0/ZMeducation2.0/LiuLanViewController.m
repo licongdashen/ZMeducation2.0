@@ -226,6 +226,8 @@
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2005Arr = result[@"courses"];
+        self.selLb.text = self.M2005Arr[0][@"courseName"];
+        self.M2005dic = self.M2005Arr[0];
         [self.tabv1 reloadData];
     } failture:^(id result) {
         
@@ -380,6 +382,8 @@
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2005Arr = result[@"courses"];
+        self.selLb.text = self.M2005Arr[0][@"courseName"];
+        self.M2005dic = self.M2005Arr[0];
         [self.tabv1 reloadData];
     } failture:^(id result) {
         
@@ -473,7 +477,6 @@
     line4.backgroundColor = [UIColor whiteColor];
     [view addSubview:line4];
     
-    
     UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(line4.right, 0, 100, 34)];
     label5.textAlignment = NSTextAlignmentCenter;
     label5.textColor = [UIColor whiteColor];
@@ -538,6 +541,8 @@
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2005Arr = result[@"courses"];
+        self.selLb.text = self.M2005Arr[0][@"courseName"];
+        self.M2005dic = self.M2005Arr[0];
         [self.tabv1 reloadData];
     } failture:^(id result) {
         

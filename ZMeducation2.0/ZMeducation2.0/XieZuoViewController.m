@@ -367,7 +367,9 @@
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2065"],
                             @"title"            :self.tf.text,
-                            @"content"          :self.content.text};
+                            @"content"          :self.content.text,
+                            @"unitId"                 :self.m2009Dic[@"unitId"],
+                            @"unitTypeId"                 :self.m2009Dic[@"unitTypeId"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
@@ -480,8 +482,8 @@
                             @"sign"             :[CACUtility getSignWithMethod:@"M2066"],
                             @"file"             :fileData,
                             @"filename"         :@"123.png",
-                            @"unitId"                 :self.m2009Dic[@"unitId"],
-                            @"unitTypeId"                 :self.m2009Dic[@"unitTypeId"]};
+                            @"unitId"           :self.m2009Dic[@"unitId"],
+                            @"unitTypeId"       :self.m2009Dic[@"unitTypeId"]};
     [RequestOperationManager getParametersDic1:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
