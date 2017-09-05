@@ -20,6 +20,11 @@
 @property (nonatomic, strong)NSMutableArray *tempM2071Arr;
 
 @property (nonatomic, strong)UIView *navView;
+@property (nonatomic, strong)UIView *wendangBackView;
+@property (nonatomic, weak)UITextView *content;
+@property (nonatomic, strong) NSMutableDictionary *M2064Dic;
+@property (nonatomic, strong) NSMutableArray *M2064Arr;
+@property (nonatomic, strong) UIScrollView *wendangscro;
 
 @end
 
@@ -37,86 +42,117 @@
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:backBtn];
     
-    UIButton *commintBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.navView.width - 75, 23, 65, 30)];
-    [commintBtn setTitle:@"提交" forState:0];
-    [commintBtn addTarget:self action:@selector(commint) forControlEvents:UIControlEventTouchUpInside];
-    [self.navView addSubview:commintBtn];
+//    UIButton *commintBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.navView.width - 75, 23, 65, 30)];
+//    [commintBtn setTitle:@"提交" forState:0];
+//    [commintBtn addTarget:self action:@selector(commint) forControlEvents:UIControlEventTouchUpInside];
+//    [self.navView addSubview:commintBtn];
     
     UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 64)];
     imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
     imagvBg.userInteractionEnabled = YES;
     [self.view addSubview:imagvBg];
     
+    
+    self.wendangBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    self.wendangBackView.userInteractionEnabled = NO;
+    [self.view addSubview:self.wendangBackView];
+    
+    UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
+    imagv1.image = DEF_IMAGE(@"wodewengao_title");
+    [self.wendangBackView addSubview:imagv1];
+    
+    UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 650, 35)];
+    imagv2.image = DEF_IMAGE(@"wodewengao_shurukuang");
+    imagv2.userInteractionEnabled = YES;
+    [self.wendangBackView addSubview:imagv2];
+    
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, imagv2.width - 40, 35)];
+    tf.placeholder = @"    (请在这里输入标题)";
+    [imagv2 addSubview:tf];
+    
+//    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(imagv2.right + 20, imagv2.y, 80, 35)];
+//    [self.luyinBtn setTitle:@"开始录音" forState:0];
+//    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
+//    [self.wendangBackView addSubview:self.luyinBtn];
+    
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.wendangBackView.width - 80, 450)];
+    imagv.userInteractionEnabled = YES;
+    imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    imagv.userInteractionEnabled = YES;
+    [self.wendangBackView addSubview:imagv];
+    
+    UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
+    content.font = DEF_MyFont(16);
+    [imagv addSubview:content];
+    self.content = content;
+    
+    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
+    tijiaoBtn.centerX = self.wendangBackView.centerX;
+    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+    [self.wendangBackView addSubview:tijiaoBtn];
+    
+    self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
+    [imagv addSubview:self.wendangscro];
+    
+    
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",
                             @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2074",
+                            @"method"           :@"M2064",
                             @"userId"           :self.userInfo[@"userId"],
                             @"gradeId"          :self.userInfo[@"gradeId"],
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"],
                             @"unitId"           :self.dic[@"unitId"],
-                            @"authorId"         :self.dic[@"authorId"],
-                            @"unitTypeId"       :self.dic[@"unitTypeId"],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2074"]};
+                            @"unitTypeId"       :self.dic[@"unitTypeId"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
-        self.M2071Dic = result;
-        if ([result[@"reviewType"] intValue] == 1) {
-            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
-                self.tempM2071Arr = [[NSMutableArray alloc]init];
-                for (int i = 0; i < 6; i++) {
-                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-                    [dic setObject:@"" forKey:@"advice"];
-                    [self.tempM2071Arr addObject:dic];
-                }
-            }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
-            }
-            [self loadview1];
-        }else if ([result[@"reviewType"] intValue] == 2){
-            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
-                self.tempM2071Arr = [[NSMutableArray alloc]init];
-                NSMutableArray *arr1 = [[NSMutableArray alloc]init];
-                NSMutableArray *arr2 = [[NSMutableArray alloc]init];
-                for (int i = 0; i < 4; i++) {
-                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-                    [dic setObject:@"" forKey:@"advice1"];
-                    [arr1 addObject:dic];
-                    
-                    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
-                    [dic1 setObject:@"" forKey:@"advice2"];
-                    [arr2 addObject:dic1];
-                }
-                
-                [self.tempM2071Arr addObject:arr1];
-                [self.tempM2071Arr addObject:arr2];
-                
-            }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
-            }
-            
-            [self loadview2];
-            
-        }else if ([result[@"reviewType"] intValue] == 3){
-            if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
-                self.tempM2071Arr = [[NSMutableArray alloc]init];
-                for (int i = 0; i < 2; i++) {
-                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-                    [dic setObject:@"" forKey:@"advice"];
-                    [self.tempM2071Arr addObject:dic];
-                }
-            }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
-            }
-            [self loadview3];
-        }
+        self.M2064Dic = result;
+        
+        self.M2064Arr = [[NSMutableArray alloc]initWithArray:result[@"files"]];
+        
+        [self.M2064Arr addObject:@""];
+        
+        content.text = result[@"content"];
+        
+        tf.text = result[@"title"];
+        
+        [self LoadwendangImgv];
         
     } failture:^(id result) {
         
     }];
+
+    
 }
+-(void)LoadwendangImgv
+{
+    for (UIView *view in [self.wendangscro subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    int x = 0;
+    for (int i = 0; i < self.M2064Arr.count; i++) {
+        if (i < self.M2064Arr.count - 1) {
+            UIImageView *imav = [[UIImageView alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [imav sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DEF_IPA,self.M2064Arr[i][@"fileUrl"]]]];
+            [self.wendangscro addSubview:imav];
+        }
+        
+        if (i == self.M2064Arr.count - 1) {
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [btn setTitle:@"添加" forState:0];
+            btn.backgroundColor = [UIColor grayColor];
+            [self.wendangscro addSubview:btn];
+        }
+        x += 80;
+        
+        self.wendangscro.contentSize = CGSizeMake(self.M2064Arr.count * 80, 100);
+    }
+}
+
 -(void)loadview1
 {
     UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
