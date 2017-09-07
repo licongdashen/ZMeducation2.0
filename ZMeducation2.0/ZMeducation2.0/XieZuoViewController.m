@@ -289,6 +289,7 @@
     
     self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(imagv2.right + 20, imagv2.y, 80, 35)];
     [self.luyinBtn setTitle:@"开始录音" forState:0];
+    [self.luyinBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
     [self.wendangBackView addSubview:self.luyinBtn];
     

@@ -31,21 +31,21 @@
     
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
-    self.navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 64)];
+    self.navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 54)];
     self.navView.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
     [self.view addSubview:self.navView];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 23, 65, 30)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 23 - 5, 65, 30)];
     [backBtn setTitle:@"返回" forState:0];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:backBtn];
 
-    UIButton *commintBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.navView.width - 75, 23, 65, 30)];
+    UIButton *commintBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.navView.width - 75, 23 - 5, 65, 30)];
     [commintBtn setTitle:@"提交" forState:0];
     [commintBtn addTarget:self action:@selector(commint) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:commintBtn];
     
-    UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 64)];
+    UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 54, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 54)];
     imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
     imagvBg.userInteractionEnabled = YES;
     [self.view addSubview:imagvBg];
@@ -74,7 +74,16 @@
                     [self.tempM2071Arr addObject:dic];
                 }
             }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 6; i++) {
+                    NSString *str = self.M2071Dic[@"contents"][i][@"advice"];
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:str forKey:@"advice"];
+                    [self.tempM2071Arr addObject:dic];
+                }
+
+//                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
             }
             [self loadview1];
         }else if ([result[@"reviewType"] intValue] == 2){
@@ -96,7 +105,27 @@
                 [self.tempM2071Arr addObject:arr2];
                 
             }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+                NSMutableArray *arr2 = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 4; i++) {
+                    NSString *str = self.M2071Dic[@"contents"][0][i][@"advice1"];
+                    NSString *str1 = self.M2071Dic[@"contents"][1][i][@"advice2"];
+
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:str forKey:@"advice1"];
+                    [arr1 addObject:dic];
+                    
+                    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                    [dic1 setObject:str1 forKey:@"advice2"];
+                    [arr2 addObject:dic1];
+                }
+                
+                [self.tempM2071Arr addObject:arr1];
+                [self.tempM2071Arr addObject:arr2];
+
+//                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
             }
 
             [self loadview2];
@@ -110,7 +139,15 @@
                     [self.tempM2071Arr addObject:dic];
                 }
             }else{
-                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                self.tempM2071Arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i < 6; i++) {
+                    NSString *str = self.M2071Dic[@"contents"][i][@"advice"];
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                    [dic setObject:str forKey:@"advice"];
+                    [self.tempM2071Arr addObject:dic];
+                }
+
+//                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
             }
             [self loadview3];
         }
@@ -370,18 +407,47 @@
 
 -(void)loadview2
 {
-    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20 + 65, self.view.width, self.view.height - 20 - 65)];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 55, 115, 25)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 55, 115, 25)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    [self.view addSubview:self.view1dianpingView];
+    
+    self.view1gousiView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1gousiView.hidden = YES;
+    [self.view addSubview:self.view1gousiView];
+
+    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 20 - 65)];
     bg_selfCommentImagv.image = DEF_IMAGE(@"bg_interComment");
     bg_selfCommentImagv.userInteractionEnabled = YES;
-    [self.view addSubview:bg_selfCommentImagv];
+    [self.view1dianpingView addSubview:bg_selfCommentImagv];
     
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 55, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
-    [self.view1dianpingView addSubview:label1];
+    [self.view addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 55, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
-    [self.view1dianpingView addSubview:label2];
+    [self.view addSubview:label2];
     
 
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 132, 112)];
@@ -529,17 +595,46 @@
 
 -(void)loadview3
 {
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 55, 115, 25)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 55, 115, 25)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    [self.view addSubview:self.view1dianpingView];
+    
+    self.view1gousiView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1gousiView.hidden = YES;
+    [self.view addSubview:self.view1gousiView];
+
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
-    [self.view addSubview:label1];
+    [self.view1dianpingView addSubview:label1];
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
-    [self.view addSubview:label2];
+    [self.view1dianpingView addSubview:label2];
 
     UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 150, 150, 30)];
     titleLb.text = @"我欣赏的是";
-    [self.view addSubview:titleLb];
+    [self.view1dianpingView addSubview:titleLb];
     
     UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100, 600, 300)];
     tv1.text =  self.tempM2071Arr[0][@"advice"];
@@ -550,11 +645,11 @@
     tv1.delegate = self;
     tv1.font = DEF_MyFont(16);
 
-    [self.view addSubview:tv1];
+    [self.view1dianpingView addSubview:tv1];
     
     UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(50, 500, 250, 30)];
     titleLb1.text = @"我建议你改变的是的是";
-    [self.view addSubview:titleLb1];
+    [self.view1dianpingView addSubview:titleLb1];
     
     UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450, 600, 300)];
     tv2.text =  self.tempM2071Arr[1][@"advice"];
@@ -565,7 +660,7 @@
     tv2.delegate = self;
     tv2.font = DEF_MyFont(16);
 
-    [self.view addSubview:tv2];
+    [self.view1dianpingView addSubview:tv2];
 }
 
 -(void)commint

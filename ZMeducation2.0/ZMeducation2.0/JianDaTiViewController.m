@@ -7,8 +7,9 @@
 //
 
 #import "JianDaTiViewController.h"
+#import <iflyMSC/iflyMSC.h>
 
-@interface JianDaTiViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface JianDaTiViewController ()<UITableViewDelegate,UITableViewDataSource,IFlySpeechRecognizerDelegate>
 
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
@@ -25,6 +26,10 @@
 @property (nonatomic, weak) UITextView *tv;
 
 @property (nonatomic, weak) UIImageView *bgImagv;
+
+@property (nonatomic, strong) IFlySpeechRecognizer *iFlySpeechRecognizer;
+
+@property (nonatomic, strong) UIButton *luyinBtn;
 
 @end
 
@@ -43,8 +48,84 @@
     [super viewDidLoad];
     
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
+    //创建语音识别对象
+    _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance]; //设置识别参数
+    _iFlySpeechRecognizer.delegate = self;
+    //设置为听写模式
+    [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
     
+    [_iFlySpeechRecognizer setParameter: @"iat" forKey: [IFlySpeechConstant IFLY_DOMAIN]];
+    //asr_audio_path 是录音文件名，设置 value 为 nil 或者为空取消保存，默认保存目录在 Library/cache 下。
+    [_iFlySpeechRecognizer setParameter:@"iat.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    //设置音频来源为麦克风
+    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_MIC forKey:@"audio_source"];
+    
+    //设置听写结果格式为json
+    [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
+
    
+}
+
+- (NSString *)stringFromJson:(NSString*)params
+{
+    if (params == NULL) {
+        return nil;
+    }
+    
+    NSMutableString *tempStr = [[NSMutableString alloc] init];
+    NSDictionary *resultDic  = [NSJSONSerialization JSONObjectWithData:    //返回的格式必须为utf8的,否则发生未知错误
+                                [params dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
+    if (resultDic!= nil) {
+        NSArray *wordArray = [resultDic objectForKey:@"ws"];
+        
+        for (int i = 0; i < [wordArray count]; i++) {
+            NSDictionary *wsDic = [wordArray objectAtIndex: i];
+            NSArray *cwArray = [wsDic objectForKey:@"cw"];
+            
+            for (int j = 0; j < [cwArray count]; j++) {
+                NSDictionary *wDic = [cwArray objectAtIndex:j];
+                NSString *str = [wDic objectForKey:@"w"];
+                [tempStr appendString: str];
+            }
+        }
+    }
+    return tempStr;
+}
+
+//识别结果返回代理
+- (void) onResults:(NSArray *) results isLast:(BOOL)isLast{
+    
+    NSMutableString *resultString = [[NSMutableString alloc] init];
+    NSDictionary *dic = results[0];
+    for (NSString *key in dic) {
+        [resultString appendFormat:@"%@",key];
+    }
+    NSString * resultFromJson =  [self stringFromJson:resultString];
+    
+    self.tv.text = [NSString stringWithFormat:@"%@%@",self.tv.text,resultFromJson];
+    NSLog(@"jjjjjjj======%@",resultFromJson);
+    
+} //识别会话结束返回代理
+- (void)onError: (IFlySpeechError *) error{
+    
+}
+//停止录音回调
+- (void) onEndOfSpeech{
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    self.luyinBtn.enabled = YES;
+}
+//开始录音回调
+- (void) onBeginOfSpeech{
+    
+}
+//音量回调函数
+- (void) onVolumeChanged: (int)volume{
+    
+}
+//会话取消回调
+- (void) onCancel{
+    
 }
 
 -(void)setDic:(NSDictionary *)dic
@@ -99,6 +180,12 @@
     [tiwenScro addSubview:tv];
     self.tv = tv;
     
+    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(tiwenScro.right + 20, tiwenScro.y, 80, 35)];
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    [self.luyinBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
+    [self.bgImagv addSubview:self.luyinBtn];
+
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55, tiwenScro.bottom + 15, 180, 30)];
     [btn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(tijiao) forControlEvents:UIControlEventTouchUpInside];
@@ -169,6 +256,19 @@
     }];
 
 }
+
+-(void)luyin
+{
+    BOOL ret = [_iFlySpeechRecognizer startListening];
+    if (ret) {
+        [self.luyinBtn setTitle:@"正在录音" forState:0];
+        self.luyinBtn.enabled = NO;
+    }else{
+        
+        
+    }
+}
+
 -(void)tijiao
 {
     
