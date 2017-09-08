@@ -25,6 +25,12 @@
 
 @property (nonatomic, strong)UIView *gousiBackView;
 
+@property (nonatomic, strong)NSMutableArray *M2074Arr;
+
+@property (nonatomic, strong)NSMutableDictionary *M2074Dic;
+
+@property (nonatomic, strong)UIScrollView *scro;
+
 @end
 
 @implementation GouSiDetailViewController
@@ -51,10 +57,6 @@
     imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
     imagvBg.userInteractionEnabled = YES;
     [self.view addSubview:imagvBg];
-    
-    self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
-    self.gousiBackView.userInteractionEnabled = NO;
-    [self.view addSubview:self.gousiBackView];
     
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
@@ -134,8 +136,84 @@
     }];
 }
 
+-(void)action1:(UIButton *)sender
+{
+    self.gousiBackView.hidden = NO;
+    self.view1dianpingView.hidden = YES;
+    
+    self.btn2.backgroundColor = [UIColor clearColor];
+    [self.btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+}
+
+-(void)action2:(UIButton *)sender
+{
+    self.gousiBackView.hidden = YES;
+    self.view1dianpingView.hidden = NO;
+    
+    self.btn1.backgroundColor = [UIColor clearColor];
+    [self.btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2074",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"authorId"         :self.dic[@"authorId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2074"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"unitTypeId"       :self.dic[@"unitTypeId"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+    } failture:^(id result) {
+        
+    }];
+}
+
 -(void)loadview1
 {
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+
+    self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    self.gousiBackView.userInteractionEnabled = NO;
+    [self.view addSubview:self.gousiBackView];
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1dianpingView.hidden = YES;
+    [self.view addSubview:self.view1dianpingView];
+
+    
     UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];
     imagv.image = DEF_IMAGE(@"article_1");
     imagv.userInteractionEnabled = YES;
@@ -237,6 +315,36 @@
 
 -(void)loadview2
 {
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+
+    self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    self.gousiBackView.userInteractionEnabled = NO;
+    [self.view addSubview:self.gousiBackView];
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1dianpingView.hidden = YES;
+    [self.view addSubview:self.view1dianpingView];
+    
     UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];
     imagv.image = DEF_IMAGE(@"article_2");
     imagv.userInteractionEnabled = YES;
@@ -342,6 +450,36 @@
 
 -(void)loadview3
 {
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
+    
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
+
+    self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    self.gousiBackView.userInteractionEnabled = NO;
+    [self.view addSubview:self.gousiBackView];
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1dianpingView.hidden = YES;
+    [self.view addSubview:self.view1dianpingView];
+    
     UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.gousiBackView.width, self.gousiBackView.height - 100)];
     imagv.image = DEF_IMAGE(@"article_4");
     imagv.userInteractionEnabled = YES;
@@ -494,32 +632,6 @@
     }
     
 }
-
--(void)action1:(UIButton *)sender
-{
-    self.view1gousiView.hidden = YES;
-    self.view1dianpingView.hidden = NO;
-    
-    self.btn2.backgroundColor = [UIColor clearColor];
-    [self.btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-}
-
--(void)action2:(UIButton *)sender
-{
-    self.view1gousiView.hidden = NO;
-    self.view1dianpingView.hidden = YES;
-    
-    self.btn1.backgroundColor = [UIColor clearColor];
-    [self.btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-}
-
 
 -(void)back
 {

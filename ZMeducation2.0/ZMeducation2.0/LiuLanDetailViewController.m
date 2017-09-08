@@ -21,7 +21,13 @@
 @property (nonatomic, strong)NSMutableArray *tempM2071Arr;
 
 @property (nonatomic, strong)UIView *navView;
+@property (nonatomic, strong)NSMutableArray *tempM2061Arr;
 
+@property (nonatomic, strong)UIView *wendangBackView;
+@property (nonatomic, weak) UITextView *content;
+@property (nonatomic, strong) NSMutableDictionary *M2064Dic;
+@property (nonatomic, strong) NSMutableArray *M2064Arr;
+@property (nonatomic, strong) UIScrollView *wendangscro;
 @end
 
 @implementation LiuLanDetailViewController
@@ -174,7 +180,11 @@
     UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
     btn2.layer.cornerRadius = 15;
     btn2.layer.borderWidth = 2;
-    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    if ([self.dic[@"unitTypeId"] intValue] == 62 || [self.dic[@"unitTypeId"] intValue] == 63 ||[self.dic[@"unitTypeId"] intValue] == 64||[self.dic[@"unitTypeId"] intValue] == 65||[self.dic[@"unitTypeId"] intValue] == 66) {
+        [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    }else if ([self.dic[@"unitTypeId"] intValue] == 79){
+        [btn2 setTitle:@"文稿详情" forState:UIControlStateNormal];
+    }
     btn2.backgroundColor = [UIColor clearColor];
     btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -421,7 +431,11 @@
     UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 55, 115, 25)];
     btn2.layer.cornerRadius = 15;
     btn2.layer.borderWidth = 2;
-    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    if ([self.dic[@"unitTypeId"] intValue] == 62 || [self.dic[@"unitTypeId"] intValue] == 63 ||[self.dic[@"unitTypeId"] intValue] == 64||[self.dic[@"unitTypeId"] intValue] == 65||[self.dic[@"unitTypeId"] intValue] == 66) {
+        [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    }else if ([self.dic[@"unitTypeId"] intValue] == 79){
+        [btn2 setTitle:@"文稿详情" forState:UIControlStateNormal];
+    }
     btn2.backgroundColor = [UIColor clearColor];
     btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -609,7 +623,11 @@
     UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 55, 115, 25)];
     btn2.layer.cornerRadius = 15;
     btn2.layer.borderWidth = 2;
-    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    if ([self.dic[@"unitTypeId"] intValue] == 62 || [self.dic[@"unitTypeId"] intValue] == 63 ||[self.dic[@"unitTypeId"] intValue] == 64||[self.dic[@"unitTypeId"] intValue] == 65||[self.dic[@"unitTypeId"] intValue] == 66) {
+        [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    }else if ([self.dic[@"unitTypeId"] intValue] == 79){
+        [btn2 setTitle:@"文稿详情" forState:UIControlStateNormal];
+    }
     btn2.backgroundColor = [UIColor clearColor];
     btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -748,8 +766,508 @@
 
     sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    
+    if ([self.dic[@"unitTypeId"] intValue] == 62 || [self.dic[@"unitTypeId"] intValue] == 63 ||[self.dic[@"unitTypeId"] intValue] == 64||[self.dic[@"unitTypeId"] intValue] == 65||[self.dic[@"unitTypeId"] intValue] == 66) {
+        [self loadGouSi];
+    }else if ([self.dic[@"unitTypeId"] intValue] == 79){
+        [self loadWenGao];
+    }
+
+    
 }
 
+-(void)loadWenGao
+{
+    for (UIView *view in [self.view1gousiView subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    UIImageView *imagvBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 64)];
+    imagvBg.image = DEF_IMAGENAME(@"xiezuo_bg");
+    imagvBg.userInteractionEnabled = YES;
+    [self.view1gousiView addSubview:imagvBg];
+    
+    
+    self.wendangBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    [self.view1gousiView addSubview:self.wendangBackView];
+    
+    UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
+    imagv1.image = DEF_IMAGE(@"wodewengao_title");
+    [self.wendangBackView addSubview:imagv1];
+    
+    UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 650, 35)];
+    imagv2.image = DEF_IMAGE(@"wodewengao_shurukuang");
+    imagv2.userInteractionEnabled = YES;
+    [self.wendangBackView addSubview:imagv2];
+    
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, imagv2.width - 40, 35)];
+    tf.placeholder = @"    (请在这里输入标题)";
+    tf.enabled = NO;
+    [imagv2 addSubview:tf];
+    
+    //    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(imagv2.right + 20, imagv2.y, 80, 35)];
+    //    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    //    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.wendangBackView addSubview:self.luyinBtn];
+    
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.wendangBackView.width - 80, 450)];
+    imagv.userInteractionEnabled = YES;
+    imagv.image = DEF_IMAGE(@"hezuo_beijing");
+    imagv.userInteractionEnabled = YES;
+    [self.wendangBackView addSubview:imagv];
+    
+    UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
+    content.font = DEF_MyFont(16);
+    content.editable = NO;
+    [imagv addSubview:content];
+    self.content = content;
+    
+    UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
+    tijiaoBtn.centerX = self.wendangBackView.centerX;
+    [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
+    tijiaoBtn.enabled = NO;
+    [self.wendangBackView addSubview:tijiaoBtn];
+    
+    self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
+    [imagv addSubview:self.wendangscro];
+    
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2064",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2064"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"unitTypeId"       :self.dic[@"unitTypeId"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        
+        self.M2064Dic = result;
+        
+        self.M2064Arr = [[NSMutableArray alloc]initWithArray:result[@"files"]];
+        
+        [self.M2064Arr addObject:@""];
+        
+        content.text = result[@"content"];
+        
+        tf.text = result[@"title"];
+        
+        [self LoadwendangImgv];
+        
+    } failture:^(id result) {
+        
+    }];
+
+}
+
+-(void)LoadwendangImgv
+{
+    for (UIView *view in [self.wendangscro subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    int x = 0;
+    for (int i = 0; i < self.M2064Arr.count; i++) {
+        if (i < self.M2064Arr.count - 1) {
+            UIImageView *imav = [[UIImageView alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [imav sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DEF_IPA,self.M2064Arr[i][@"fileUrl"]]]];
+            [self.wendangscro addSubview:imav];
+        }
+        
+        if (i == self.M2064Arr.count - 1) {
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(x, 0, 60, 100)];
+            [btn setTitle:@"添加" forState:0];
+            btn.backgroundColor = [UIColor grayColor];
+            [self.wendangscro addSubview:btn];
+        }
+        x += 80;
+        
+        self.wendangscro.contentSize = CGSizeMake(self.M2064Arr.count * 80, 100);
+    }
+}
+
+-(void)loadGouSi
+{
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2061",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"authorId"         :self.dic[@"authorId"],
+                            @"unitTypeId"       :self.dic[@"unitTypeId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2061"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        NSData *jsonData = [result[@"content"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                       options:NSJSONReadingMutableContainers
+                                                         error:nil];
+        self.tempM2061Arr = [[NSMutableArray alloc]initWithArray:arr];
+        for (UIView *view in [self.view1gousiView subviews]) {
+            [view removeFromSuperview];
+        }
+        if ([self.dic[@"unitTypeId"] intValue] == 62) {
+            [self loadview11];
+        }else if ([self.dic[@"unitTypeId"] intValue] == 63){
+            [self loadview22];
+            
+        }else if ([self.dic[@"unitTypeId"] intValue] == 64){
+            [self loadview33];
+        }
+
+    } failture:^(id result) {
+        
+    }];
+}
+
+-(void)loadview11
+{
+    
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view1gousiView.width, self.view1gousiView.height - 50)];
+    imagv.image = DEF_IMAGE(@"article_1");
+    imagv.userInteractionEnabled = YES;
+    imagv.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view1gousiView addSubview:imagv];
+    
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(120, 50, 190, 50)];
+    tv1.text = self.tempM2061Arr[0][@"advice"];
+    tv1.tag = 2001;
+    tv1.delegate = self;
+    tv1.font = DEF_MyFont(16);
+    tv1.editable = NO;
+    [imagv addSubview:tv1];
+    
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
+    tv2.text = self.tempM2061Arr[1][@"advice"];
+    tv2.tag = 2002;
+    tv2.delegate = self;
+    tv2.font = DEF_MyFont(16);
+    tv2.editable = NO;
+
+    [imagv addSubview:tv2];
+    
+    UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv1.y + 20, 190, 50)];
+    tv3.text = self.tempM2061Arr[2][@"advice"];
+    tv3.tag = 2003;
+    tv3.delegate = self;
+    tv3.font = DEF_MyFont(16);
+    tv3.editable = NO;
+
+    [imagv addSubview:tv3];
+    
+    UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv3.bottom + 40, 190, 50)];
+    tv4.text = self.tempM2061Arr[3][@"advice"];
+    tv4.tag = 2004;
+    tv4.delegate = self;
+    tv4.font = DEF_MyFont(16);
+    
+    [imagv addSubview:tv4];
+    
+    UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv4.bottom + 40, 190, 50)];
+    tv5.text = self.tempM2061Arr[4][@"advice"];
+    tv5.tag = 2005;
+    tv5.delegate = self;
+    tv5.font = DEF_MyFont(16);
+    tv5.editable = NO;
+
+    [imagv addSubview:tv5];
+    
+    UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv5.bottom + 45, 190, 50)];
+    tv6.text = self.tempM2061Arr[5][@"advice"];
+    tv6.tag = 2006;
+    tv6.delegate = self;
+    tv6.font = DEF_MyFont(16);
+    tv6.editable = NO;
+
+    [imagv addSubview:tv6];
+    
+    UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv6.bottom + 45, 190, 50)];
+    tv7.text = self.tempM2061Arr[6][@"advice"];
+    tv7.tag = 2007;
+    tv7.delegate = self;
+    tv7.font = DEF_MyFont(16);
+    tv7.editable = NO;
+
+    [imagv addSubview:tv7];
+    
+    UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 100, tv7.bottom + 45, 190, 50)];
+    tv8.text = self.tempM2061Arr[7][@"advice"];
+    tv8.tag = 2008;
+    tv8.delegate = self;
+    tv8.font = DEF_MyFont(16);
+    tv8.editable = NO;
+
+    [imagv addSubview:tv8];
+    
+    UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv1.y + 20, 160, 110)];
+    tv9.text = self.tempM2061Arr[8][@"advice"];
+    tv9.tag = 2009;
+    tv9.delegate = self;
+    tv9.font = DEF_MyFont(16);
+    tv9.editable = NO;
+
+    [imagv addSubview:tv9];
+    
+    UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv9.bottom + 60, 160, 110)];
+    tv10.text = self.tempM2061Arr[9][@"advice"];
+    tv10.tag = 2010;
+    tv10.delegate = self;
+    tv10.font = DEF_MyFont(16);
+    tv10.editable = NO;
+
+    [imagv addSubview:tv10];
+    
+    UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 130, tv10.bottom + 60, 160, 110)];
+    tv11.text = self.tempM2061Arr[10][@"advice"];
+    tv11.tag = 2011;
+    tv11.delegate = self;
+    tv11.font = DEF_MyFont(16);
+    tv11.editable = NO;
+
+    [imagv addSubview:tv11];
+    
+    //    UIButton *commit = [[UIButton alloc]initWithFrame:CGRectMake(tv11.right - 80, tv11.bottom + 20, 80, 80)];
+    //    [commit addTarget:self action:@selector(gousicommit) forControlEvents:UIControlEventTouchUpInside];
+    //    [imagv addSubview:commit];
+    
+}
+
+-(void)loadview22
+{
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view1gousiView.width, self.view1gousiView.height - 50)];
+    imagv.image = DEF_IMAGE(@"article_2");
+    imagv.userInteractionEnabled = YES;
+    imagv.userInteractionEnabled = YES;
+    imagv.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view1gousiView addSubview:imagv];
+    
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(120, 50, 190, 50)];
+    tv1.text = self.tempM2061Arr[0][@"advice"];
+    tv1.tag = 2001;
+    tv1.delegate = self;
+    tv1.font = DEF_MyFont(16);
+    tv1.editable = NO;
+
+    [imagv addSubview:tv1];
+    
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
+    tv2.text = self.tempM2061Arr[1][@"advice"];
+    tv2.tag = 2002;
+    tv2.delegate = self;
+    tv2.font = DEF_MyFont(16);
+    tv2.editable = NO;
+
+    [imagv addSubview:tv2];
+    
+    UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 70, tv1.y + 10, 220, 70)];
+    tv4.text = self.tempM2061Arr[2][@"advice"];
+    tv4.tag = 2003;
+    tv4.delegate = self;
+    tv4.font = DEF_MyFont(16);
+    tv4.editable = NO;
+
+    [imagv addSubview:tv4];
+    
+    UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv4.bottom + 50, 120, 90)];
+    tv5.text = self.tempM2061Arr[3][@"advice"];
+    tv5.tag = 2004;
+    tv5.delegate = self;
+    tv5.font = DEF_MyFont(16);
+    tv5.editable = NO;
+
+    [imagv addSubview:tv5];
+    
+    UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv5.bottom + 60, 120, 90)];
+    tv6.text = self.tempM2061Arr[4][@"advice"];
+    tv6.tag = 2005;
+    tv6.delegate = self;
+    tv6.font = DEF_MyFont(16);
+    tv6.editable = NO;
+
+    [imagv addSubview:tv6];
+    
+    UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 40, tv6.bottom + 60, 120, 90)];
+    tv7.text = self.tempM2061Arr[5][@"advice"];
+    tv7.tag = 2006;
+    tv7.delegate = self;
+    tv7.font = DEF_MyFont(16);
+    tv7.editable = NO;
+
+    [imagv addSubview:tv7];
+    
+    UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv4.bottom + 50, 120, 90)];
+    tv8.text = self.tempM2061Arr[6][@"advice"];
+    tv8.tag = 2007;
+    tv8.delegate = self;
+    tv8.font = DEF_MyFont(16);
+    tv8.editable = NO;
+
+    [imagv addSubview:tv8];
+    
+    UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv8.bottom + 70, 120, 90)];
+    tv9.text = self.tempM2061Arr[7][@"advice"];
+    tv9.tag = 2008;
+    tv9.delegate = self;
+    tv9.font = DEF_MyFont(16);
+    tv9.editable = NO;
+
+    [imagv addSubview:tv9];
+    
+    UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv7.right + 65, tv9.bottom + 70, 120, 90)];
+    tv10.text = self.tempM2061Arr[8][@"advice"];
+    tv10.tag = 2009;
+    tv10.delegate = self;
+    tv10.font = DEF_MyFont(16);
+    tv10.editable = NO;
+    [imagv addSubview:tv10];
+    
+    UITextView *tv11 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv1.y + 20, 150, 110)];
+    tv11.text = self.tempM2061Arr[9][@"advice"];
+    tv11.tag = 2010;
+    tv11.delegate = self;
+    tv11.font = DEF_MyFont(16);
+    tv11.editable = NO;
+
+    [imagv addSubview:tv11];
+    
+    UITextView *tv12 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv11.bottom + 60, 150, 110)];
+    tv12.text = self.tempM2061Arr[10][@"advice"];
+    tv12.tag = 2011;
+    tv12.delegate = self;
+    tv12.editable = NO;
+
+    [imagv addSubview:tv12];
+    
+    UITextView *tv13 = [[UITextView alloc]initWithFrame:CGRectMake(tv4.right + 140, tv12.bottom + 60, 150, 110)];
+    tv13.text = self.tempM2061Arr[11][@"advice"];
+    tv13.tag = 2012;
+    tv13.delegate = self;
+    tv13.font = DEF_MyFont(16);
+    tv13.editable = NO;
+
+    [imagv addSubview:tv13];
+    
+}
+
+-(void)loadview33
+{
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view1gousiView.width, self.view1gousiView.height - 50)];
+    imagv.image = DEF_IMAGE(@"article_4");
+    imagv.userInteractionEnabled = YES;
+    imagv.userInteractionEnabled = YES;
+    imagv.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view1gousiView addSubview:imagv];
+    
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(120, 50, 190, 50)];
+    tv1.text = self.tempM2061Arr[0][@"advice"];
+    tv1.tag = 2001;
+    tv1.delegate = self;
+    tv1.font = DEF_MyFont(16);
+    tv1.editable = NO;
+
+    tv1.backgroundColor = [UIColor clearColor];
+    [imagv addSubview:tv1];
+    
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(120, tv1.bottom + 30, 190, 450)];
+    tv2.text = self.tempM2061Arr[1][@"advice"];
+    tv2.tag = 2002;
+    tv2.delegate = self;
+    tv2.font = DEF_MyFont(16);
+    tv2.backgroundColor = [UIColor clearColor];
+    tv2.editable = NO;
+
+    [imagv addSubview:tv2];
+    
+    UITextView *tv3 = [[UITextView alloc]initWithFrame:CGRectMake(tv1.right + 200, tv1.bottom + 180, 120, 120)];
+    tv3.text = self.tempM2061Arr[2][@"advice"];
+    tv3.tag = 2003;
+    tv3.delegate = self;
+    tv3.font = DEF_MyFont(16);
+    tv3.backgroundColor = [UIColor clearColor];
+    tv3.editable = NO;
+
+    [imagv addSubview:tv3];
+    
+    UITextView *tv4 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x, tv3.y - 160, 120, 120)];
+    tv4.text = self.tempM2061Arr[3][@"advice"];
+    tv4.tag = 2004;
+    tv4.delegate = self;
+    tv4.font = DEF_MyFont(16);
+    tv4.backgroundColor = [UIColor clearColor];
+    tv4.editable = NO;
+
+    [imagv addSubview:tv4];
+    
+    UITextView *tv5 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 70, tv3.bottom + 40, 100, 100)];
+    tv5.text = self.tempM2061Arr[4][@"advice"];
+    tv5.tag = 2005;
+    tv5.delegate = self;
+    tv5.font = DEF_MyFont(16);
+    tv5.backgroundColor = [UIColor clearColor];
+    tv5.editable = NO;
+
+    [imagv addSubview:tv5];
+    
+    UITextView *tv6 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x + 80, tv3.bottom + 40, 100, 100)];
+    tv6.text = self.tempM2061Arr[5][@"advice"];
+    tv6.tag = 2006;
+    tv6.delegate = self;
+    tv6.font = DEF_MyFont(16);
+    tv6.backgroundColor = [UIColor clearColor];
+    tv6.editable = NO;
+
+    [imagv addSubview:tv6];
+    
+    UITextView *tv7 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.x - 130, tv3.y - 10, 100, 100)];
+    tv7.text = self.tempM2061Arr[6][@"advice"];
+    tv7.tag = 2007;
+    tv7.delegate = self;
+    tv7.font = DEF_MyFont(16);
+    tv7.backgroundColor = [UIColor clearColor];
+    tv7.editable = NO;
+
+    [imagv addSubview:tv7];
+    
+    UITextView *tv8 = [[UITextView alloc]initWithFrame:CGRectMake(tv3.right + 30, tv3.y - 10, 100, 100)];
+    tv8.text = self.tempM2061Arr[7][@"advice"];
+    tv8.tag = 2008;
+    tv8.delegate = self;
+    tv8.font = DEF_MyFont(16);
+    tv8.backgroundColor = [UIColor clearColor];
+    tv8.editable = NO;
+
+    [imagv addSubview:tv8];
+    
+    UITextView *tv9 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv1.y + 20, 150, 110)];
+    tv9.text = self.tempM2061Arr[8][@"advice"];
+    tv9.tag = 2009;
+    tv9.delegate = self;
+    tv9.font = DEF_MyFont(16);
+    tv9.backgroundColor = [UIColor clearColor];
+    tv9.editable = NO;
+
+    [imagv addSubview:tv9];
+    
+    UITextView *tv10 = [[UITextView alloc]initWithFrame:CGRectMake(tv8.right - 20, tv8.bottom + 30, 150, 110)];
+    tv10.text = self.tempM2061Arr[9][@"advice"];
+    tv10.tag = 2010;
+    tv10.delegate = self;
+    tv10.font = DEF_MyFont(16);
+    tv10.backgroundColor = [UIColor clearColor];
+    tv10.editable = NO;
+
+    [imagv addSubview:tv10];
+    
+}
 
 -(void)back
 {
