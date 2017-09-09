@@ -31,7 +31,7 @@
     [self.view addSubview:backgroundImagv];
     
     self.userNameTf = [[UITextField alloc]initWithFrame:CGRectMake(380, 283, 280, 35)];
-    self.userNameTf.text = @"T002";
+    self.userNameTf.text = @"T003";
     [self.view addSubview:self.userNameTf];
     
     self.userPassWorldTf = [[UITextField alloc]initWithFrame:CGRectMake(380, self.userNameTf.bottom + 22, 280, 35)];

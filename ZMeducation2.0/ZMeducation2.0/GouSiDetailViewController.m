@@ -70,6 +70,7 @@
                             @"unitId"           :self.dic[@"unitId"],
                             @"authorId"         :self.dic[@"authorId"],
                             @"unitTypeId"       :self.dic[@"unitTypeId"],
+                            @"answerId"         :self.dic[@"answerId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2061"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
