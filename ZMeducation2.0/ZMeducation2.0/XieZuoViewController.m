@@ -700,6 +700,13 @@
 
 -(void)gousicommit
 {
+    for (UIView *view in [self.gousiBackView subviews]) {
+        for (UIView *view1 in [view subviews]) {
+            if ([view1 isKindOfClass:[UITextView class]]) {
+                [view1 resignFirstResponder];
+            }
+        }
+    }
     
     NSString *str = [XieZuoViewController arrayToJSONString:self.tempM2061Arr];
     
