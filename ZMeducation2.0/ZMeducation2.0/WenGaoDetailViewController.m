@@ -26,6 +26,15 @@
 @property (nonatomic, strong) NSMutableArray *M2064Arr;
 @property (nonatomic, strong) UIScrollView *wendangscro;
 
+@property (nonatomic, strong)UIView *gousiBackView;
+
+@property (nonatomic, strong)NSMutableArray *M2074Arr;
+
+@property (nonatomic, strong)NSMutableDictionary *M2074Dic;
+
+@property (nonatomic, strong)UIScrollView *scro;
+
+@property int y1;
 @end
 
 @implementation WenGaoDetailViewController
@@ -52,19 +61,48 @@
     imagvBg.userInteractionEnabled = YES;
     [self.view addSubview:imagvBg];
     
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
+    btn1.layer.cornerRadius = 15;
+    btn1.layer.borderWidth = 2;
+    [btn1 setTitle:@"点评详情" forState:UIControlStateNormal];
+    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    self.btn1 = btn1;
     
-    self.wendangBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
-    self.wendangBackView.userInteractionEnabled = NO;
-    [self.view addSubview:self.wendangBackView];
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
+    btn2.layer.cornerRadius = 15;
+    btn2.layer.borderWidth = 2;
+    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    self.btn2 = btn2;
     
+    self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
+    self.gousiBackView.userInteractionEnabled = NO;
+    [self.view addSubview:self.gousiBackView];
+    
+    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
+    self.view1dianpingView.hidden = YES;
+    [self.view addSubview:self.view1dianpingView];
+
+    
+    self.scro = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view1dianpingView.width, self.view1dianpingView.height)];
+    [self.view1dianpingView addSubview:self.scro];
+
     UIImageView *imagv1 = [[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 200, 60)];
     imagv1.image = DEF_IMAGE(@"wodewengao_title");
-    [self.wendangBackView addSubview:imagv1];
+    [self.gousiBackView addSubview:imagv1];
     
     UIImageView *imagv2 = [[UIImageView alloc]initWithFrame:CGRectMake(imagv1.right + 15, imagv1.y + 10, 650, 35)];
     imagv2.image = DEF_IMAGE(@"wodewengao_shurukuang");
     imagv2.userInteractionEnabled = YES;
-    [self.wendangBackView addSubview:imagv2];
+    [self.gousiBackView addSubview:imagv2];
     
     UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, imagv2.width - 40, 35)];
     tf.placeholder = @"    (请在这里输入标题)";
@@ -75,11 +113,11 @@
 //    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
 //    [self.wendangBackView addSubview:self.luyinBtn];
     
-    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.wendangBackView.width - 80, 450)];
+    UIImageView *imagv = [[UIImageView alloc]initWithFrame:CGRectMake(40, 90, self.gousiBackView.width - 80, 450)];
     imagv.userInteractionEnabled = YES;
     imagv.image = DEF_IMAGE(@"hezuo_beijing");
     imagv.userInteractionEnabled = YES;
-    [self.wendangBackView addSubview:imagv];
+    [self.gousiBackView addSubview:imagv];
     
     UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
     content.font = DEF_MyFont(16);
@@ -87,9 +125,9 @@
     self.content = content;
     
     UIButton *tijiaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, imagv.bottom + 10, 180, 30)];
-    tijiaoBtn.centerX = self.wendangBackView.centerX;
+    tijiaoBtn.centerX = self.gousiBackView.centerX;
     [tijiaoBtn setImage:DEF_IMAGE(@"tiankongti_tijiao") forState:UIControlStateNormal];
-    [self.wendangBackView addSubview:tijiaoBtn];
+    [self.gousiBackView addSubview:tijiaoBtn];
     
     self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
     [imagv addSubview:self.wendangscro];
@@ -153,49 +191,193 @@
     }
 }
 
--(void)loadview1
+-(void)action1:(UIButton *)sender
 {
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH/2 - 115, 70, 115, 30)];
-    btn1.layer.cornerRadius = 15;
-    btn1.layer.borderWidth = 2;
-    [btn1 setTitle:@"点评详情" forState:UIControlStateNormal];
-    btn1.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
-    btn1.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
-    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(action1:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn1];
-    self.btn1 = btn1;
+    self.gousiBackView.hidden = NO;
+    self.view1dianpingView.hidden = YES;
     
-    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(btn1.right, 70, 115, 30)];
-    btn2.layer.cornerRadius = 15;
-    btn2.layer.borderWidth = 2;
-    [btn2 setTitle:@"构思详情" forState:UIControlStateNormal];
-    btn2.backgroundColor = [UIColor clearColor];
-    btn2.layer.borderColor = DEF_COLOR_RGB(42, 178, 244).CGColor;
-    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn2];
-    self.btn2 = btn2;
+    self.btn2.backgroundColor = [UIColor clearColor];
+    [self.btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
-    [self.view addSubview:self.view1dianpingView];
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    self.view1gousiView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
-    self.view1gousiView.hidden = YES;
-    [self.view addSubview:self.view1gousiView];
+}
+
+-(void)action2:(UIButton *)sender
+{
+    self.gousiBackView.hidden = YES;
+    self.view1dianpingView.hidden = NO;
     
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    self.btn1.backgroundColor = [UIColor clearColor];
+    [self.btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
+                            @"clientType"       :@"1001",
+                            @"signType"         :@"md5",
+                            @"timestamp"        :[CACUtility getNowTime],
+                            @"method"           :@"M2074",
+                            @"userId"           :self.userInfo[@"userId"],
+                            @"gradeId"          :self.userInfo[@"gradeId"],
+                            @"classId"          :self.userInfo[@"classId"],
+                            @"courseId"         :self.userInfo[@"courseId"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"authorId"         :self.dic[@"authorId"],
+                            @"sign"             :[CACUtility getSignWithMethod:@"M2074"],
+                            @"unitId"           :self.dic[@"unitId"],
+                            @"unitTypeId"       :self.dic[@"unitTypeId"]};
+    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
+        self.M2074Arr = result[@"feedbacks"];
+        if ([result[@"reviewType"] intValue] == 1) {
+            if (self.M2074Arr.count != 0) {
+                for (UIView *view in [self.scro subviews]) {
+                    [view removeFromSuperview];
+                }
+                
+                self.scro.contentSize = CGSizeMake(self.scro.width, self.view1dianpingView.height *self.M2074Arr.count);
+                self.y1 = 0;
+                for (NSMutableDictionary * dic in self.M2074Arr) {
+                    self.M2071Dic = dic;
+                    self.tempM2071Arr = [[NSMutableArray alloc]init];
+                    if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 6; i++) {
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:@"" forKey:@"advice"];
+                            [self.tempM2071Arr addObject:dic];
+                        }
+                    }else{
+                        
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 6; i++) {
+                            NSString *str = self.M2071Dic[@"contents"][i][@"advice"];
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:str forKey:@"advice"];
+                            [self.tempM2071Arr addObject:dic];
+                        }
+                        //                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                    }
+                    
+                    [self loadview11];
+                    self.y1 += self.view1dianpingView.height;
+                }
+                
+            }
+        }else if ([result[@"reviewType"] intValue] == 2){
+            if (self.M2074Arr.count != 0) {
+                for (UIView *view in [self.scro subviews]) {
+                    [view removeFromSuperview];
+                }
+                
+                self.scro.contentSize = CGSizeMake(self.scro.width, (self.view.height- 65) *self.M2074Arr.count);
+                self.y1 = 0;
+                for (NSMutableDictionary * dic in self.M2074Arr) {
+                    self.M2071Dic = dic;
+                    if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+                        NSMutableArray *arr2 = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 4; i++) {
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:@"" forKey:@"advice1"];
+                            [arr1 addObject:dic];
+                            
+                            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                            [dic1 setObject:@"" forKey:@"advice2"];
+                            [arr2 addObject:dic1];
+                        }
+                        
+                        [self.tempM2071Arr addObject:arr1];
+                        [self.tempM2071Arr addObject:arr2];
+                        
+                    }else{
+                        
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+                        NSMutableArray *arr2 = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 4; i++) {
+                            NSString *str = self.M2071Dic[@"contents"][0][i][@"advice1"];
+                            NSString *str1 = self.M2071Dic[@"contents"][1][i][@"advice2"];
+                            
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:str forKey:@"advice1"];
+                            [arr1 addObject:dic];
+                            
+                            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                            [dic1 setObject:str1 forKey:@"advice2"];
+                            [arr2 addObject:dic1];
+                        }
+                        
+                        [self.tempM2071Arr addObject:arr1];
+                        [self.tempM2071Arr addObject:arr2];
+                        
+                        //                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                    }
+                    
+                    [self loadview12];
+                    self.y1 += (self.view.height- 65);
+                }
+                
+            }
+        }else if ([result[@"reviewType"] intValue] == 3){
+            if (self.M2074Arr.count != 0) {
+                for (UIView *view in [self.scro subviews]) {
+                    [view removeFromSuperview];
+                }
+                
+                self.scro.contentSize = CGSizeMake(self.scro.width, self.view1dianpingView.height *self.M2074Arr.count);
+                self.y1 = 0;
+                for (NSMutableDictionary * dic in self.M2074Arr) {
+                    self.M2071Dic = dic;
+                    self.tempM2071Arr = [[NSMutableArray alloc]init];
+                    if (self.M2071Dic[@"contents"] == nil || [self.M2071Dic[@"contents"] count] == 0) {
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 6; i++) {
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:@"" forKey:@"advice"];
+                            [self.tempM2071Arr addObject:dic];
+                        }
+                    }else{
+                        
+                        self.tempM2071Arr = [[NSMutableArray alloc]init];
+                        for (int i = 0; i < 6; i++) {
+                            NSString *str = self.M2071Dic[@"contents"][i][@"advice"];
+                            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+                            [dic setObject:str forKey:@"advice"];
+                            [self.tempM2071Arr addObject:dic];
+                        }
+                        //                self.tempM2071Arr = [[NSMutableArray alloc]initWithArray:self.M2071Dic[@"contents"]];
+                    }
+                    
+                    [self loadview13];
+                    self.y1 += self.view1dianpingView.height;
+                }
+                
+            }
+        }
+        
+    } failture:^(id result) {
+        
+    }];
+}
+
+-(void)loadview11
+{
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, self.y1, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
-    [self.view1dianpingView addSubview:label1];
+    [self.scro addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, self.y1, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
-    [self.view1dianpingView addSubview:label2];
+    [self.scro addSubview:label2];
     
-    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, self.view1dianpingView.width, self.view1dianpingView.height - 20)];
+    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20 + self.y1, self.view1dianpingView.width, self.view1dianpingView.height - 20)];
     bg_selfCommentImagv.image = DEF_IMAGE(@"bg_selfComment");
     bg_selfCommentImagv.userInteractionEnabled = YES;
-    [self.view1dianpingView addSubview:bg_selfCommentImagv];
+    [self.scro addSubview:bg_selfCommentImagv];
     
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 265, 93)];
     label11.text = self.M2071Dic[@"titles"][0][0];
@@ -393,27 +575,29 @@
         tv.tag = 1000 + i;
         tv.delegate = self;
         tv.font = DEF_MyFont(16);
+        tv.editable = NO;
         tv.backgroundColor = [UIColor clearColor];
         [bg_selfCommentImagv addSubview:tv];
         
         y += 93;
     }
+    
 }
 
--(void)loadview2
+-(void)loadview12
 {
-    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20 + 65, self.view.width, self.view.height - 20 - 65)];
+    UIImageView *bg_selfCommentImagv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20 + self.y1, self.view.width, self.view.height - 20 - 65)];
     bg_selfCommentImagv.image = DEF_IMAGE(@"bg_interComment");
     bg_selfCommentImagv.userInteractionEnabled = YES;
-    [self.view addSubview:bg_selfCommentImagv];
+    [self.scro addSubview:bg_selfCommentImagv];
     
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, self.y1, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
-    [self.view1dianpingView addSubview:label1];
+    [self.scro addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, self.y1, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
-    [self.view1dianpingView addSubview:label2];
+    [self.scro addSubview:label2];
     
     
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 132, 112)];
@@ -480,7 +664,6 @@
     label43.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label43];
     
-    
     UILabel *label51 = [[UILabel alloc]initWithFrame:CGRectMake(0, label41.bottom, 132, 100)];
     label51.text = self.M2071Dic[@"titles"][4][0];
     label51.textAlignment = NSTextAlignmentCenter;
@@ -508,12 +691,12 @@
     [bg_selfCommentImagv addSubview:label63];
     
     UILabel *label64 = [[UILabel alloc]initWithFrame:CGRectMake(label63.right, label51.bottom, 120, 70)];
-    label64.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][0][0][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][1][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][2][@"advice1"] intValue] + [self.M2071Dic[@"contents"][0][3][@"advice1"] intValue]];
+    label64.text = [NSString stringWithFormat:@"%d",[self.tempM2071Arr[0][0][@"advice1"] intValue] + [self.tempM2071Arr[0][1][@"advice1"] intValue] + [self.tempM2071Arr[0][2][@"advice1"] intValue] + [self.tempM2071Arr[0][3][@"advice1"] intValue]];
     label64.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label64];
     
     UILabel *label65 = [[UILabel alloc]initWithFrame:CGRectMake(label64.right, label51.bottom, 120, 70)];
-    label65.text = [NSString stringWithFormat:@"%d",[self.M2071Dic[@"contents"][1][0][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][1][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][2][@"advice2"] intValue] + [self.M2071Dic[@"contents"][1][3][@"advice2"] intValue]];
+    label65.text = [NSString stringWithFormat:@"%d",[self.tempM2071Arr[1][0][@"advice2"] intValue] + [self.tempM2071Arr[1][1][@"advice2"] intValue] + [self.tempM2071Arr[1][2][@"advice2"] intValue] + [self.tempM2071Arr[1][3][@"advice2"] intValue]];
     label65.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label65];
     
@@ -535,20 +718,20 @@
     int y = label15.bottom;
     for (int i = 0; i < 4; i++) {
         UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right, y, 120, 112)];
-        tv.text = self.M2071Dic[@"contents"][0][i][@"advice1"];
+        tv.text = self.tempM2071Arr[0][i][@"advice1"];
         tv.tag = 2000 + i;
         tv.delegate = self;
-        tv.backgroundColor = [UIColor clearColor];
         tv.font = DEF_MyFont(16);
-
+        tv.backgroundColor = [UIColor clearColor];
+        tv.editable = NO;
         [bg_selfCommentImagv addSubview:tv];
         
         UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right, y, 120, 112)];
-        tv1.text = self.M2071Dic[@"contents"][1][i][@"advice2"];
+        tv1.text = self.tempM2071Arr[1][i][@"advice2"];
         tv1.tag = 3000 + i;
         tv1.delegate = self;
         tv1.font = DEF_MyFont(16);
-
+        tv1.editable = NO;
         tv1.backgroundColor = [UIColor clearColor];
         [bg_selfCommentImagv addSubview:tv1];
         
@@ -561,131 +744,44 @@
     
 }
 
--(void)loadview3
+-(void)loadview13
 {
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, self.y1, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
-    [self.view addSubview:label1];
+    [self.scro addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, self.y1, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
-    [self.view addSubview:label2];
+    [self.scro addSubview:label2];
     
-    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 150, 150, 30)];
+    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 150 + self.y1, 150, 30)];
     titleLb.text = @"我欣赏的是";
-    [self.view addSubview:titleLb];
+    [self.scro addSubview:titleLb];
     
-    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100, 600, 300)];
-    tv1.text = self.M2071Dic[@"contents"][0][@"advice"];
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100 + self.y1, 600, 300)];
+    tv1.text =  self.tempM2071Arr[0][@"advice"];
     tv1.layer.borderColor = [UIColor grayColor].CGColor;
     tv1.layer.borderWidth = 1;
     tv1.backgroundColor = [UIColor clearColor];
     tv1.tag = 5555;
     tv1.delegate = self;
     tv1.font = DEF_MyFont(16);
-
-    [self.view addSubview:tv1];
+    [self.scro addSubview:tv1];
     
-    UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(50, 500, 250, 30)];
+    UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(50, 500 + self.y1, 250, 30)];
     titleLb1.text = @"我建议你改变的是的是";
-    [self.view addSubview:titleLb1];
+    [self.scro addSubview:titleLb1];
     
-    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450, 600, 300)];
-    tv2.text = self.M2071Dic[@"contents"][1][@"advice"];
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450 + self.y1, 600, 300)];
+    tv2.text =  self.tempM2071Arr[1][@"advice"];
     tv2.layer.borderColor = [UIColor grayColor].CGColor;
     tv2.layer.borderWidth = 1;
     tv2.backgroundColor = [UIColor clearColor];
     tv2.tag = 6666;
     tv2.delegate = self;
     tv2.font = DEF_MyFont(16);
-
-    [self.view addSubview:tv2];
-}
-
--(void)commint
-{
-    NSDictionary * dic4 = @{@"version"          :@"2.0.0",
-                            @"clientType"       :@"1001",
-                            @"signType"         :@"md5",
-                            @"timestamp"        :[CACUtility getNowTime],
-                            @"method"           :@"M2072",
-                            @"userId"           :self.userInfo[@"userId"],
-                            @"gradeId"          :self.userInfo[@"gradeId"],
-                            @"classId"          :self.userInfo[@"classId"],
-                            @"courseId"         :self.userInfo[@"courseId"],
-                            @"unitId"           :self.dic[@"unitId"],
-                            @"authorId"         :self.dic[@"authorId"],
-                            @"contents"         :[CACUtility dictionaryToJson:self.tempM2071Arr],
-                            @"sign"             :[CACUtility getSignWithMethod:@"M2072"]};
-    [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
-        if ([result[@"responseCode"] isEqualToString:@"00"]) {
-            [CACUtility showTips:@"提交成功"];
-        }else if ([result[@"responseCode"] isEqualToString:@"96"]){
-            if (result[@"responseMessage"] != nil) {
-                [CACUtility showTips:result[@"responseMessage"]];
-            }
-        }else{
-            [CACUtility showTips:@"提交失败"];
-        }
-    } failture:^(id result) {
-        [CACUtility showTips:@"提交失败"];
-        
-    }];
-}
-
--(void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([self.M2071Dic[@"reviewType"] intValue] == 1) {
-        int tag = (int)textView.tag - 1000;
-        NSMutableDictionary *dic = self.tempM2071Arr[tag];
-        [dic setObject:textView.text forKey:@"advice"];
-        
-    }else if ([self.M2071Dic[@"reviewType"] intValue] == 2){
-        if (textView.tag >= 3000) {
-            int tag = (int)textView.tag - 3000;
-            NSMutableDictionary *dic = self.tempM2071Arr[1][tag];
-            [dic setObject:textView.text forKey:@"advice2"];
-        }else{
-            int tag = (int)textView.tag - 2000;
-            NSMutableDictionary *dic = self.tempM2071Arr[0][tag];
-            [dic setObject:textView.text forKey:@"advice1"];
-        }
-    }else if ([self.M2071Dic[@"reviewType"] intValue] == 3){
-        if (textView.tag == 5555) {
-            NSMutableDictionary *dic = self.tempM2071Arr[0];
-            [dic setObject:textView.text forKey:@"advice"];
-        }else{
-            NSMutableDictionary *dic = self.tempM2071Arr[1];
-            [dic setObject:textView.text forKey:@"advice"];
-            
-        }
-    }
+    [self.scro addSubview:tv2];
     
-}
-
--(void)action1:(UIButton *)sender
-{
-    self.view1gousiView.hidden = YES;
-    self.view1dianpingView.hidden = NO;
-    
-    self.btn2.backgroundColor = [UIColor clearColor];
-    [self.btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-}
-
--(void)action2:(UIButton *)sender
-{
-    self.view1gousiView.hidden = NO;
-    self.view1dianpingView.hidden = YES;
-    
-    self.btn1.backgroundColor = [UIColor clearColor];
-    [self.btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    sender.backgroundColor = DEF_COLOR_RGB(42, 178, 244);
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 
