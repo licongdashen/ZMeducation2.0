@@ -78,6 +78,7 @@
     UIImageView *imagetiwen = [[UIImageView alloc]initWithFrame:CGRectMake(imagetouxiang.right + 16, 50, 1354/2, 55)];
     imagetiwen.contentMode = UIViewContentModeScaleAspectFit;
     imagetiwen.image = DEF_IMAGE(@"tiankongti_tiwen");
+    imagetiwen.userInteractionEnabled = YES;
     [bgImagv addSubview:imagetiwen];
     
     UITextView *tiwenLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];

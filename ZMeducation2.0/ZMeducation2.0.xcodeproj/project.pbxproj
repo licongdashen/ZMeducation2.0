@@ -21,6 +21,7 @@
 		500037E81EEFCF430007D164 /* XieZuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037E71EEFCF430007D164 /* XieZuoViewController.m */; };
 		500037EB1EEFDA220007D164 /* LiuLanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037EA1EEFDA220007D164 /* LiuLanViewController.m */; };
 		500037EE1EEFDA340007D164 /* GongJuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500037ED1EEFDA340007D164 /* GongJuViewController.m */; };
+		503EFC331F6A56660071A530 /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503EFC321F6A56660071A530 /* ImageDetailViewController.m */; };
 		50590E7B1EF8B7B800FF1F5A /* RequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */; };
 		50590E7E1EF9154C00FF1F5A /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E7D1EF9154C00FF1F5A /* SelectViewController.m */; };
 		50590E811EFA4C8F00FF1F5A /* CACUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 50590E801EFA4C8F00FF1F5A /* CACUtility.m */; };
@@ -118,6 +119,8 @@
 		500037EA1EEFDA220007D164 /* LiuLanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiuLanViewController.m; sourceTree = "<group>"; };
 		500037EC1EEFDA340007D164 /* GongJuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GongJuViewController.h; sourceTree = "<group>"; };
 		500037ED1EEFDA340007D164 /* GongJuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GongJuViewController.m; sourceTree = "<group>"; };
+		503EFC311F6A56660071A530 /* ImageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
+		503EFC321F6A56660071A530 /* ImageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
 		50590E791EF8B7B800FF1F5A /* RequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestOperationManager.h; sourceTree = "<group>"; };
 		50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestOperationManager.m; sourceTree = "<group>"; };
 		50590E7C1EF9154C00FF1F5A /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				D9A2DB941F36D2E800E8201F /* QiangDaViewController.m */,
 				500037E61EEFCF430007D164 /* XieZuoViewController.h */,
 				500037E71EEFCF430007D164 /* XieZuoViewController.m */,
+				503EFC311F6A56660071A530 /* ImageDetailViewController.h */,
+				503EFC321F6A56660071A530 /* ImageDetailViewController.m */,
 				500037E91EEFDA220007D164 /* LiuLanViewController.h */,
 				500037EA1EEFDA220007D164 /* LiuLanViewController.m */,
 				D98A5F1C1F4318F5000E863A /* LiuLanDetailViewController.h */,
@@ -634,6 +639,7 @@
 				D98D2C231F495BD800572F3B /* WenGaoDetailViewController.m in Sources */,
 				500037D81EEE7B530007D164 /* UIView+Positioning.m in Sources */,
 				500037951EE139D50007D164 /* main.m in Sources */,
+				503EFC331F6A56660071A530 /* ImageDetailViewController.m in Sources */,
 				D9B300311F334F2F00CBF73B /* TouPiaoJieGuo2ViewController.m in Sources */,
 				50A9558E1F1F5FFE00D12F40 /* DanXuanTiViewController.m in Sources */,
 				D96CF8BF1F248C1600E82985 /* PdfViewController.m in Sources */,

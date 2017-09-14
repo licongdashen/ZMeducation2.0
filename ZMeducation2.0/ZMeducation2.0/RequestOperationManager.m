@@ -24,7 +24,10 @@ static RequestOperationManager *sessionManager;
         sessionManager = [[RequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:DEF_IPAddress]];
         sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
         sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
-        sessionManager.requestSerializer.timeoutInterval = 10;
+        sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [sessionManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+        sessionManager.requestSerializer.timeoutInterval = 30;
     });
     
     return sessionManager;

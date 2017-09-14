@@ -9,6 +9,8 @@
 #import "XieZuoViewController.h"
 #import "CustomLine.h"
 #import <iflyMSC/iflyMSC.h>
+#import "ImageDetailViewController.h"
+
 @interface XieZuoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate,IFlySpeechRecognizerDelegate>
 
 @property (nonatomic, strong)UIButton *btn1;
@@ -314,6 +316,9 @@
     self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
     [imagv addSubview:self.wendangscro];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [self.wendangscro addGestureRecognizer:tap];
+
     
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
@@ -343,6 +348,13 @@
     }];
 }
 
+-(void)tap
+{
+    ImageDetailViewController *vc = [[ImageDetailViewController alloc]init];
+    vc.arr = self.M2064Dic[@"files"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)luyin
 {
     BOOL ret = [_iFlySpeechRecognizer startListening];
@@ -369,8 +381,8 @@
                             @"sign"             :[CACUtility getSignWithMethod:@"M2065"],
                             @"title"            :self.tf.text,
                             @"content"          :self.content.text,
-                            @"unitId"                 :self.m2009Dic[@"unitId"],
-                            @"unitTypeId"                 :self.m2009Dic[@"unitTypeId"]};
+                            @"unitId"           :self.m2009Dic[@"unitId"],
+                            @"unitTypeId"       :self.m2009Dic[@"unitTypeId"]};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {

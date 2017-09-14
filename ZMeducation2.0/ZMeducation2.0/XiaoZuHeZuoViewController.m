@@ -530,7 +530,7 @@
         
         self.m2041Dic = result;
         
-        self.titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"optionTitle"]];
+        self.titleLb.text = [NSString stringWithFormat:@"主题:  %@",result[@"title"]];
         
         self.title1Lb.text = [NSString stringWithFormat:@"分项:  %@",result[@"optionTitle"]];
         
