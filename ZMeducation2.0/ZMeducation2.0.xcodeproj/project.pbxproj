@@ -121,6 +121,8 @@
 		500037ED1EEFDA340007D164 /* GongJuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GongJuViewController.m; sourceTree = "<group>"; };
 		503EFC311F6A56660071A530 /* ImageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
 		503EFC321F6A56660071A530 /* ImageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
+		503EFC341F6FCD0F0071A530 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		503EFC351F6FCD0F0071A530 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		50590E791EF8B7B800FF1F5A /* RequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestOperationManager.h; sourceTree = "<group>"; };
 		50590E7A1EF8B7B800FF1F5A /* RequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestOperationManager.m; sourceTree = "<group>"; };
 		50590E7C1EF9154C00FF1F5A /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
@@ -308,6 +310,8 @@
 		500037C81EEE6F7F0007D164 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				503EFC351F6FCD0F0071A530 /* Icon.png */,
+				503EFC341F6FCD0F0071A530 /* Icon@2x.png */,
 			);
 			name = View;
 			sourceTree = "<group>";

@@ -240,13 +240,13 @@
     [self.view3 addSubview:TitleLb2];
     self.TitleLb2 = TitleLb2;
     
-    UIButton *selBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 45, 280, 30)];
+    UIButton *selBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 45, 380, 40)];
     [selBtn setImage:DEF_IMAGE(@"luntan_xuanze") forState:UIControlStateNormal];
     [selBtn addTarget:self action:@selector(sel1:) forControlEvents:UIControlEventTouchUpInside];
     [self.view3 addSubview:selBtn];
     self.selBtn = selBtn;
     
-    UILabel *selLb = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 280 - 30, 30)];
+    UILabel *selLb = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 380 - 30, 40)];
     selLb.userInteractionEnabled = NO;
     [selBtn addSubview:selLb];
     self.selLb = selLb;
@@ -370,7 +370,7 @@
         [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
 
         self.M2044Arr = result[@"options"][0][@"contents"];
-        self.TitleLb2.text = result[@"title"];
+        self.TitleLb2.text = [NSString stringWithFormat:@"主题:%@",result[@"title"]];
         [self.tabv3 reloadData];
         
         [self.tempM2044Arr removeAllObjects];
@@ -566,6 +566,7 @@
     [RequestOperationManager getParametersDic:dic success:^(NSMutableDictionary *result) {
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"提交成功"];
+            self.tv.text = @"";
             [self m2041];
         }else if ([result[@"responseCode"] isEqualToString:@"96"]){
             if (result[@"responseMessage"] != nil) {

@@ -132,7 +132,7 @@
     }
     
     UILabel *name = [cell viewWithTag:201];
-    name.text = [NSString stringWithFormat:@"%@:    %d票",self.M2043Arr[indexPath.row][@"groupName"],[self.M2043Arr[indexPath.row][@"voteCount"] intValue]];
+    name.text = [NSString stringWithFormat:@"%@(%@) :",self.M2043Arr[indexPath.row][@"author"],self.M2043Arr[indexPath.row][@"groupName"]];
     
     
     UILabel *labe2 = [cell.contentView viewWithTag:202];

@@ -13,7 +13,7 @@
 @interface toupiaoViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 @property (nonatomic, weak) UIImageView *bgImagv;
-@property(nonatomic, weak)UILabel *tiwenLb;
+@property(nonatomic, weak)UITextView *tiwenLb;
 @property (nonatomic, strong)NSMutableDictionary *M2051Dic;
 @property (nonatomic, strong)NSMutableArray *tempM2051Arr;
 
@@ -58,10 +58,12 @@
     UIImageView *imagetiwen = [[UIImageView alloc]initWithFrame:CGRectMake(imagetouxiang.right + 16, 50, 1354/2, 55)];
     imagetiwen.contentMode = UIViewContentModeScaleAspectFit;
     imagetiwen.image = DEF_IMAGE(@"tiankongti_tiwen");
+    imagetiwen.userInteractionEnabled = YES;
     [bgImagv addSubview:imagetiwen];
     
-    UILabel *tiwenLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
+    UITextView *tiwenLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, imagetiwen.width - 50, imagetiwen.height)];
     tiwenLb.font = DEF_MyFont(16);
+    tiwenLb.editable = NO;
     [imagetiwen addSubview:tiwenLb];
     self.tiwenLb = tiwenLb;
 
@@ -71,7 +73,6 @@
     self.tabv.backgroundColor = [UIColor clearColor];
     [self.bgImagv addSubview:self.tabv];
 
-    
     UIButton *tijiao2Btn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tabv.bottom + 10, 180, 30)];
     tijiao2Btn.centerX = bgImagv.centerX - 200;
     [tijiao2Btn addTarget:self action:@selector(tijiao2) forControlEvents:UIControlEventTouchUpInside];
@@ -101,6 +102,8 @@
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         self.M2051Dic = result;
         self.tiwenLb.text = result[@"voteTitle"];
+        
+        [self.tempM2051Arr removeAllObjects];
         
         for (NSDictionary *dic in self.M2051Dic[@"groupNames"]) {
             NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
@@ -239,14 +242,16 @@
         lineView.backgroundColor = [UIColor grayColor];
         [cell.contentView addSubview:lineView];
         
-        UILabel *nameLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 400, 30)];
+        UITextView *nameLb = [[UITextView alloc]initWithFrame:CGRectMake(50, 0, self.bgImagv.width - 40, 50)];
+        nameLb.editable = NO;
         nameLb.tag = 204;
+        nameLb.backgroundColor = [UIColor clearColor];
         [cell addSubview:nameLb];
 
     }
     
-    UILabel *nameLb = [cell viewWithTag:204];
-    nameLb.text = [NSString stringWithFormat:@"%@--%@",self.M2051Dic[@"groupNames"][indexPath.row][@"optionName"],self.M2051Dic[@"groupNames"][indexPath.row][@"optionContent"]];
+    UITextView *nameLb = [cell viewWithTag:204];
+    nameLb.text = [NSString stringWithFormat:@"%@",self.M2051Dic[@"groupNames"][indexPath.row][@"optionName"]];
 
     if ([self.tempM2051Arr[indexPath.row][@"flag"] intValue] == 1) {
         [cell.selBtn setImage:DEF_IMAGE(@"danxuanti_sel") forState:UIControlStateNormal];

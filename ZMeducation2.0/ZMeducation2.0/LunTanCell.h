@@ -11,5 +11,6 @@
 @interface LunTanCell : UITableViewCell
 @property (nonatomic, strong) UIButton *btn;
 @property (nonatomic, strong) UIButton *btn1;
+@property (nonatomic, strong)NSMutableDictionary *userInfo;
 
 @end

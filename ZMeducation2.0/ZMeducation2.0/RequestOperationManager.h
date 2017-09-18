@@ -33,4 +33,9 @@ typedef void (^failtureBlock) (id result);
 +(void)getParametersDic1:(NSDictionary *)parameterDic
                  success:(void (^)(NSMutableDictionary *result))successBlock
                 failture:(void (^)(id result))failtureBlock;
+
+
++(void)uplordingHeadShotParametersDic:(NSDictionary *)parameterDic
+                              success:(void (^)(NSMutableDictionary *result))successBlock
+                             failture:(void (^)(id result))failtureBlock;
 @end

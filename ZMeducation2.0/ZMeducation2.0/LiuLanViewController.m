@@ -135,7 +135,7 @@
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(line1.right, 0, 125, 34)];
     label2.textAlignment = NSTextAlignmentCenter;
     label2.textColor = [UIColor whiteColor];
-    label2.text = @"试题名称";
+    label2.text = @"模块名称";
     [view addSubview:label2];
     
     UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(label2.right, 3, 1, 28)];
@@ -166,11 +166,11 @@
     UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(line4.right, 0, 100, 34)];
     label5.textAlignment = NSTextAlignmentCenter;
     label5.textColor = [UIColor whiteColor];
-    label5.text = @"模块名称";
+    label5.text = @"";
     [view addSubview:label5];
     
     UIView *line5 = [[UIView alloc]initWithFrame:CGRectMake(label5.right, 3, 1, 28)];
-    line5.backgroundColor = [UIColor whiteColor];
+    line5.backgroundColor = [UIColor clearColor];
     [view addSubview:line5];
     
     
@@ -187,7 +187,7 @@
     UILabel *label7 = [[UILabel alloc]initWithFrame:CGRectMake(line6.right, 0, 110, 34)];
     label7.textAlignment = NSTextAlignmentCenter;
     label7.textColor = [UIColor whiteColor];
-    label7.text = @"点评";
+    label7.text = @"操作";
     [view addSubview:label7];
     
     UIButton *chaxunBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view1.width - 130, 45, 90, 30)];
@@ -293,7 +293,7 @@
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(line1.right, 0, 125, 34)];
     label2.textAlignment = NSTextAlignmentCenter;
     label2.textColor = [UIColor whiteColor];
-    label2.text = @"试题名称";
+    label2.text = @"模块名称";
     [view addSubview:label2];
     
     UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(label2.right, 3, 1, 28)];
@@ -323,11 +323,11 @@
     UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(line4.right, 0, 100, 34)];
     label5.textAlignment = NSTextAlignmentCenter;
     label5.textColor = [UIColor whiteColor];
-    label5.text = @"模块名称";
+    label5.text = @"";
     [view addSubview:label5];
     
     UIView *line5 = [[UIView alloc]initWithFrame:CGRectMake(label5.right, 3, 1, 28)];
-    line5.backgroundColor = [UIColor whiteColor];
+    line5.backgroundColor = [UIColor clearColor];
     [view addSubview:line5];
     
     UILabel *label6 = [[UILabel alloc]initWithFrame:CGRectMake(line5.right, 0, 100, 34)];
@@ -343,7 +343,7 @@
     UILabel *label7 = [[UILabel alloc]initWithFrame:CGRectMake(line6.right, 0, 110, 34)];
     label7.textAlignment = NSTextAlignmentCenter;
     label7.textColor = [UIColor whiteColor];
-    label7.text = @"点评";
+    label7.text = @"操作";
     [view addSubview:label7];
     
     UIButton *chaxunBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view2.width - 130, 45, 90, 30)];
@@ -450,7 +450,7 @@
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(line1.right, 0, 125, 34)];
     label2.textAlignment = NSTextAlignmentCenter;
     label2.textColor = [UIColor whiteColor];
-    label2.text = @"试题名称";
+    label2.text = @"模块名称";
     [view addSubview:label2];
     
     UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(label2.right, 3, 1, 28)];
@@ -480,18 +480,18 @@
     UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(line4.right, 0, 100, 34)];
     label5.textAlignment = NSTextAlignmentCenter;
     label5.textColor = [UIColor whiteColor];
-    label5.text = @"模块名称";
+    label5.text = @"";
     [view addSubview:label5];
     
     UIView *line5 = [[UIView alloc]initWithFrame:CGRectMake(label5.right, 3, 1, 28)];
-    line5.backgroundColor = [UIColor whiteColor];
+    line5.backgroundColor = [UIColor clearColor];
     [view addSubview:line5];
     
     
     UILabel *label6 = [[UILabel alloc]initWithFrame:CGRectMake(line5.right, 0, 100, 34)];
     label6.textAlignment = NSTextAlignmentCenter;
     label6.textColor = [UIColor whiteColor];
-    label6.text = @"点评数量";
+    label6.text = @"状态";
     [view addSubview:label6];
     
     UIView *line6 = [[UIView alloc]initWithFrame:CGRectMake(label6.right, 3, 1, 28)];
@@ -501,7 +501,7 @@
     UILabel *label7 = [[UILabel alloc]initWithFrame:CGRectMake(line6.right, 0, 110, 34)];
     label7.textAlignment = NSTextAlignmentCenter;
     label7.textColor = [UIColor whiteColor];
-    label7.text = @"点评";
+    label7.text = @"操作";
     [view addSubview:label7];
 
     
@@ -792,7 +792,7 @@
             label1.text = dic[@"commitTime"];
             
             UILabel *label2 = [cell viewWithTag:202];
-            label2.text = dic[@"course"];
+            label2.text = dic[@"unit"];
             
             UILabel *label3 = [cell viewWithTag:203];
             label3.text = dic[@"author"];
@@ -804,7 +804,7 @@
             label5.text = dic[@"module"];
             
             UILabel *label6 = [cell viewWithTag:206];
-            label6.text = @"999";
+            label6.text = dic[@"status"];
             
             cell.selBtn.tag = 1000 + indexPath.row;
             [cell.selBtn addTarget:self action:@selector(detail:) forControlEvents:UIControlEventTouchUpInside];
@@ -815,7 +815,7 @@
             label1.text = dic[@"lastUpdateTime"];
             
             UILabel *label2 = [cell viewWithTag:202];
-            label2.text = dic[@"courseName"];
+            label2.text = dic[@"unitName"];
             
             UILabel *label3 = [cell viewWithTag:203];
             label3.text = dic[@"authorName"];
@@ -839,7 +839,7 @@
             label1.text = dic[@"lastUpdateTime"];
             
             UILabel *label2 = [cell viewWithTag:202];
-            label2.text = dic[@"courseName"];
+            label2.text = dic[@"unitName"];
             
             UILabel *label3 = [cell viewWithTag:203];
             label3.text = dic[@"authorName"];

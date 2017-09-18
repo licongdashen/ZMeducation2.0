@@ -374,6 +374,7 @@
         cell.btn.enabled = YES;
     }
 
+
     cell.btn1.tag = 10000+ indexPath.row;
     [cell.btn1 addTarget:self action:@selector(ding:) forControlEvents:UIControlEventTouchUpInside];
     if ([self.M2031Dic[@"contents"][indexPath.row][@"ifSelect"] intValue] == 1) {

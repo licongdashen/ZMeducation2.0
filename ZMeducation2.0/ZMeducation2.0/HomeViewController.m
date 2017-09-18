@@ -29,6 +29,7 @@
 @property (nonatomic, strong) LiuLanViewController *vc3;
 
 @property (nonatomic, strong) GongJuViewController *vc4;
+@property (nonatomic, strong)NSMutableDictionary *userInfo;
 
 @end
 
@@ -36,11 +37,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
+
     UIImageView *backImav = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT)];
     backImav.image = DEF_IMAGE(@"home_Bg");
     backImav.userInteractionEnabled = YES;
     [self.view addSubview:backImav];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 120, 40, 100, 15)];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentRight;
+    label.text = self.userInfo[@"gradeName"];
+    [backImav addSubview:label];
+    
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 120, label.bottom + 5, 100, 15)];
+    label1.textColor = [UIColor whiteColor];
+    label1.textAlignment = NSTextAlignmentRight;
+    label1.text = self.userInfo[@"realName"];
+    [backImav addSubview:label1];
     
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,DEF_DEVICE_WIDTH, 95)];
     navView.backgroundColor = [UIColor clearColor];

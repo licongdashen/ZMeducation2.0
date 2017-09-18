@@ -17,10 +17,14 @@
         self.btn = [[UIButton alloc]initWithFrame:CGRectMake(680, 10, 30, 30)];
         [self.btn setImage:DEF_IMAGE(@"luntan_dianzan") forState:UIControlStateNormal];
         [self addSubview:self.btn];
+        
+        self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
 
-        self.btn1 = [[UIButton alloc]initWithFrame:CGRectMake(self.btn.right + 10, 10, 30, 30)];
-        [self.btn1 setImage:DEF_IMAGE(@"luntan_dingzhi") forState:UIControlStateNormal];
-        [self addSubview:self.btn1];
+        if ([self.userInfo[@"role"] isEqualToString:@"02"]) {
+            self.btn1 = [[UIButton alloc]initWithFrame:CGRectMake(self.btn.right + 10, 10, 30, 30)];
+            [self.btn1 setImage:DEF_IMAGE(@"luntan_dingzhi") forState:UIControlStateNormal];
+            [self addSubview:self.btn1];
+        }
     }
     
     return self;

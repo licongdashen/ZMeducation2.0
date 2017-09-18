@@ -303,7 +303,6 @@
 
     UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
     content.font = DEF_MyFont(16);
-
     [imagv addSubview:content];
     self.content = content;
     
@@ -319,7 +318,6 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
     [self.wendangscro addGestureRecognizer:tap];
 
-    
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",
@@ -493,11 +491,11 @@
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2066"],
-                            @"file"             :fileData,
+                            @"pics"             :@{@"file":image},
                             @"filename"         :@"123.png",
                             @"unitId"           :self.m2009Dic[@"unitId"],
                             @"unitTypeId"       :self.m2009Dic[@"unitTypeId"]};
-    [RequestOperationManager getParametersDic1:dic4 success:^(NSMutableDictionary *result) {
+    [RequestOperationManager uplordingHeadShotParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         if ([result[@"responseCode"] isEqualToString:@"00"]) {
             [CACUtility showTips:@"图片上传成功"];

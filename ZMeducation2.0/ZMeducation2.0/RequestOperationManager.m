@@ -24,9 +24,6 @@ static RequestOperationManager *sessionManager;
         sessionManager = [[RequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:DEF_IPAddress]];
         sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
         sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/plain",@"text/html",@"application/octet-stream",@"image/jpeg",@"image/png", nil];
-        sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [sessionManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
         sessionManager.requestSerializer.timeoutInterval = 30;
     });
     
@@ -115,6 +112,38 @@ static RequestOperationManager *sessionManager;
     return manager;
 }
 
+//带图片的post请求
++ (AFHTTPSessionManager *)requestPostImageWithParameters:(NSDictionary *)parameters
+                                               urlString:(NSString *)urlString
+                                            finishHandle:(successBlock)finishHandle
+                                              failHandle:(failtureBlock)failHandle
+{
+    AFHTTPSessionManager *manager = [RequestOperationManager shareInstance];
+    
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [para removeObjectForKey:@"pics"];
+    
+    [manager POST:DEF_IPAddress parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSArray *keys = [parameters[@"pics"] allKeys];
+        
+        for (NSString *key in keys)
+        {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(parameters[@"pics"][key], 1.0f) name:key fileName:@"file.jpeg" mimeType:@"image/jpeg"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"上传进度:%lf",1.0 *uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        [RequestOperationManager requestSuccess:responseObject task:task finishHandle:finishHandle];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        [RequestOperationManager requestError:error task:task failHandle:failHandle];
+    }];
+    return manager;
+}
+
 //post请求
 + (AFHTTPSessionManager *)requestPostWithParameters1:(NSDictionary *)parameters
                                           urlString:(NSString *)urlString
@@ -134,8 +163,7 @@ static RequestOperationManager *sessionManager;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         
-        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
-        [RequestOperationManager requestError:error task:task failHandle:failHandle];
+
     }];
     
     // 添加到任务字典中保存
@@ -181,5 +209,25 @@ static RequestOperationManager *sessionManager;
                                           } failHandle:^(id result) {
                                               failtureBlock(result);
                                           }];
+}
+
+/**
+ 上传头像接口
+ 
+ @param parameterDic 请求字典
+ @param successBlock 成功返回
+ @param failtureBlock 失败返回
+ */
++(void)uplordingHeadShotParametersDic:(NSDictionary *)parameterDic
+                              success:(void (^)(NSMutableDictionary *result))successBlock
+                             failture:(void (^)(id result))failtureBlock{
+    
+    [RequestOperationManager requestPostImageWithParameters:parameterDic
+                                                  urlString:@"M2001"
+                                               finishHandle:^(id result) {
+                                                   successBlock(result);
+                                               } failHandle:^(id result) {
+                                                   failtureBlock(result);
+                                               }];
 }
 @end

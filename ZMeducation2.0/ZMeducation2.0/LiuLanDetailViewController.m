@@ -469,7 +469,7 @@
     label11.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label11];
 
-    UILabel *label12 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, 0, 545, 112)];
+    UILabel *label12 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right+ 10, 0, 545, 112)];
     label12.text = self.M2071Dic[@"titles"][0][1];
     label12.numberOfLines = 0;
     label12.adjustsFontSizeToFitWidth = YES;
@@ -485,7 +485,7 @@
     label21.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label21];
     
-    UILabel *label22 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label11.bottom, 545, 112)];
+    UILabel *label22 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right + 10, label11.bottom, 545, 112)];
     label22.text = self.M2071Dic[@"titles"][1][1];
     label22.numberOfLines = 0;
     label22.adjustsFontSizeToFitWidth = YES;
@@ -501,7 +501,7 @@
     label31.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label31];
     
-    UILabel *label32 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label21.bottom, 545, 112)];
+    UILabel *label32 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right + 10, label21.bottom, 545, 112)];
     label32.text = self.M2071Dic[@"titles"][2][1];
     label32.numberOfLines = 0;
     label32.adjustsFontSizeToFitWidth = YES;
@@ -517,7 +517,7 @@
     label41.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label41];
     
-    UILabel *label42 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label31.bottom, 545, 190)];
+    UILabel *label42 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right + 10, label31.bottom, 545, 190)];
     label42.text = self.M2071Dic[@"titles"][3][1];
     label42.numberOfLines = 0;
     label42.adjustsFontSizeToFitWidth = YES;
@@ -533,7 +533,7 @@
     label51.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label51];
     
-    UILabel *label52 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right, label41.bottom, 545, 100)];
+    UILabel *label52 = [[UILabel alloc]initWithFrame:CGRectMake(label11.right + 10, label41.bottom, 545, 100)];
     label52.text = self.M2071Dic[@"titles"][4][1];
     label52.numberOfLines = 0;
     label52.adjustsFontSizeToFitWidth = YES;
@@ -579,24 +579,45 @@
     label16.textAlignment = NSTextAlignmentCenter;
     [bg_selfCommentImagv addSubview:label16];
     
-    int y = label15.bottom;
+    int y = label15.bottom + 40;
     for (int i = 0; i < 4; i++) {
-        UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right, y, 120, 112)];
-        tv.text = self.tempM2071Arr[0][i][@"advice1"];
-        tv.tag = 2000 + i;
-        tv.delegate = self;
-        tv.font = DEF_MyFont(16);
-        tv.backgroundColor = [UIColor clearColor];
-        [bg_selfCommentImagv addSubview:tv];
         
-        UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right, y, 120, 112)];
-        tv1.text = self.tempM2071Arr[1][i][@"advice2"];
-        tv1.tag = 3000 + i;
-        tv1.delegate = self;
-        tv1.font = DEF_MyFont(16);
-
-        tv1.backgroundColor = [UIColor clearColor];
-        [bg_selfCommentImagv addSubview:tv1];
+        if ([self.M2071Dic[@"authorName"] isEqualToString:self.M2071Dic[@"userName"]]) {
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 110, 102 - 40)];
+            tv.text = self.tempM2071Arr[0][i][@"advice1"];
+            tv.tag = 2000 + i;
+            tv.delegate = self;
+            tv.font = DEF_MyFont(16);
+            tv.backgroundColor = [UIColor clearColor];
+            [bg_selfCommentImagv addSubview:tv];
+            
+            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 110, 102 - 40)];
+            tv1.text = self.tempM2071Arr[1][i][@"advice2"];
+            tv1.tag = 3000 + i;
+            tv1.delegate = self;
+            tv1.font = DEF_MyFont(16);
+            tv1.editable = NO;
+            tv1.backgroundColor = [UIColor clearColor];
+            [bg_selfCommentImagv addSubview:tv1];
+        }else{
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 110, 102 - 40)];
+            tv.text = self.tempM2071Arr[0][i][@"advice1"];
+            tv.tag = 2000 + i;
+            tv.delegate = self;
+            tv.font = DEF_MyFont(16);
+            tv.backgroundColor = [UIColor clearColor];
+            tv.editable = NO;
+            [bg_selfCommentImagv addSubview:tv];
+            
+            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 110, 102 - 40)];
+            tv1.text = self.tempM2071Arr[1][i][@"advice2"];
+            tv1.tag = 3000 + i;
+            tv1.delegate = self;
+            tv1.font = DEF_MyFont(16);
+            tv1.backgroundColor = [UIColor clearColor];
+            [bg_selfCommentImagv addSubview:tv1];
+            
+        }
         
         if (i == 2) {
             y += 190;
@@ -642,19 +663,19 @@
     self.view1gousiView.hidden = YES;
     [self.view addSubview:self.view1gousiView];
 
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 0, 150, 20)];
+    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 20, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
     [self.view1dianpingView addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 0, 150, 20)];
+    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(DEF_DEVICE_WIDTH - 250, 20, 150, 20)];
     label2.text = [NSString stringWithFormat:@"点评者:%@",self.M2071Dic[@"userName"]];
     [self.view1dianpingView addSubview:label2];
 
-    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(50, 150, 150, 30)];
-    titleLb.text = @"我欣赏的是";
+    UILabel *titleLb = [[UILabel alloc]initWithFrame:CGRectMake(20, 150, 150, 30)];
+    titleLb.text = @"我欣赏";
     [self.view1dianpingView addSubview:titleLb];
     
-    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(250, 100, 600, 300)];
+    UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(150, 100, 700, 250)];
     tv1.text =  self.tempM2071Arr[0][@"advice"];
     tv1.layer.borderColor = [UIColor grayColor].CGColor;
     tv1.layer.borderWidth = 1;
@@ -665,11 +686,11 @@
 
     [self.view1dianpingView addSubview:tv1];
     
-    UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(50, 500, 250, 30)];
-    titleLb1.text = @"我建议你改变的是的是";
+    UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 500, 150, 30)];
+    titleLb1.text = @"我建议你改变";
     [self.view1dianpingView addSubview:titleLb1];
     
-    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(250, 450, 600, 300)];
+    UITextView *tv2 = [[UITextView alloc]initWithFrame:CGRectMake(150, 400, 700, 250)];
     tv2.text =  self.tempM2071Arr[1][@"advice"];
     tv2.layer.borderColor = [UIColor grayColor].CGColor;
     tv2.layer.borderWidth = 1;
