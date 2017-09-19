@@ -7,6 +7,7 @@
 //
 
 #import "WenGaoDetailViewController.h"
+#import "ImageDetailViewController.h"
 
 @interface WenGaoDetailViewController ()<UITextViewDelegate>
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
@@ -84,7 +85,7 @@
     self.btn2 = btn2;
     
     self.gousiBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 53 + 50, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 53)];
-    self.gousiBackView.userInteractionEnabled = NO;
+    self.gousiBackView.userInteractionEnabled = YES;
     [self.view addSubview:self.gousiBackView];
     
     self.view1dianpingView = [[UIView alloc]initWithFrame:CGRectMake(0, btn1.bottom, DEF_DEVICE_WIDTH, DEF_DEVICE_HEIGHT - 100)];
@@ -106,6 +107,7 @@
     
     UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, imagv2.width - 40, 35)];
     tf.placeholder = @"    (请在这里输入标题)";
+    tf.enabled = NO;
     [imagv2 addSubview:tf];
     
 //    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(imagv2.right + 20, imagv2.y, 80, 35)];
@@ -121,6 +123,7 @@
     
     UITextView *content = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, imagv.width - 20, 300)];
     content.font = DEF_MyFont(16);
+    content.editable = NO;
     [imagv addSubview:content];
     self.content = content;
     
@@ -131,7 +134,8 @@
     
     self.wendangscro = [[UIScrollView alloc]initWithFrame:CGRectMake(10, imagv.bottom - 220, imagv.width - 20,100)];
     [imagv addSubview:self.wendangscro];
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [self.wendangscro addGestureRecognizer:tap];
     
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
@@ -144,7 +148,9 @@
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2064"],
                             @"unitId"           :self.dic[@"unitId"],
-                            @"unitTypeId"       :self.dic[@"unitTypeId"]};
+                            @"unitTypeId"       :self.dic[@"unitTypeId"],
+                            @"authorId"         :self.dic[@"authorId"],
+                            @"answerId"         :self.dic[@"answerId"],};
     [RequestOperationManager getParametersDic:dic4 success:^(NSMutableDictionary *result) {
         
         self.M2064Dic = result;
@@ -165,6 +171,14 @@
 
     
 }
+
+-(void)tap
+{
+    ImageDetailViewController *vc = [[ImageDetailViewController alloc]init];
+    vc.arr = self.M2064Dic[@"files"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)LoadwendangImgv
 {
     for (UIView *view in [self.wendangscro subviews]) {

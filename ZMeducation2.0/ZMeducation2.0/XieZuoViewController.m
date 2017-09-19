@@ -405,7 +405,7 @@
     if (actionSheet.tag ==255) {
         
         NSUInteger sourceType = 0;
-        
+         
         // 判断是否支持相机
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             
@@ -416,34 +416,48 @@
                 case 1:
                     // 相机
                     sourceType = UIImagePickerControllerSourceTypeCamera;
+                    
                     break;
                     
                 case 2:
                     // 相册
                     sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
                     break;
+                    
             }
-        }
-        else {
+            // 跳转到相机或相册页面
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.allowsEditing = YES;
+            imagePickerController.sourceType = sourceType;
+            
+            __weak typeof(self) weakSelf = self;
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [weakSelf presentViewController:imagePickerController animated:YES completion:^{
+                    
+                }];
+            }];
+        }else {
             if (buttonIndex == 0) {
                 
                 return;
-            } else {
+            } else if (buttonIndex == 1) {
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                
+                // 跳转到相机或相册页面
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = YES;
+                imagePickerController.sourceType = sourceType;
+                
+                __weak typeof(self) weakSelf = self;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [weakSelf presentViewController:imagePickerController animated:YES completion:^{
+                        
+                    }];
+                }];
             }
         }
-        // 跳转到相机或相册页面
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = sourceType;
-        
-        __weak typeof(self) weakSelf = self;
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [weakSelf presentViewController:imagePickerController animated:YES completion:^{
-                
-            }];
-        }];
         
     }
 }
