@@ -188,6 +188,24 @@
         
     }];
 
+    NSDictionary * dic11 = @{@"version"        :@"2.0.0",
+                           @"clientType"       :@"1001",
+                           @"signType"         :@"md5",
+                           @"timestamp"        :[CACUtility getNowTime],
+                           @"method"           :@"M2035",
+                           @"userId"           :self.userInfo[@"userId"],
+                           @"gradeId"          :self.userInfo[@"gradeId"],
+                           @"classId"          :self.userInfo[@"classId"],
+                           @"courseId"         :self.userInfo[@"courseId"],
+                           @"unitId"           :self.dic[@"unitId"],
+                           @"unitTypeId"       :self.dic[@"unitTypeId"],
+                           @"sign"             :[CACUtility getSignWithMethod:@"M2035"]};
+    [RequestOperationManager getParametersDic:dic11 success:^(NSMutableDictionary *result) {
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+        self.titleLb.text = [NSString stringWithFormat:@"论坛主题:  %@",result[@"title"]];
+    } failture:^(id result) {
+        [CACUtility hideMBProgress:DEF_MyAppDelegate.window];
+    }];
 }
 
 -(void)tijiao
@@ -251,8 +269,8 @@
         self.M2031Dic = result;
         [self.tabv1 reloadData];
         self.tabv1.hidden = NO;
-        self.titleLb.text = [NSString stringWithFormat:@"论坛主题:  %@",result[@"title"]];
     } failture:^(id result) {
+        
     }];
 
 }

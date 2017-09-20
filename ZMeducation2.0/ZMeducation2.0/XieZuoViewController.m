@@ -409,34 +409,41 @@
         // 判断是否支持相机
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             
-            switch (buttonIndex) {
-                case 0:
-                    // 取消
-                    return;
-                case 1:
-                    // 相机
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
-                    
-                    break;
-                    
-                case 2:
-                    // 相册
-                    sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                    break;
-                    
-            }
-            // 跳转到相机或相册页面
-            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-            imagePickerController.delegate = self;
-            imagePickerController.allowsEditing = YES;
-            imagePickerController.sourceType = sourceType;
-            
-            __weak typeof(self) weakSelf = self;
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [weakSelf presentViewController:imagePickerController animated:YES completion:^{
-                    
+
+            if (buttonIndex == 0) {
+                
+            }else if (buttonIndex == 1) {
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                // 跳转到相机或相册页面
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = YES;
+                imagePickerController.sourceType = sourceType;
+                
+                __weak typeof(self) weakSelf = self;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [weakSelf presentViewController:imagePickerController animated:YES completion:^{
+                        
+                    }];
                 }];
-            }];
+
+            }else if (buttonIndex == 2){
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                // 跳转到相机或相册页面
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = YES;
+                imagePickerController.sourceType = sourceType;
+                
+                __weak typeof(self) weakSelf = self;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [weakSelf presentViewController:imagePickerController animated:YES completion:^{
+                        
+                    }];
+                }];
+
+            }
+            
         }else {
             if (buttonIndex == 0) {
                 
@@ -495,6 +502,8 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 
+    UIImage *image11 = [editingInfo objectForKey:UIImagePickerControllerOriginalImage];
+    
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",
@@ -505,7 +514,7 @@
                             @"classId"          :self.userInfo[@"classId"],
                             @"courseId"         :self.userInfo[@"courseId"],
                             @"sign"             :[CACUtility getSignWithMethod:@"M2066"],
-                            @"pics"             :@{@"file":image},
+                            @"pics"             :@{@"file":image11},
                             @"filename"         :@"123.png",
                             @"unitId"           :self.m2009Dic[@"unitId"],
                             @"unitTypeId"       :self.m2009Dic[@"unitTypeId"]};

@@ -7,8 +7,9 @@
 //
 
 #import "LiuLanDetailViewController.h"
+#import <iflyMSC/iflyMSC.h>
 
-@interface LiuLanDetailViewController ()<UITextViewDelegate>
+@interface LiuLanDetailViewController ()<UITextViewDelegate,IFlySpeechRecognizerDelegate>
 
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 
@@ -31,6 +32,11 @@
 @property (nonatomic, weak) UIImageView *bg_selfCommentImagv;
 @property (nonatomic, weak) UITextView *tv1;
 @property (nonatomic, weak) UITextView *tv2;
+@property (nonatomic, strong) IFlySpeechRecognizer *iFlySpeechRecognizer;
+@property (nonatomic, strong) UIButton *luyinBtn;
+@property (nonatomic, strong) UIButton *luyinBtn1;
+
+@property (nonatomic, strong)NSString *type;
 
 @end
 
@@ -39,7 +45,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //创建语音识别对象
+    _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance]; //设置识别参数
+    _iFlySpeechRecognizer.delegate = self;
+    //设置为听写模式
+    [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
     
+    [_iFlySpeechRecognizer setParameter: @"iat" forKey: [IFlySpeechConstant IFLY_DOMAIN]];
+    //asr_audio_path 是录音文件名，设置 value 为 nil 或者为空取消保存，默认保存目录在 Library/cache 下。
+    [_iFlySpeechRecognizer setParameter:@"iat.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    //设置音频来源为麦克风
+    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_MIC forKey:@"audio_source"];
+    
+    //设置听写结果格式为json
+    [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
+
     self.userInfo = [DEF_UserDefaults objectForKey:SAVE_USERINFO];
     self.navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEF_DEVICE_WIDTH, 54)];
     self.navView.backgroundColor = DEF_COLOR_RGB(0, 154, 221);
@@ -707,6 +727,111 @@
     [self.view1dianpingView addSubview:tv2];
     self.tv2 = tv2;
 
+    self.luyinBtn = [[UIButton alloc]initWithFrame:CGRectMake(tv1.right + 20, tv1.y, 80, 35)];
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    [self.luyinBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.luyinBtn addTarget:self action:@selector(luyin) forControlEvents:UIControlEventTouchUpInside];
+    [self.view1dianpingView addSubview:self.luyinBtn];
+
+    self.luyinBtn1 = [[UIButton alloc]initWithFrame:CGRectMake(tv2.right + 20, tv2.y, 80, 35)];
+    [self.luyinBtn1 setTitle:@"开始录音" forState:0];
+    [self.luyinBtn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.luyinBtn1 addTarget:self action:@selector(luyin1) forControlEvents:UIControlEventTouchUpInside];
+    [self.view1dianpingView addSubview:self.luyinBtn1];
+
+}
+
+-(void)luyin1
+{
+    BOOL ret = [_iFlySpeechRecognizer startListening];
+    if (ret) {
+        [self.luyinBtn1 setTitle:@"正在录音" forState:0];
+        self.luyinBtn1.enabled = NO;
+        self.type = @"1";
+
+    }else{
+        
+    }
+}
+
+-(void)luyin
+{
+    BOOL ret = [_iFlySpeechRecognizer startListening];
+    if (ret) {
+        self.type = @"0";
+        [self.luyinBtn setTitle:@"正在录音" forState:0];
+        self.luyinBtn.enabled = NO;
+    }else{
+        
+        
+    }
+}
+
+- (NSString *)stringFromJson:(NSString*)params
+{
+    if (params == NULL) {
+        return nil;
+    }
+    
+    NSMutableString *tempStr = [[NSMutableString alloc] init];
+    NSDictionary *resultDic  = [NSJSONSerialization JSONObjectWithData:    //返回的格式必须为utf8的,否则发生未知错误
+                                [params dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
+    if (resultDic!= nil) {
+        NSArray *wordArray = [resultDic objectForKey:@"ws"];
+        
+        for (int i = 0; i < [wordArray count]; i++) {
+            NSDictionary *wsDic = [wordArray objectAtIndex: i];
+            NSArray *cwArray = [wsDic objectForKey:@"cw"];
+            
+            for (int j = 0; j < [cwArray count]; j++) {
+                NSDictionary *wDic = [cwArray objectAtIndex:j];
+                NSString *str = [wDic objectForKey:@"w"];
+                [tempStr appendString: str];
+            }
+        }
+    }
+    return tempStr;
+}
+
+//识别结果返回代理
+- (void) onResults:(NSArray *) results isLast:(BOOL)isLast{
+    
+    NSMutableString *resultString = [[NSMutableString alloc] init];
+    NSDictionary *dic = results[0];
+    for (NSString *key in dic) {
+        [resultString appendFormat:@"%@",key];
+    }
+    NSString * resultFromJson =  [self stringFromJson:resultString];
+    
+    if ([self.type isEqualToString:@"0"]) {
+        self.tv1.text = [NSString stringWithFormat:@"%@%@",self.tv1.text,resultFromJson];
+
+    }else {
+        self.tv2.text = [NSString stringWithFormat:@"%@%@",self.tv2.text,resultFromJson];
+    }
+    NSLog(@"jjjjjjj======%@",resultFromJson);
+    
+} //识别会话结束返回代理
+- (void)onError: (IFlySpeechError *) error{
+    
+}
+//停止录音回调
+- (void) onEndOfSpeech{
+    [self.luyinBtn setTitle:@"开始录音" forState:0];
+    self.luyinBtn.enabled = YES;
+}
+//开始录音回调
+- (void) onBeginOfSpeech{
+    
+}
+//音量回调函数
+- (void) onVolumeChanged: (int)volume{
+    
+}
+//会话取消回调
+- (void) onCancel{
+    
 }
 
 -(void)commint
