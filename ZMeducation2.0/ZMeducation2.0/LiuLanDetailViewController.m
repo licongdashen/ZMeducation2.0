@@ -28,6 +28,10 @@
 @property (nonatomic, strong) NSMutableDictionary *M2064Dic;
 @property (nonatomic, strong) NSMutableArray *M2064Arr;
 @property (nonatomic, strong) UIScrollView *wendangscro;
+@property (nonatomic, weak) UIImageView *bg_selfCommentImagv;
+@property (nonatomic, weak) UITextView *tv1;
+@property (nonatomic, weak) UITextView *tv2;
+
 @end
 
 @implementation LiuLanDetailViewController
@@ -211,6 +215,7 @@
     bg_selfCommentImagv.image = DEF_IMAGE(@"bg_selfComment");
     bg_selfCommentImagv.userInteractionEnabled = YES;
     [self.view1dianpingView addSubview:bg_selfCommentImagv];
+    self.bg_selfCommentImagv = bg_selfCommentImagv;
     
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 265, 93)];
     label11.text = self.M2071Dic[@"titles"][0][0];
@@ -454,7 +459,8 @@
     bg_selfCommentImagv.image = DEF_IMAGE(@"bg_interComment");
     bg_selfCommentImagv.userInteractionEnabled = YES;
     [self.view1dianpingView addSubview:bg_selfCommentImagv];
-    
+    self.bg_selfCommentImagv = bg_selfCommentImagv;
+
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(100, 55, 150, 20)];
     label1.text = [NSString stringWithFormat:@"作者:%@",self.M2071Dic[@"authorName"]];
     [self.view addSubview:label1];
@@ -583,7 +589,7 @@
     for (int i = 0; i < 4; i++) {
         
         if ([self.M2071Dic[@"authorName"] isEqualToString:self.M2071Dic[@"userName"]]) {
-            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 110, 102 - 40)];
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 90, 102 - 40)];
             tv.text = self.tempM2071Arr[0][i][@"advice1"];
             tv.tag = 2000 + i;
             tv.delegate = self;
@@ -591,7 +597,7 @@
             tv.backgroundColor = [UIColor clearColor];
             [bg_selfCommentImagv addSubview:tv];
             
-            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 110, 102 - 40)];
+            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 90, 102 - 40)];
             tv1.text = self.tempM2071Arr[1][i][@"advice2"];
             tv1.tag = 3000 + i;
             tv1.delegate = self;
@@ -600,7 +606,7 @@
             tv1.backgroundColor = [UIColor clearColor];
             [bg_selfCommentImagv addSubview:tv1];
         }else{
-            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 110, 102 - 40)];
+            UITextView *tv = [[UITextView alloc]initWithFrame:CGRectMake(label13.right + 20, y, 90, 102 - 40)];
             tv.text = self.tempM2071Arr[0][i][@"advice1"];
             tv.tag = 2000 + i;
             tv.delegate = self;
@@ -609,7 +615,7 @@
             tv.editable = NO;
             [bg_selfCommentImagv addSubview:tv];
             
-            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 110, 102 - 40)];
+            UITextView *tv1 = [[UITextView alloc]initWithFrame:CGRectMake(label15.right + 20, y, 90, 102 - 40)];
             tv1.text = self.tempM2071Arr[1][i][@"advice2"];
             tv1.tag = 3000 + i;
             tv1.delegate = self;
@@ -683,8 +689,8 @@
     tv1.tag = 5555;
     tv1.delegate = self;
     tv1.font = DEF_MyFont(16);
-
     [self.view1dianpingView addSubview:tv1];
+    self.tv1 = tv1;
     
     UILabel *titleLb1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 500, 150, 30)];
     titleLb1.text = @"我建议你改变";
@@ -698,13 +704,21 @@
     tv2.tag = 6666;
     tv2.delegate = self;
     tv2.font = DEF_MyFont(16);
-
     [self.view1dianpingView addSubview:tv2];
+    self.tv2 = tv2;
+
 }
 
 -(void)commint
 {
     
+    for (UIView *view in [self.bg_selfCommentImagv subviews]) {
+        if ([view isKindOfClass:[UITextView class]]) {
+            [view resignFirstResponder];
+        }
+    }
+    [self.tv1 resignFirstResponder];
+    [self.tv2 resignFirstResponder];
     NSDictionary * dic4 = @{@"version"          :@"2.0.0",
                             @"clientType"       :@"1001",
                             @"signType"         :@"md5",
